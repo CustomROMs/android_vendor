@@ -27,10 +27,9 @@
 #include <sys/time.h>
 #include <sys/prctl.h>
 #include <sys/resource.h>
-//#ifndef ANDROID
-//#include <linux/capability.h>
-//#endif
-#include <sys/capability.h>
+#ifndef ANDROID
+#include <linux/capability.h>
+#endif
 
 #include <los/api/los_api.h>
 //#define LOG_NDEBUG 0
@@ -84,11 +83,10 @@ EXPORT_SHARED t_los_process_id LOS_GetCurrentId(void)
 	return (t_los_process_id)syscall(__NR_gettid);
 }
 
-//#ifndef ANDROID
+#ifndef ANDROID
 extern int capget(cap_user_header_t hdrp, cap_user_data_t datap);
-//#endif
+#endif
 
-//#if 0
 static int has_capabilities(t_uint32 mask)
 {
 	struct __user_cap_header_struct header;
@@ -103,7 +101,6 @@ static int has_capabilities(t_uint32 mask)
 
 	return data.effective & mask;
 }
-//#endif
 
 struct thread_starter_args {
 	void* arg;
