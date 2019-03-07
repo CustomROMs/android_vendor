@@ -62,9 +62,36 @@ ENABLE_FEATURE_SIGNATURE_VERIFICATION ?= false
 #                    uImage \
 #                    u-boot.bin \
 #                    u-boot-env.bin \
+#                    ppp_sterc \
+# STEBluetooth
+#                    copsdaemon \
+#                    libcops \
+#                    cops_cmd \
+#                    cops_data \
+#                    libtee \
+#                    com.stericsson.ril.oem \
+#                    com.stericsson.ril.oem.xml \
+#                    STErilOemService \
+#                    gps.montblanc \
+#                    STMPE-keypad.kcm \
+#                    tc3589x-keypad.kcm \
+#                    ux500-ske-keypad.kcm \
+#                    ux500-ske-keypad-qwertz.kcm \
+#                    cat \
+#                    adm.sqlite-u8520_ab8505_v1 \
+#                    adm.sqlite-u8520_ab8505_v2 \
+#                    adm.sqlite-u9540_ab9540_v1 \
+#                    sensors.montblanc \
+#                    libu300-ril \
+#                        ril_config \
+#                    libu300-parser \
+#                    cw1200_wlan.ko \
+#                    modemfs.img \
+#                    kernel-firmware \
+#                    cops_ta \
+#                    cspsa_image \
 
-PRODUCT_PACKAGES += STEBluetooth \
-                    LiveWallpapersPicker \
+PRODUCT_PACKAGES += LiveWallpapersPicker \
                     LiveWallpapers \
                     MagicSmokeWallpapers \
                     VisualizationWallpapers \
@@ -72,11 +99,6 @@ PRODUCT_PACKAGES += STEBluetooth \
                     librs_jni \
                     lights.montblanc \
                     copybit.montblanc \
-                    STMPE-keypad.kcm \
-                    tc3589x-keypad.kcm \
-                    ux500-ske-keypad.kcm \
-                    ux500-ske-keypad-qwertz.kcm \
-                    cat \
                     libapdu \
                     libpc \
                     libsim \
@@ -130,9 +152,6 @@ PRODUCT_PACKAGES += STEBluetooth \
                     libmalrf.so \
                     libmalftd \
                     libmalftd.so \
-                    com.stericsson.ril.oem \
-                    com.stericsson.ril.oem.xml \
-                    STErilOemService \
                     libphonet \
                     libphonet.so \
                     libmal \
@@ -142,7 +161,6 @@ PRODUCT_PACKAGES += STEBluetooth \
                     sms_stub \
                     lbsd \
                     libclientgps \
-                    gps.montblanc \
                     liblcsclient \
                     libamilclient \
                     lbsstelp \
@@ -163,12 +181,7 @@ PRODUCT_PACKAGES += STEBluetooth \
                         sterc_script_connect_dun \
                         sterc_script_disconnect_dun \
                         rt_tables \
-                    ppp_sterc \
                     ip \
-                    copsdaemon \
-                    libcops \
-                    cops_cmd \
-                    cops_data \
                     gen_sipc \
                     libstagefright_soft_ste_aacdec \
                     libstagefright_soft_ste_mp3dec \
@@ -196,9 +209,6 @@ PRODUCT_PACKAGES += STEBluetooth \
                     preload_adm.txt \
                     adm.sqlite \
                     adm.sqlite-u8500_ab8500 \
-                    adm.sqlite-u8520_ab8505_v1 \
-                    adm.sqlite-u8520_ab8505_v2 \
-                    adm.sqlite-u9540_ab9540_v1 \
                     audio_policy.montblanc \
                     audio.primary.montblanc \
                     audio.a2dp.default \
@@ -215,15 +225,10 @@ PRODUCT_PACKAGES += STEBluetooth \
                     cspsa-cmd \
                     libcspsa-core \
                     libcspsa-ll-file \
-                    sensors.montblanc \
                     power.montblanc \
                     camera.montblanc \
-                    libu300-ril \
-                        ril_config \
-                    libu300-parser \
                     libcalcdigest \
                     libverify \
-                    libtee \
                     sap \
                     libsap_pts \
                     libsbc \
@@ -251,12 +256,8 @@ PRODUCT_PACKAGES += STEBluetooth \
                     ATService \
                     libstagefrighthw \
                     st-ericsson-multimedia-package \
-                    cw1200_wlan.ko \
-                    modemfs.img \
-                    kernel-firmware \
                     smcl_ta \
                     COPS_DATA_0.csd \
-                    cops_ta \
                     libarchive \
                     libarchive_fe \
                     bsdtar \
@@ -267,7 +268,6 @@ PRODUCT_PACKAGES += STEBluetooth \
                     battery_params \
                     ste-cg29xx_ctrl \
                     busybox \
-                    cspsa_image \
                     libhdmi_service \
                     libblt_hw \
                     drmserver \
