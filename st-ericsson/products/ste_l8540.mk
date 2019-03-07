@@ -286,7 +286,7 @@ endif
 include frameworks/base/data/sounds/AudioPackage2.mk
 
 # Added resources for TextToSpeech utility.
-include external/svox/pico/lang/all_pico_languages.mk
+#include external/svox/pico/lang/all_pico_languages.mk
 
 # Copy input device configuration files
 PRODUCT_COPY_FILES += \
