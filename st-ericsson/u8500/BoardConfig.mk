@@ -161,10 +161,10 @@ LIBCUTILS_MEMSET32_NEON_DIVIDER := 158
 CROSS_COMPILE := arm-eabi-
 
 # USE U8500 init.rc
-TARGET_PROVIDES_INIT_RC := true
+#TARGET_PROVIDES_INIT_RC := true
 
 # USE U8500 recovery init.rc
-TARGET_PROVIDES_RECOVERY_INIT_RC := true
+#TARGET_PROVIDES_RECOVERY_INIT_RC := true
 
 
 #####################################################################

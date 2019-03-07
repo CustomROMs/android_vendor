@@ -154,7 +154,7 @@ FIXED_CCFLAGS:= $$(FIXED_ARCH_FLAGS) -pthread -fpic -Wall -fno-exceptions -fno-s
 FIXED_CFLAGS:= $$(FIXED_CCFLAGS)
 FIXED_ASMFLAGS:=
 FIXED_LDEXEFLAGS:= $$(FIXED_CCFLAGS) -lrt
-FIXED_LDFLAGS:=$(addprefix -L,$(realpath $(ANDROID_BSP_ROOT)/base_system/tempdir/stage/usr/lib))
+FIXED_LDFLAGS:= -L out/target/product/janice/obj/lib
 FIXED_LDLIBFLAGS:=
 FIXED_LDSOFLAGS:= -shared -Wl,--no-undefined -ldl
 FIXED_CXXFLAGS:= -fno-rtti $$(FIXED_CCFLAGS)
@@ -384,10 +384,12 @@ TARGET_CRTBEGIN_DYNAMIC_O := $(TARGET_OUT_STATIC_LIBRARIES)/crtbegin_dynamic.o
 TARGET_CRTBEGIN_O := $(TARGET_CRTBEGIN_DYNAMIC_O)
 TARGET_CRTEND_O := $(TARGET_LIBGCC) $(TARGET_OUT_STATIC_LIBRARIES)/crtend_android.o
 
+MULTIMEDIA_PATH := /media/system2/root/CM10/vendor/st-ericsson/multimedia
 FIXED_C_INCLUDES := \
 	$(libc_root)/arch-arm/include \
 	$(libc_root)/include \
 	$(libstdc++_root)/include \
+	$(MULTIMEDIA_PATH) \
 	$(KERNEL_HEADERS) \
 	$(libm_root)/include \
 	$(libthread_db_root)/include \
