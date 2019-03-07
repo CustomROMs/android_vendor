@@ -186,7 +186,23 @@ LOCAL_C_INCLUDES += \
         $(TOP)/external/dbus/ \
         $(TOP)/external/libat/ \
         $(STE_MM_C_INCLUDES) \
+        $(MULTIMEDIA_PATH)/audio \
+        $(MULTIMEDIA_PATH)/audio/audiolibs/fake_dsptools \
+        $(MULTIMEDIA_PATH)/audio/audiolibs/common/include/ \
+        $(MULTIMEDIA_PATH)/audio/audio_chipset_apis \
+        $(MULTIMEDIA_PATH)/audio/afm/proxy/include \
+        $(MULTIMEDIA_PATH)/audio/comfortnoise/proxy \
+        $(MULTIMEDIA_PATH)/audio/drc/proxy \
         $(MULTIMEDIA_PATH)/audio/mmprobe/api \
+        $(MULTIMEDIA_PATH)/audio/noise_reduction/proxy \
+        $(MULTIMEDIA_PATH)/audio/speech_proc_vcs/wrapper/inc \
+        $(MULTIMEDIA_PATH)/audio/virtual_surround/proxy \
+        $(MULTIMEDIA_PATH)/shared/ens_interface/include \
+        $(MULTIMEDIA_PATH)/shared/ens_interface/nmf/mpc/nmf_repository/mmdsp_x \
+        $(MULTIMEDIA_PATH)/shared/omxil \
+        $(MULTIMEDIA_PATH)/shared/ste_shai/include \
+        $(MULTIMEDIA_PATH)/shared/utils/include \
+        $(MULTIMEDIA_PATH)/audio/libeffects/mpc/include \
         $(APPS_PATH)/caif_socket_broker/lib \
         $(APPS_PATH)/caif_socket_broker/integration
 
