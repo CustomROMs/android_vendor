@@ -1059,9 +1059,9 @@ void ste_audio_stream_out_refresh_device_list(struct node **device_list, uint32_
         list_add(device_list, STE_ADM_DEVICE_STRING_A2DP, 0);
     }
 
-    if (routes & AUDIO_DEVICE_OUT_FM_TX) {
+    /*if (routes & AUDIO_DEVICE_OUT_FM_TX) {
         list_add(device_list, STE_ADM_DEVICE_STRING_FMTX, 0);
-    }
+    }*/
 
     if (routes & AUDIO_DEVICE_OUT_AUX_DIGITAL) {
         list_add(device_list, STE_ADM_DEVICE_STRING_HDMI, 0);

@@ -156,7 +156,7 @@ uint32_t mediaDevices[DEVLIST_MAX_NO_DEVICES] = {
      AUDIO_DEVICE_OUT_AUX_DIGITAL,
      AUDIO_DEVICE_OUT_BLUETOOTH_A2DP,
      AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES,
-     AUDIO_DEVICE_OUT_FM_TX,
+     //AUDIO_DEVICE_OUT_FM_TX,
      AUDIO_DEVICE_OUT_WIRED_HEADPHONE,
      AUDIO_DEVICE_OUT_WIRED_HEADSET,
      AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET,
@@ -171,7 +171,7 @@ uint32_t mediaInCallDevices[DEVLIST_MAX_NO_DEVICES] = {
     AUDIO_DEVICE_OUT_AUX_DIGITAL,
     AUDIO_DEVICE_OUT_BLUETOOTH_A2DP,
     AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES,
-    AUDIO_DEVICE_OUT_FM_TX,
+    //AUDIO_DEVICE_OUT_FM_TX,
     AUDIO_DEVICE_OUT_WIRED_HEADPHONE,
     AUDIO_DEVICE_OUT_WIRED_HEADSET,
     AUDIO_DEVICE_OUT_EARPIECE,
@@ -245,11 +245,11 @@ uint32_t micMonoInputDevices[DEVLIST_MAX_NO_DEVICES] = {
     AUDIO_DEVICE_IN_BUILTIN_MIC,
     0
 };
-
+/*
 uint32_t fmInputDevices[DEVLIST_MAX_NO_DEVICES] = {
     AUDIO_DEVICE_IN_FM_RX,
     0
-};
+};*/
 
 /* ---------------------------------------------------------------------------
  * Strategy priority is used to select the preferred device
@@ -458,7 +458,7 @@ const char* device2str(audio_devices_t dev)
         case AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES: return "DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES";
         case AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER:    return "DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER";
         case AUDIO_DEVICE_OUT_AUX_DIGITAL:       return "DEVICE_OUT_AUX_DIGITAL";
-        case AUDIO_DEVICE_OUT_FM_TX:             return "DEVICE_OUT_FM_TX";
+        //case AUDIO_DEVICE_OUT_FM_TX:             return "DEVICE_OUT_FM_TX";
         case AUDIO_DEVICE_OUT_DEFAULT:           return "DEVICE_OUT_DEFAULT";
         case AUDIO_DEVICE_OUT_ALL:               return "DEVICE_OUT_ALL";
         case AUDIO_DEVICE_OUT_ALL_A2DP:          return "DEVICE_OUT_ALL_A2DP";
@@ -643,7 +643,7 @@ bool is_primary_device(uint32_t device)
                                 AUDIO_DEVICE_OUT_ALL_USB |
 #endif
                                 AUDIO_DEVICE_OUT_AUX_DIGITAL |
-                                AUDIO_DEVICE_OUT_FM_TX |
+                                //AUDIO_DEVICE_OUT_FM_TX |
                                 AUDIO_DEVICE_OUT_ANLG_DOCK_HEADSET |
                                 AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET |
                                 AUDIO_DEVICE_OUT_ALL_SCO |
@@ -731,7 +731,7 @@ uint32_t get_top_level_device_index(audio_policy_anm *audio_pol_anm, uint32_t de
     case AUDIO_DEVICE_OUT_BLUETOOTH_A2DP:            return DEV_OUT_INDEX_A2DP;
     case AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER:    return DEV_OUT_INDEX_A2DP;
     case AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES: return DEV_OUT_INDEX_A2DP;
-    case AUDIO_DEVICE_OUT_FM_TX:                     return DEV_OUT_INDEX_FMTX;
+    //case AUDIO_DEVICE_OUT_FM_TX:                     return DEV_OUT_INDEX_FMTX;
     case AUDIO_DEVICE_OUT_AUX_DIGITAL:               return DEV_OUT_INDEX_HDMI;
     case AUDIO_DEVICE_OUT_DGTL_DOCK_HEADSET:         return DEV_OUT_INDEX_USB;
     case AUDIO_DEVICE_OUT_USB_DEVICE:                return DEV_OUT_INDEX_USB;
@@ -2114,9 +2114,9 @@ uint32_t get_preferred_input_device(
         case AUDIO_SOURCE_VOICE_DOWNLINK:
             deviceList = phoneInCallRecordDevices;
             break;
-        case AUDIO_SOURCE_FM_RADIO_RX:
+        /*case AUDIO_SOURCE_FM_RADIO_RX:
             deviceList = fmInputDevices;
-            break;
+            break;*/
         default:
             ALOG_ERR("get_preferred_input_device(): No preferred device list, input source = %d", source);
             deviceList = NULL;
@@ -2153,9 +2153,9 @@ uint32_t get_preferred_input_device(
                 deviceList = micMonoInputDevices;
             }
             break;
-        case AUDIO_SOURCE_FM_RADIO_RX:
+        /*case AUDIO_SOURCE_FM_RADIO_RX:
             deviceList = fmInputDevices;
-            break;
+            break;*/
         default:
             ALOG_ERR("get_preferred_input_device(): No preferred device list, input source = %d", source);
             deviceList = NULL;
