@@ -57,6 +57,12 @@ ENABLE_FEATURE_SIGNATURE_VERIFICATION ?= false
 # Module names for lights, sensors, gps, gralloc, overlay, copybit, audio_policy, and
 # audio.primary should always be hard coded to match TARGET_BOARD_PLATFORM in
 # vendor/st-ericsson/u8500/BoardConfig.mk
+
+
+#                    uImage \
+#                    u-boot.bin \
+#                    u-boot-env.bin \
+
 PRODUCT_PACKAGES += STEBluetooth \
                     LiveWallpapersPicker \
                     LiveWallpapers \
@@ -244,9 +250,6 @@ PRODUCT_PACKAGES += STEBluetooth \
                     rtc_calibration \
                     ATService \
                     libstagefrighthw \
-                    uImage \
-                    u-boot.bin \
-                    u-boot-env.bin \
                     st-ericsson-multimedia-package \
                     cw1200_wlan.ko \
                     modemfs.img \

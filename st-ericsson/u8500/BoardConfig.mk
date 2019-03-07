@@ -536,8 +536,10 @@ ifeq ($(FLASHKIT_ENABLE_ST_ERICSSON_FLASHKIT), true)
 systemimage: st-ericsson-flashkit
 endif
 
+ifeq (false,true)
 $(PRODUCT_OUT)/kernel: $(PRODUCT_OUT)/uImage
 	ln -sf zImage $@
+endif
 
 # Collect loadmodules and flashkit and place them nicely in a common directory
 
