@@ -36,6 +36,7 @@ LOCAL_C_INCLUDES += $(MY_MULTIMEDIA_PATH)/linux/bellagio_omxcore/omxcore_interfa
 LOCAL_C_INCLUDES += $(MY_MULTIMEDIA_PATH)/linux/b2r2lib/include
 LOCAL_C_INCLUDES += $(MY_MULTIMEDIA_PATH)/shared/host_trace
 LOCAL_C_INCLUDES += $(MY_MULTIMEDIA_PATH)/shared/utils/include
+LOCAL_C_INCLUDES += $(MY_MULTIMEDIA_PATH)
 
 #Android includes
 LOCAL_C_INCLUDES += external/jhead
