@@ -4,8 +4,6 @@
 # Any use of the code for whatever purpose is subject to
 # specific written permission of ST-Ericsson SA.
 #
-ifeq ($(BUILD_VENDOR_STELPCUTILS),true)
-
 include $(MM_MAKEFILES_DIR)/SharedConfig.mk
 
 INSTALL_HEADERDIR= include
@@ -78,4 +76,3 @@ todo: solib
 
 include $(MM_MAKEFILES_DIR)/SharedRules.mk
 
-endif
