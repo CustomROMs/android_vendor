@@ -87,7 +87,7 @@ LOCAL_CFLAGS += -DRIL_SHLIB
 LOCAL_MODULE := libu300-ril
 LOCAL_MODULE_TAGS := optional
 
-include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
 
 ##########
 
@@ -109,7 +109,7 @@ LOCAL_PRELINK_MODULE := false
 LOCAL_MODULE := libu300-parser
 LOCAL_MODULE_TAGS := optional
 
-include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
 
 ################### Static files ###################
 
@@ -124,6 +124,6 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(PRODUCT_OUT)/system/etc
 
-include $(BUILD_PREBUILT)
+#include $(BUILD_PREBUILT)
 
 endif

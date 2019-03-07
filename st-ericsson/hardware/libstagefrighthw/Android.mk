@@ -48,6 +48,6 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_PRELINK_MODULE := false
 
-include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+#include $(call all-makefiles-under,$(LOCAL_PATH))

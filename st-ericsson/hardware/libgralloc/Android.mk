@@ -29,4 +29,4 @@ LOCAL_C_INCLUDES += $(MULTIMEDIA_PATH)/linux/b2r2lib/include kernel/include/vide
 LOCAL_MODULE := gralloc.$(TARGET_BOARD_PLATFORM)
 LOCAL_MODULE_TAGS := optional
 LOCAL_CFLAGS:= -DLOG_TAG=\"gralloc\"
-include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
