@@ -1509,9 +1509,9 @@ OMX_ERRORTYPE MMIO_Camera::downloadFirmware()
 
     DBGT_PROLOG();
 
-    ioret = ioctl(MMIO_Camera_fd, MMIO_CAM_EXT_ISP_WRITE);
+    ioret = ioctl(MMIO_Camera_fd, MMIO_CAM_ISP_WRITE);
     if (ioret) {
-        DBGT_CRITICAL("MMIO_CAM_EXT_ISP_WRITE returned error = %d", ioret);
+        DBGT_CRITICAL("MMIO_CAM_ISP_WRITE returned error = %d", ioret);
         ret = OMX_ErrorUndefined;
     }
 
@@ -1526,6 +1526,7 @@ OMX_ERRORTYPE MMIO_Camera::deinterlaceFrame( char* data, void* src_hwmem_buf, vo
     OMX_ERRORTYPE error = OMX_ErrorNone;
     struct mmio_input_output_t ioctl_arg;
 
+#if 0
     DBGT_PROLOG();
 
     // check validity of the resolution
@@ -1552,13 +1553,14 @@ OMX_ERRORTYPE MMIO_Camera::deinterlaceFrame( char* data, void* src_hwmem_buf, vo
     ioctl_arg.mmio_arg.deint_info.src_hwmem_buf = (void *)src_hwmem_buf;
     ioctl_arg.mmio_arg.deint_info.dst_hwmem_buf = (void *)dst_hwmem_buf;
 
-    err = ioctl(MMIO_Camera_fd, MMIO_CAM_DEINTERLACE_FRAME, &ioctl_arg);
+    err = ioctl(MMIO_Camera_fd, MMIO_CAM_DEINT_FRAME, &ioctl_arg);
     if (err) {
         DBGT_CRITICAL("MMIO_CAM_DEINT_FRAME returned error = %d", err);
         error = OMX_ErrorUndefined;
     }
 
 check_err:
+#endif
     DBGT_EPILOG();
     return error;
 }
