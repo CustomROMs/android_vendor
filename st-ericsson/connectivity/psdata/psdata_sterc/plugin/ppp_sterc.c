@@ -92,7 +92,7 @@ void plugin_init(void)
 
   //register hooks
   ip_choose_hook = sterc_ip_choose;
-  dns_set_hook = sterc_set_dns;
+  //dns_set_hook = sterc_set_dns;
   chap_verify_hook = sterc_chap_verify;
   //pap_auth_hook = sterc_pap_auth;
 
