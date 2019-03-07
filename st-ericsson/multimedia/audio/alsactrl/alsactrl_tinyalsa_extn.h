@@ -10,6 +10,8 @@
 #include <sound/asound.h>
 #include <tinyalsa/asoundlib.h>
 
+#include "alsa_audio.h"
+
 #define MAX_SND_CARD_NBR 32
 #define CARD_ID_LEN 25
 /*
