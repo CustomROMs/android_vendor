@@ -19,11 +19,11 @@ T=$(gettop)
 #fi
 
 # Verify that all required tools and packages to build the ST-Ericsson platform are installed on host.
-if [ -e $T/vendor/st-ericsson/tools/host/verify_environment/check_tools_versions/check-tools-versions.py ]; then
-  echo ""
-  echo "Verifying platform development build environment"
-  python $T/vendor/st-ericsson/tools/host/verify_environment/check_tools_versions/check-tools-versions.py
-fi
+#if [ -e $T/vendor/st-ericsson/tools/host/verify_environment/check_tools_versions/check-tools-versions.py ]; then
+#  echo ""
+#  echo "Verifying platform development build environment"
+#  python $T/vendor/st-ericsson/tools/host/verify_environment/check_tools_versions/check-tools-versions.py
+#fi
 
 # Setup the RVCT environment and check that there is a valid license
 if [ -e $T/vendor/st-ericsson/tools/host/rvct/envsetup.sh ]; then
