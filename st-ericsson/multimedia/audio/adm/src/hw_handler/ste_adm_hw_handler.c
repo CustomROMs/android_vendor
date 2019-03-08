@@ -60,7 +60,7 @@ enum audio_hal_chip_id_t ste_adm_hw_handler_select_hw(void)
 	case CHIP_ID_AB8505_V1:
 	case CHIP_ID_AB8505_V2:
 	case CHIP_ID_AB8505_V3:
-            hw_handler.card_name = "U85x0card";
+            hw_handler.card_name = "U8500card";
             hw_handler.hw_handler_init = ste_adm_hw_handler_init_u8500;
             hw_handler.hw_handler = ste_adm_hw_handler_u8500;
             hw_handler.hw_handler_vc = ste_adm_hw_handler_vc_u8500;
