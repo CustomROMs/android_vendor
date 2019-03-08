@@ -252,6 +252,10 @@ MULTIMEDIA_REL_PATH:=$(subst $(ABS_ANDROID_BSP_ROOT)/,,$(MMROOT))
 MMBUILDOUT:=$(ABS_PRODUCT_OUT)/obj/mmbuildout
 export MMBUILDOUT
 
+$(info MMBUILDOUT is $(MMBUILDOUT))
+$(info ABS_PRODUCT_OUT is $(ABS_PRODUCT_OUT))
+$(info ABS_ANDROID_BSP_ROOT is $(ABS_ANDROID_BSP_ROOT))
+
 ## Directory in which to store intermediate build result
 TARGET_OUT_INTERMEDIATES:=$(ABS_PRODUCT_OUT)/obj/mmbuildint
 
