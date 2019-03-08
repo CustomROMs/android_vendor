@@ -289,7 +289,7 @@ objects_mode := $(if $(LOCAL_ARM_MODE),$(LOCAL_ARM_MODE),thumb)
 combo_target := TARGET_
 # $(1): os/arch
 define select-android-config-h
-$(ANDROID_BSP_ROOT)/system/core/include/arch/$(1)/AndroidConfig.h
+$(ANDROID_BSP_ROOT)/build/core/combo/include/arch/$(1)/AndroidConfig.h
 endef
 
 ### Taken from android/build/core/config.mk
