@@ -90,6 +90,11 @@ ENABLE_FEATURE_SIGNATURE_VERIFICATION ?= false
 #                    kernel-firmware \
 #                    cops_ta \
 #                    cspsa_image \
+#                    adm.sqlite \
+#                    adm.sqlite-u8500_ab8500 \
+#                    audio_policy.montblanc \
+#                    audio.primary.montblanc \
+
 
 PRODUCT_PACKAGES += LiveWallpapersPicker \
                     LiveWallpapers \
@@ -207,10 +212,6 @@ PRODUCT_PACKAGES += LiveWallpapersPicker \
                     libasound_module_pcm_steiop \
                     adm-asound.conf \
                     preload_adm.txt \
-                    adm.sqlite \
-                    adm.sqlite-u8500_ab8500 \
-                    audio_policy.montblanc \
-                    audio.primary.montblanc \
                     audio.a2dp.default \
                     libasound \
                     libasf \
