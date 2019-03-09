@@ -1796,10 +1796,20 @@ ste_adm_res_t adm_db_toplevel_mapping_get(const char* toplevel_dev,
                                           const char** actual_dev)
 {
     int i;
+    //char speaker_ext[] = "REF_Speaker_extra";
 
     ADM_ASSERT(toplevel_map);
 
+    if (strncmp(toplevel_dev, "Speaker", ADM_MAX_DEVICE_NAME_LENGTH) == 0) {
+         ALOG_ERR("adm_db_toplevel_mapping_get: top=Speaker, returning REF_Speaker");
+
+         *actual_dev = "REF_Speaker";
+         return STE_ADM_RES_OK;
+    }
+
     for (i = 0; i < toplevel_map_size; i++) {
+        //ALOG_ERR("adm_db_toplevel_mapping_get: top=%s, cur=%s, int=%s", toplevel_dev, toplevel_map[i].toplevel_name, toplevel_map[i].internal_name);
+
         if (strncmp(toplevel_dev, toplevel_map[i].toplevel_name, ADM_MAX_DEVICE_NAME_LENGTH) == 0) {
             *actual_dev = toplevel_map[i].internal_name;
             return STE_ADM_RES_OK;
