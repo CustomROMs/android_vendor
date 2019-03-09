@@ -145,7 +145,7 @@ endif
 
 ifeq ($(STE_SOFTWARE),android)
 
-  ABS_PRODUCT_OUT:=$(ABS_ANDROID_BSP_ROOT)/$(PRODUCT_OUT)
+  ABS_PRODUCT_OUT:=$(PRODUCT_OUT)
 
   ifneq ($(TARGET_TOOLS_PREFIX),)
     ## Generic makefiles needs to have the compile in the path
@@ -249,15 +249,17 @@ export NMF_JOBS
 MULTIMEDIA_REL_PATH:=$(subst $(ABS_ANDROID_BSP_ROOT)/,,$(MMROOT))
 
 ## Directory in which to install build result
-MMBUILDOUT:=$(ABS_PRODUCT_OUT)/obj/mmbuildout
+MMBUILDOUT:=$(PRODUCT_OUT)/obj/mmbuildout
 export MMBUILDOUT
 
 $(info MMBUILDOUT is $(MMBUILDOUT))
 $(info ABS_PRODUCT_OUT is $(ABS_PRODUCT_OUT))
+$(info PRODUCT_OUT is $(PRODUCT_OUT))
 $(info ABS_ANDROID_BSP_ROOT is $(ABS_ANDROID_BSP_ROOT))
+#$(error stop)
 
 ## Directory in which to store intermediate build result
-TARGET_OUT_INTERMEDIATES:=$(ABS_PRODUCT_OUT)/obj/mmbuildint
+TARGET_OUT_INTERMEDIATES:=$(PRODUCT_OUT)/obj/mmbuildint
 
 export MM_BUILD_FOR_PACKAGING
 export TARGET_OUT_INTERMEDIATES

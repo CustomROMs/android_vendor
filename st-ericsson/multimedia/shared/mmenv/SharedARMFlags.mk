@@ -154,7 +154,7 @@ FIXED_CCFLAGS:= $$(FIXED_ARCH_FLAGS) -pthread -fpic -Wall -fno-exceptions -fno-s
 FIXED_CFLAGS:= $$(FIXED_CCFLAGS)
 FIXED_ASMFLAGS:=
 FIXED_LDEXEFLAGS:= $$(FIXED_CCFLAGS) -lrt
-FIXED_LDFLAGS:= -L out/target/product/janice/obj/lib
+FIXED_LDFLAGS:=$(addprefix -L,$(realpath $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)))
 FIXED_LDLIBFLAGS:=
 FIXED_LDSOFLAGS:= -shared -Wl,--no-undefined -ldl
 FIXED_CXXFLAGS:= -fno-rtti $$(FIXED_CCFLAGS)
@@ -344,6 +344,7 @@ $(combo_target)GLOBAL_CFLAGS += \
 			-I $(arch_include_dir)
 
 $(combo_target)GLOBAL_LDFLAGS += \
+			-L $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib \
 			$(arch_variant_ldflags)
 
 $(combo_target)GLOBAL_CFLAGS +=	-mthumb-interwork

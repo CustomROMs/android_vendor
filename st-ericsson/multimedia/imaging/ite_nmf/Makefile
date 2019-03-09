@@ -98,8 +98,8 @@ LDFLAGS= -lstelpcutils
 # href Android Platform
 ifeq ($(MMSYSTEM),android)
 # ste_ensloader: component using MMHWbuffer lib - currently within libste_ensloader.so
-LDFLAGS += $(addprefix -L,$(wildcard $(ANDROID_BSP_ROOT)/$(PRODUCT_OUT)/obj/mmbuildout/lib/* $(ANDROID_BSP_ROOT)/$(PRODUCT_OUT)/obj/mmbuildout/rootfs/*/system/lib))
-LDFLAGS += $(addprefix -Wl$(comma)-rpath-link -Wl$(comma),$(wildcard $(ANDROID_BSP_ROOT)/$(PRODUCT_OUT)/obj/mmbuildout/lib/* $(ANDROID_BSP_ROOT)/$(PRODUCT_OUT)/obj/mmbuildout/rootfs/*/system/lib))
+LDFLAGS += $(addprefix -L,$(wildcard $(PRODUCT_OUT)/obj/mmbuildout/lib/* $(PRODUCT_OUT)/obj/mmbuildout/rootfs/*/system/lib))
+LDFLAGS += $(addprefix -Wl$(comma)-rpath-link -Wl$(comma),$(wildcard $(PRODUCT_OUT)/obj/mmbuildout/lib/* $(PRODUCT_OUT)/obj/mmbuildout/rootfs/*/system/lib))
 LDFLAGS+= -lcutils -lste_ensloader -ltrace
 LDFLAGS+= -lst_sensor -lste_isp8500_firmware_primary -lste_isp8500_firmware_secondary
 comma:= ,
