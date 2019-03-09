@@ -145,7 +145,12 @@ endif
 
 ifeq ($(STE_SOFTWARE),android)
 
-  ABS_PRODUCT_OUT:=$(PRODUCT_OUT)
+  #
+  # FIXME: ABS_PRODUCT_OUT needs to point out of the actual out dir,
+  #        otherwise, built libs will override a prebuilt ones.
+
+  ABS_PRODUCT_OUT:=$(PRODUCT_OUT)/system
+  ABS_PRODUCT_OUT1:=$(PRODUCT_OUT)
 
   ifneq ($(TARGET_TOOLS_PREFIX),)
     ## Generic makefiles needs to have the compile in the path
@@ -170,7 +175,7 @@ ifeq ($(STE_SOFTWARE),android)
   export ANDROID_ROOTFS_DIR
 
   ## Variables needed by the included makefiles we set here as we do not want to source csh files
-  ANDROID_OUT_TARGET_PRODUCT_DIRECTORY:=$(ABS_PRODUCT_OUT)
+  ANDROID_OUT_TARGET_PRODUCT_DIRECTORY:=$(ABS_PRODUCT_OUT1)
   export ANDROID_OUT_TARGET_PRODUCT_DIRECTORY
 
 endif
