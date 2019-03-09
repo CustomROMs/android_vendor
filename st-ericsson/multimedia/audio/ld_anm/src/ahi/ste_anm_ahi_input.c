@@ -720,11 +720,11 @@ void ste_audio_stream_in_refresh_device_list(struct node **device_list, uint32_t
             list_add(device_list, STE_ADM_DEVICE_STRING_BTIN, 0);
         }
     }
-
+/*
     if (routes & AUDIO_DEVICE_IN_FM_RX) {
         list_add(device_list, STE_ADM_DEVICE_STRING_FMRX, 0);
     }
-
+*/
     if (routes & AUDIO_DEVICE_IN_DEFAULT) {
         list_add(device_list, STE_ADM_DEVICE_STRING_VOIPIN, 0);
     }

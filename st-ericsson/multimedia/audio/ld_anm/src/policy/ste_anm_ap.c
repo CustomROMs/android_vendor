@@ -146,7 +146,7 @@ uint32_t defaultOutputDevices = AUDIO_DEVICE_OUT_DEFAULT  |
 
 uint32_t defaultInputDevices  = AUDIO_DEVICE_IN_DEFAULT       |
                                              AUDIO_DEVICE_IN_BUILTIN_MIC   |
-                                             AUDIO_DEVICE_IN_FM_RX            |
+                                             /*AUDIO_DEVICE_IN_FM_RX            |*/
                                              AUDIO_DEVICE_IN_VOICE_CALL    ;
 
 /* ---------------------------------------------------------------------------
@@ -471,8 +471,8 @@ const char* device2str(audio_devices_t dev)
         case AUDIO_DEVICE_IN_AUX_DIGITAL:        return "DEVICE_IN_AUX_DIGITAL";
         case AUDIO_DEVICE_IN_VOICE_CALL:         return "DEVICE_IN_VOICE_CALL";
         case AUDIO_DEVICE_IN_BACK_MIC:           return "DEVICE_IN_BACK_MIC";
-        case AUDIO_DEVICE_IN_FM_RX:              return "DEVICE_IN_FM_RX";
-        case AUDIO_DEVICE_IN_DEFAULT:            return "DEVICE_IN_DEFAULT";
+        //case AUDIO_DEVICE_IN_FM_RX:              return "DEVICE_IN_FM_RX";
+        //case AUDIO_DEVICE_IN_DEFAULT:            return "DEVICE_IN_DEFAULT";
         case AUDIO_DEVICE_IN_ALL:                return "DEVICE_IN_ALL";
         default:                                 return "";
     }
@@ -656,7 +656,7 @@ bool is_primary_device(uint32_t device)
                                 AUDIO_DEVICE_IN_WIRED_HEADSET |
                                 AUDIO_DEVICE_IN_AUX_DIGITAL |
                                 AUDIO_DEVICE_IN_BACK_MIC |
-                                AUDIO_DEVICE_IN_FM_RX |
+                                //AUDIO_DEVICE_IN_FM_RX |
                                 AUDIO_DEVICE_IN_ALL_SCO |
                                 AUDIO_DEVICE_IN_VOICE_CALL |
                                 AUDIO_DEVICE_IN_DEFAULT)) == 0) {
@@ -751,9 +751,9 @@ uint32_t get_top_level_device_index(audio_policy_anm *audio_pol_anm, uint32_t de
             return DEV_OUT_INDEX_DEFAULT;
         }
     /* Input devices */
-    case AUDIO_DEVICE_IN_BUILTIN_MIC:    return DEV_IN_INDEX_MIC;
+    //case AUDIO_DEVICE_IN_BUILTIN_MIC:    return DEV_IN_INDEX_MIC;
     case AUDIO_DEVICE_IN_WIRED_HEADSET:  return DEV_IN_INDEX_HEADSET;
-    case AUDIO_DEVICE_IN_FM_RX:    return DEV_IN_INDEX_FMRX;
+    //case AUDIO_DEVICE_IN_FM_RX:    return DEV_IN_INDEX_FMRX;
     case AUDIO_DEVICE_IN_VOICE_CALL:     return DEV_IN_INDEX_VOICE_CALL;
     case AUDIO_DEVICE_IN_BLUETOOTH_SCO_HEADSET:
         if (is_btwb_supported(audio_pol_anm)) {
@@ -2901,7 +2901,7 @@ bool is_voip_output(audio_policy_anm *audio_pol_anm, ste_audio_output_descriptor
                 audio_io_handle_t input = ahi_list_get_nth_key(audio_pol_anm->mInputs, i);
                 ste_audio_input_desc_t *tmpDescr = ahi_list_get_key_value(audio_pol_anm->mInputs, input);
                 if (tmpDescr != NULL) {
-                    if(tmpDescr->mRefCount && tmpDescr->mDevice != AUDIO_DEVICE_IN_FM_RX) {
+                    if(tmpDescr->mRefCount /*&& tmpDescr->mDevice != AUDIO_DEVICE_IN_FM_RX*/) {
                         *inputAvailable = true;
                         *inDescr = tmpDescr;
                         break;
