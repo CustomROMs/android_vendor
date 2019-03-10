@@ -113,8 +113,23 @@ LOCAL_MODULE_PATH := $(LOCAL_PATH)
 MM_DO?=build-multimedia
 
 $(LOCAL_PATH)/$(LOCAL_SRC_FILES): $(MM_DO)
-	$(hide) mkdir -p `dirname $@`
-	$(hide) touch $@
+	mkdir -p `dirname $@`
+	touch $@
+	mkdir -p $(PRODUCT_OUT)/system/lib/ste_omxcomponents/
+	cp $(PRODUCT_OUT)/multimedia/system/lib/libstagefright_ste_aacdec.so $(PRODUCT_OUT)/system/lib/libstagefright_ste_aacdec.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/libstagefright_ste_mp3decode.so $(PRODUCT_OUT)/system/lib/libstagefright_ste_mp3decode.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/libste_ens_video_common.so $(PRODUCT_OUT)/system/lib/libste_ens_video_common.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_amr.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_amr.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_amrwb.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_amrwb.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_h264.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_h264.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_mpeg2.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_mpeg2.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_mpeg4.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_mpeg4.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_vc1.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_vc1.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_enc_aac.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_enc_aac.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_enc_amr.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_enc_amr.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_enc_amrwb.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_enc_amrwb.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_enc_h264.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_enc_h264.so
+	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_enc_mpeg4.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_enc_mpeg4.so
 
 include $(BUILD_PREBUILT)
 
