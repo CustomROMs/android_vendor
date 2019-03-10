@@ -2961,12 +2961,13 @@ void STEExtIspCamera::dispatchError(int32_t aInfo1, int32_t aInfo2 /*= 0*/)
     DBGT_EPILOG("");
 }
 
-int STEExtIspCamera::isFrameRateSupported(const char *fps_list, int framerate)
+int STEExtIspCamera::isFrameRateSupported(const char *fps_list __unused, int framerate)
  {
     char fps[3];
-    snprintf(fps, strlen(fps), "%d", framerate);
+    if (framerate == -1)
+       framerate == 15;
 
-    if (strstr(fps_list, fps))
+    if (framerate == 15 || framerate == 30)
         return 1;
     else
         return 0;
@@ -2976,8 +2977,11 @@ void  STEExtIspCamera::updateFrameRate(int &aFramerate, int &aMinFramerate, int 
 {
     DBGT_PROLOG("Framerate: %d Min Framerate: %d MaxFramerate: %d ", aFramerate, aMinFramerate, aMaxFramerate);
     /*Static FrameRate for reference tag*/
+    if (aFramerate == -1)
+       aFramerate = 15;
+
     if ( aMaxFramerate != -1) {
-        if (isFrameRateSupported(mParameters.get(CameraParameters::KEY_SUPPORTED_PREVIEW_FRAME_RATES),
+        if (isFrameRateSupported("15 30",
             aFramerate)) {
             DBGT_EPILOG("");
             return ;
