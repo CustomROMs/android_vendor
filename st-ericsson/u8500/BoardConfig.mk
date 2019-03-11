@@ -35,18 +35,18 @@ TARGET_PARTITIONS_USE_TOC := true
 
 ################################### Audio ################################################
 ## Build ALSA-utils
-BUILD_WITH_ALSA_UTILS := true
-BOARD_USES_ALSA := true
+#BUILD_WITH_ALSA_UTILS := true
+#BOARD_USES_ALSA := true
 
 ## Build ALSA-lib
-BOARD_USES_ALSA_AUDIO := true
+#BOARD_USES_ALSA_AUDIO := true
 
 ## Below line will select Lunds ANM/ADM as AudioHardwareInterface
-BOARD_USES_LD_ANM := true
-A2DP_USES_STANDARD_ANDROID_PATH := true
+#BOARD_USES_LD_ANM := true
+#A2DP_USES_STANDARD_ANDROID_PATH := true
 
 ## Builds/Uses C Audio HAL
-BOARD_USES_C_AUDIO_HAL := true
+#BOARD_USES_C_AUDIO_HAL := true
 ###########################################################################################
 
 
@@ -55,7 +55,7 @@ BOARD_HAVE_BLUETOOTH := true
 
 # For enbaling/disabling support for Latest BlueZ present
 # in vendor/st-ericsson/connectivity/bluetooth/bluez
-BOARD_HAVE_STE_BLUETOOTH := true
+#BOARD_HAVE_STE_BLUETOOTH := true
 #########################################################
 
 
