@@ -47,7 +47,7 @@ endif
 $(CLASSES):
 		mkdir -p $@
 $(CLASSES)/%.class: $(SRC)/%.java 
-	javac -target "1.5" -d $(CLASSES) -classpath $(SRC) -deprecation $<
+	javac -target "1.7" -d $(CLASSES) -classpath $(SRC) -deprecation $<
 
 #
 # Rule for Jar
