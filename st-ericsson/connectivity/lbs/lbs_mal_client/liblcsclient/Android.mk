@@ -1,12 +1,13 @@
 #lcs make file
 
-LOCAL_PATH:= $(call my-dir)
+MY_LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_PREBUILT_LIBS := /pre_built/liblcsclient.a
+LOCAL_PREBUILT_LIBS := $(TOP)/$(MY_LOCAL_PATH)/pre_built/liblcsclient.a
 
-LOCAL_MODULE:= liblcsclient
-LOCAL_MODULE_TAGS := optional
+#LOCAL_MODULE:= liblcsclient
+#LOCAL_MODULE_CLASS := optional
 
+#include $(BUILD_PREBUILT)
 include $(BUILD_MULTI_PREBUILT)
