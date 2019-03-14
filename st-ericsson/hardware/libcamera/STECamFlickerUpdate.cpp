@@ -242,7 +242,7 @@ OMX_SYMBIAN_FLICKERREMOVALTYPE cameraGetLocation()
        MCC is the first-three digit of the gsm.operator.numeric which is followed
        by MNC which can be a 2/3digit number.
        MCC is used for determing the flicker value */
-    char operatorCode[7];
+    char operatorCode[PROPERTY_VALUE_MAX];
     uint32_t countryCode;
 
     DynSetting::get(DynSetting::ECountryCode, operatorCode);
