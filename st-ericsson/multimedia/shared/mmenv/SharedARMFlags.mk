@@ -150,13 +150,13 @@ TARGET:=armgcc
 OPTIMIZ_CFLAGS:=-O3
 FIXED_ARCH_FLAGS:= -march=armv7-a -mtune=cortex-a8 -mfloat-abi=softfp -mfpu=neon
 FIXED_CPPFLAGS+= -DLINUX -D__ARM_LINUX $(addprefix -I,$(realpath $(ANDROID_BSP_ROOT)/base_system/tempdir/stage/usr/include))
-FIXED_CCFLAGS:= $$(FIXED_ARCH_FLAGS) -pthread -fpic -Wall -fno-exceptions -fno-strict-aliasing
+FIXED_CCFLAGS:= $$(FIXED_ARCH_FLAGS) -pthread -fPIC -fPIE -fpic -Wall -fno-exceptions -fno-strict-aliasing
 FIXED_CFLAGS:= $$(FIXED_CCFLAGS)
 FIXED_ASMFLAGS:=
 FIXED_LDEXEFLAGS:= $$(FIXED_CCFLAGS) -lrt
 FIXED_LDFLAGS:=$(addprefix -L,$(realpath $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)))
 FIXED_LDLIBFLAGS:=
-FIXED_LDSOFLAGS:= -shared -Wl,--no-undefined -ldl
+FIXED_LDSOFLAGS:= -fPIC -shared -Wl,--no-undefined -ldl
 FIXED_CXXFLAGS:= -fno-rtti $$(FIXED_CCFLAGS)
 endef
 
@@ -335,6 +335,7 @@ arch_include_dir := $(dir $(android_config_h))
 
 $(combo_target)GLOBAL_CFLAGS += \
 			-msoft-float -fpic \
+			-fPIC -fPIE \
 			-ffunction-sections \
 			-funwind-tables \
 			-fstack-protector \
@@ -382,8 +383,8 @@ KERNEL_HEADERS := $(KERNEL_HEADERS_COMMON) $(KERNEL_HEADERS_ARCH)
 
 TARGET_CRTBEGIN_STATIC_O := $(TARGET_OUT_STATIC_LIBRARIES)/crtbegin_static.o
 TARGET_CRTBEGIN_DYNAMIC_O := $(TARGET_OUT_STATIC_LIBRARIES)/crtbegin_dynamic.o
-TARGET_CRTBEGIN_O := $(TARGET_CRTBEGIN_DYNAMIC_O)
-TARGET_CRTEND_O := $(TARGET_LIBGCC) $(TARGET_OUT_STATIC_LIBRARIES)/crtend_android.o
+TARGET_CRTBEGIN_O := $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtbegin_so.o
+TARGET_CRTEND_O := $(TARGET_LIBGCC) $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtend_so.o
 
 MULTIMEDIA_PATH := /media/system2/root/CM10/vendor/st-ericsson/multimedia
 FIXED_C_INCLUDES := \
@@ -414,12 +415,17 @@ FIXED_LDEXEFLAGS= \
 	-Wl,--no-undefined \
 	-L $(TARGET_OUT_STATIC_LIBRARIES) -Wl,-rpath-link=$(TARGET_OUT_STATIC_LIBRARIES) -lc -lm -lcutils -lstdc++
 FIXED_LDLIBFLAGS=
+
+#	$(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtbegin_so.o \
+
 FIXED_LDSOFLAGS= \
 	-nostdlib -Wl,-soname,$(notdir $@) \
 	-Wl,-z,relro \
 	-Wl,-z,now \
 	-Wl,--gc-sections \
-	-Wl,-shared,-Bsymbolic -Wl,--no-undefined \
+	-Wl,-shared,-Bsymbolic \
+	$(TARGET_CRTBEGIN_O) \
+	-Wl,--no-undefined \
 	-L $(TARGET_OUT_STATIC_LIBRARIES) -lc -lm -ldl -llog -lcutils -lstdc++
 
 endif

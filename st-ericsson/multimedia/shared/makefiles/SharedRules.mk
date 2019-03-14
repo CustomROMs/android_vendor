@@ -272,7 +272,8 @@ $$(SOLIBRARY_$(1)): $$(SOLIB_OBJ_$(1)) $$(SOEXTRALIBS_$(1)) $$(SOLIBS_$(1))
 	$$(VERCHAR)$$(LD_SO) $$(FIXED_LDSOFLAGS) -o $$@ $$(SOLIB_OBJ_$(1)) \
 	$(PRE_SOLIBS) $$(SOEXTRALIBS_$(1)) $(POST_SOLIBS) \
         $(PRE_LIBS) $$(SOLIBS_$(1)) $(POST_LIBS) \
-        $$(FLAGS_$(1)) $$(LDSOFLAGS) $(SYSTEM_LDFLAGS) $$(TARGET_LIBGCC)
+        $$(FLAGS_$(1)) $$(LDSOFLAGS) $(SYSTEM_LDFLAGS) $$(TARGET_LIBGCC) \
+        $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtend_so.o
 endef
 
 $(foreach solibname,$(SOLIBNAMES),$(eval $(call SOLIBNAME_template,$(solibname))))
