@@ -407,12 +407,12 @@ OMX_ERRORTYPE STEExtIspCamera::initPrimaryDefaultParameters()
 
     // all supported format for preview
     // String8 spf;
-    // spf.append(CameraParameters::PIXEL_FORMAT_YUV420SP); spf.append(CAM_PROP_DELIMIT);
+    // spf.append(CameraParameters::PIXEL_FORMAT_YUV420MB); spf.append(CAM_PROP_DELIMIT);
     // spf.append(CameraParameters::PIXEL_FORMAT_RGB565);
 
     // DBGT_PTRACE("SUPPORTED_PREVIEW_FORMATS %s",spf.string());
-    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_YUV420SP);
-    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420SP);
+    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_YUV420MB);
+    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420MB);
 
     // set video format
     // char pixFmt[32]; getKeyStrFromOmxPixFmt( pixFmt, mOmxRecordPixFmt );
@@ -594,16 +594,16 @@ OMX_ERRORTYPE STEExtIspCamera::initSecondaryDefaultParameters()
     p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, SUPPORTED_SECONDARY_FPS_RANGES);
     p.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, SUPPORTED_SECONDARY_FPS_RANGE);
 
-    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_YUV420SP);
+    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_YUV420MB);
 
     // // all supported format for preview
     // String8 spf;
-    // spf.append(CameraParameters::PIXEL_FORMAT_YUV420SP); spf.append(CAM_PROP_DELIMIT);
+    // spf.append(CameraParameters::PIXEL_FORMAT_YUV420MB); spf.append(CAM_PROP_DELIMIT);
     // spf.append(CameraParameters::PIXEL_FORMAT_RGB565);spf.append(CAM_PROP_DELIMIT);
     // spf.append(CameraParameters::PIXEL_FORMAT_YUV420P);
     // DBGT_PTRACE("SUPPORTED_PREVIEW_FORMATS %s",spf.string());
     // p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, spf.string());
-    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420SP);
+    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420MB);
 
     // set video format
     // char pixFmt[32];getKeyStrFromOmxPixFmt( pixFmt, mOmxRecordPixFmt );
