@@ -348,7 +348,9 @@ namespace android {
         //TAG_DATETIME
         time_t Tval = time(NULL);
         struct tm *OurT = localtime(&Tval);
-        snprintf( ::ImageInfo.DateTime, STR_MAX, "%d:%02d:%02d %02d:%02d:%02d",
+
+        /* ImageInfo.DateTime length must be not greater than defined in jhead lib sources */
+        snprintf( ::ImageInfo.DateTime, 20, "%d:%02d:%02d %02d:%02d:%02d",
                 OurT->tm_year+1900 ,
                 OurT->tm_mon+1,
                 OurT->tm_mday,
