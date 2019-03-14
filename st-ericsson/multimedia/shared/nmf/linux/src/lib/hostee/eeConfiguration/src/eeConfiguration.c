@@ -14,9 +14,9 @@
 #include <unistd.h>
 #include <sys/prctl.h>
 #include <sys/resource.h>
-#ifndef ANDROID
-#include <linux/capability.h>
-#endif
+//#ifndef ANDROID
+#include <sys/capability.h>
+//#endif
 
 #include <eeConfiguration.nmf>
 
