@@ -5,10 +5,15 @@
  * specific written permission of ST-Ericsson SA.
  */
 
-#include <signal.h>
 #include <stdlib.h>
 #include <setjmp.h>
 #include <sys/time.h>
+
+#undef SIZE_MAX
+#include <signal.h>
+
+//#define SIGINT 2
+//#define SIGSEGV 11
 
 #define ctrlc SIGINT
 #define segfault SIGSEGV

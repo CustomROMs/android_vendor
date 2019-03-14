@@ -12,7 +12,7 @@
 
 #include "ite_buffer_management.h"
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
 typedef enum {
  NORMAL_MODE = 0,

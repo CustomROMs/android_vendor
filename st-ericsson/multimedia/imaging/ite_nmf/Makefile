@@ -6,7 +6,7 @@ include $(MM_MAKEFILES_DIR)/SharedConfig.mk
 # ite_nmf ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 USB_SPECIFIC = ite_main
 DEP_DEP =$(addsuffix _usb.c,$(addprefix src/console/,$(USB_SPECIFIC)))
-CFLAGS=-Werror -Wall -g -O0
+CFLAGS=-Wall -g -O0
 
 ifndef USB
 #EXENAME = ite_$(PLATFORM)

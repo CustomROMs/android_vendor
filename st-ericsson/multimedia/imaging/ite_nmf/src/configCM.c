@@ -9,6 +9,6 @@
 // FILE GENERATED, DO NOT EDIT
 #ifndef configCM_c
 #define configCM_c
-#define HDD_REPOSITORY "/sdcard/shared/nmf/mpcee/repository/mmdsp_8500;/media/system2/root/CM10.1/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2;/media/system2/root/CM10.1/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2;/media/system2/root/CM10.1/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2;/media/system2/root/CM10.1/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2"
+#define HDD_REPOSITORY "/sdcard/shared/nmf/mpcee/repository/mmdsp_8500;/media/system/root/CM11/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2;/media/system/root/CM11/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2;/media/system/root/CM11/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2;/media/system/root/CM11/out/target/product/janice/obj/mmbuildout/nmf_repository/mmdsp_8500_v2"
 #include "mmte_nmf_utils.c"
 #endif

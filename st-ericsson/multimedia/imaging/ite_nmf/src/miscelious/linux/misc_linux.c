@@ -8,6 +8,7 @@
 
 #include "misc_linux.h"
 
+#include <asm/signal.h>
 struct sigaction signalhandle;
 
 void signal_handle(void (*signal_handler)(int signo),int signum)

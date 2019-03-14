@@ -10,6 +10,20 @@
 #include <stdio.h>
 
 
+/* Some test definition here */
+#define DEFINED_BUT_NO_VALUE
+#define DEFINED_INT 3
+#define DEFINED_STR "ABC"
+
+/* definition to expand macro then apply to pragma message */
+#define VALUE_TO_STRING(x) #x
+#define VALUE(x) VALUE_TO_STRING(x)
+#define VAR_NAME_VALUE(var) #var "="  VALUE(var)
+
+
+#pragma message(VAR_NAME_VALUE(NULL))
+//#error stop
+
 #include "ite_event.h"
 #include "ispctl_types.idt.h"
 #include "ite_sensorinfo.h"
@@ -300,10 +314,10 @@ int ITE_Loadfirmware_Data(void)
    t_los_logical_address logicalAddr_split, logicalAddr_data;
 
 
-   t_uint8* p_logicalAddr_data = NULL;
-   t_uint8* p_logicalAddr_split = NULL;
-   t_uint8* p_logicalAddr_ext = NULL;
-   t_uint8* p_logicalAddr_ddr = NULL;
+   t_uint8* p_logicalAddr_data = (t_uint8*)NULL;
+   t_uint8* p_logicalAddr_split = (t_uint8*)NULL;
+   t_uint8* p_logicalAddr_ext = (t_uint8*)NULL;
+   t_uint8* p_logicalAddr_ddr = (t_uint8*)NULL;
    t_uint32 u32_size_data = 0;
    t_uint32 u32_size_split = 0;
    t_uint32 u32_size_ext  = 0;
@@ -761,11 +775,11 @@ return(psensortunningBuffer->handle);
 
 void ITE_DoPreBootConfiguration()
 {
-    CSensor *iPtr_Sensor = NULL;
+    CSensor *iPtr_Sensor = (CSensor *)NULL;
     t_uint32 NbOfElementInSensorPreBootTable = 0;
     t_uint32 u32_gpio = 0;
     OMX_ERRORTYPE ret = OMX_ErrorNone;
-    ts_PageElement * iPtr_PreBootPeList = NULL;
+    ts_PageElement * iPtr_PreBootPeList = (ts_PageElement *)NULL;
     LOS_Log(">> ITE_DoPreBootConfiguration\n");
     if(usecase.sensor == 0)
     {
@@ -805,9 +819,9 @@ void ITE_DoPreBootConfiguration()
 
 void ITE_DoPostBootConfiguration()
 {
-    CSensor *iPtr_Sensor = NULL;
+    CSensor *iPtr_Sensor = (CSensor *)NULL;
     t_uint32 NbOfElementInSensorPostBootTable = 0;
-    ts_PageElement * iPtr_PostBootPeList = NULL;
+    ts_PageElement * iPtr_PostBootPeList = (ts_PageElement *)NULL;
 
     LOS_Log(">> ITE_DoPostSensorConfiguration\n");
     if(usecase.sensor == 0)
@@ -831,7 +845,7 @@ void ITE_DoPostBootConfiguration()
 #include "flash_api.h"
 
 //Camera flash handle
-CFlashDriver * pFlashDriver = NULL;
+CFlashDriver * pFlashDriver = (CFlashDriver *)NULL;
 
 
 //Open the camera flash handle
@@ -847,7 +861,7 @@ int ITE_FlashDriverInit(void)
 	UNUSED(status);
 	
 	pFlashDriver = CFlashDriver::Open();
-	if (NULL == pFlashDriver)
+	if (pFlashDriver == (CFlashDriver *)NULL)
 	{
        	LOS_Log("Error: could not open flash driver.\n");
        	retVal = -1;
@@ -885,9 +899,9 @@ int ITE_FlashDriverConfigure()
 
 	UNUSED(modes);
 	UNUSED(details);
-    
+
 	//Check if flash driver has been initialized or nor
-	if (NULL == pFlashDriver)
+	if (pFlashDriver == NULL)
 	{
        	LOS_Log("Error: Flash driver is not initialized.\n");
        	retVal = -1;
@@ -900,12 +914,12 @@ int ITE_FlashDriverConfigure()
 	intensity = 0x60; //Hardcoded value taken from OMX traces
 
 	//Enable/Configure flash driver for STILL LED EXTERNAL STROBE mode
-	retVal = pFlashDriver->EnableFlashMode(FLASH_MODE_STILL_LED_EXTERNAL_STROBE ,NULL ,NULL, EPrimary);
-	retVal = pFlashDriver->ConfigureFlashMode(FLASH_MODE_STILL_LED_EXTERNAL_STROBE,duration,intensity,0,EPrimary);
+	retVal = pFlashDriver->EnableFlashMode(FLASH_MODE_STILL_LED_EXTERNAL_STROBE, (TCallbackFn)NULL, NULL, EPrimary);
+	retVal = pFlashDriver->ConfigureFlashMode(FLASH_MODE_STILL_LED_EXTERNAL_STROBE, duration, intensity, 0, EPrimary);
 
-	retVal = pFlashDriver->GetStatus(FLASH_MODE_STILL_LED_EXTERNAL_STROBE,status,EPrimary);
+	retVal = pFlashDriver->GetStatus(FLASH_MODE_STILL_LED_EXTERNAL_STROBE, status, EPrimary);
 	LOS_Log("Mode:%x, status %x\n", FLASH_MODE_STILL_LED_EXTERNAL_STROBE, status);
-	
+
 OUT:
 
 	return retVal;
@@ -919,7 +933,7 @@ int ITE_FlashDriverDeInit(void)
 	if(pFlashDriver)
 		pFlashDriver->Close();
 
-	pFlashDriver = NULL;
+	pFlashDriver = (CFlashDriver *)NULL;
 	LOS_Log("Flash driver de-init completed. \n");
 		
 	return retVal;
