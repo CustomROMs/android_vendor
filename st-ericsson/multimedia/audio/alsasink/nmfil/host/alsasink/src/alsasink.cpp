@@ -8,6 +8,9 @@
 * \author ST-Ericsson
 */
 /*****************************************************************************/
+
+#define FIX_MATH
+
 #include <alsasink/nmfil/host/alsasink.nmf>
 #include <armnmf_dbc.h>
 #include <sys/time.h> /* workaround */
