@@ -929,6 +929,7 @@ namespace android {
         if((inThumbBufSize>0)&&(inThumbBuffer!=NULL)){
 
             ::ImageInfo.ThumbnailSize = inThumbBufSize;
+#if 0
             if(NULL != params.get( CameraParameters::KEY_JPEG_THUMBNAIL_WIDTH)) {
                 ::ImageInfo.ThumbnailWidth = params.getInt( CameraParameters::KEY_JPEG_THUMBNAIL_WIDTH);
                 DBGT_PTRACE("KEY_JPEG_THUMBNAIL_WIDTH value set = %d", ::ImageInfo.ThumbnailWidth);
@@ -943,6 +944,7 @@ namespace android {
                 DBGT_PTRACE("KEY_JPEG_THUMBNAIL_HEIGHT not set");
                 ::ImageInfo.ThumbnailHeight = 0;
             }
+#endif
         }else{
             ::ImageInfo.ThumbnailSize = 0;
         }
