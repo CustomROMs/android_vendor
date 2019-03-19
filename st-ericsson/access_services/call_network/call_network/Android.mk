@@ -238,7 +238,7 @@ LOCAL_SRC_FILES:= \
 	libcn/src/cn_client.c \
 	libcn/src/cn_log.c
 
-LOCAL_SHARED_LIBRARIES := libutils
+LOCAL_SHARED_LIBRARIES := libutils libcutils
 LOCAL_STATIC_LIBRARIES := libaccsutil_security
 
 LOCAL_MODULE:=libcn

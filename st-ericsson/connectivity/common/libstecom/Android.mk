@@ -7,7 +7,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := stecom.c subscribe.c
 LOCAL_CFLAGS := -DSW_VARIANT_ANDROID
 
-LOCAL_SHARED_LIBRARIES := libutils
+LOCAL_SHARED_LIBRARIES := libutils libcutils
 
 LOCAL_PRELINK_MODULE:= false
 include $(BUILD_SHARED_LIBRARY)

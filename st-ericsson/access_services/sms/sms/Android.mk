@@ -95,7 +95,7 @@ LOCAL_SRC_FILES := \
 
 LOCAL_PRELINK_MODULE:= false
 
-LOCAL_SHARED_LIBRARIES := libutils
+LOCAL_SHARED_LIBRARIES := libutils libcutils
 
 LOCAL_STATIC_LIBRARIES := libaccsutil_security
 
@@ -103,8 +103,6 @@ LOCAL_C_INCLUDES := $(SMS)/internal/main/include    \
   $(SMS)/include                  \
   $(SMS)/internal/porting/include \
   $(ACCESS_SERVICES_PATH)/common/common_functionality/include
-
-LOCAL_SHARED_LIBRARIES := libutils
 
 include $(BUILD_SHARED_LIBRARY)
 
