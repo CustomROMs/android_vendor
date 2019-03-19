@@ -105,18 +105,18 @@ endif
 ramdisk: Makefile
 
 define ExportToRamdisk
-	mkdir -p $(RAMDISK_DIR)/usr/share/camera/config_file; 
-	rm -f $(RAMDISK_DIR)/usr/share/camera/config_file/*.*
-	cp ./config_file/*.* $(RAMDISK_DIR)/usr/share/camera/config_file;
+    mkdir -p $(RAMDISK_DIR)/usr/share/camera/config_file; \
+    rm -f $(RAMDISK_DIR)/usr/share/camera/config_file/*.*; \
+    cp ./config_file/*.* $(RAMDISK_DIR)/usr/share/camera/config_file;
 endef
 
 ifeq ($(findstring linux,$(PLATFORM)),linux)
-	$(ExportToRamdisk)
+$(ExportToRamdisk)
 endif
 
-ifeq ($(findstring android,$(PLATFORM)),android)
-	$(ExportToRamdisk)
-endif
+#ifeq ($(findstring android,$(PLATFORM)),android)
+#$(ExportToRamdisk)
+#endif
 
 TOBECLEAN = 
 

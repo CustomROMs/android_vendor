@@ -39,7 +39,7 @@ endif
 CPPFLAGS += -I$(MMROOT)/video/components/common/nmf/arm/inc
 CPPFLAGS += -I$(MMROOT)/video/vfm
 
-// CPPFLAGS += -DPACKET_VIDEO_SUPPORT
+# CPPFLAGS += -DPACKET_VIDEO_SUPPORT
 CPPFLAGS += -D_CACHE_OPT_
 
 ifeq ($(findstring 5500,$(PLATFORM)),5500)
