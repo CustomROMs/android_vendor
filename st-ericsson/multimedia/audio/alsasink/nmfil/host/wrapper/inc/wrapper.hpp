@@ -11,6 +11,8 @@
 #ifndef _alsasink_wrapper_hpp_
 #define _alsasink_wrapper_hpp_
 
+#define FIX_MATH
+
 #include "Component.h"
 #include "common_interface.h"
 

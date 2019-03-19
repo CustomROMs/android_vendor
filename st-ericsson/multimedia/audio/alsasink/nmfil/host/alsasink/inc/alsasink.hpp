@@ -19,6 +19,7 @@
 #include <tinyalsa/asoundlib.h>
 #include <pthread.h>
 #include <semaphore.h>
+#define FIX_MATH
 #include <list>
 #include <poll.h>
 
