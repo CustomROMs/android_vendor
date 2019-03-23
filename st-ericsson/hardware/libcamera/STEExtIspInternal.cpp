@@ -407,16 +407,16 @@ OMX_ERRORTYPE STEExtIspCamera::initPrimaryDefaultParameters()
 
     // all supported format for preview
     // String8 spf;
-    // spf.append(CameraParameters::PIXEL_FORMAT_YUV420MB); spf.append(CAM_PROP_DELIMIT);
+    // spf.append(CameraParameters::PIXEL_FORMAT_RGB565); spf.append(CAM_PROP_DELIMIT);
     // spf.append(CameraParameters::PIXEL_FORMAT_RGB565);
 
     // DBGT_PTRACE("SUPPORTED_PREVIEW_FORMATS %s",spf.string());
-    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_YUV420MB);
-    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420MB);
+    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_RGB565);
+    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_RGB565);
 
     // set video format
     // char pixFmt[32]; getKeyStrFromOmxPixFmt( pixFmt, mOmxRecordPixFmt );
-    p.set(CameraParameters::KEY_VIDEO_FRAME_FORMAT, CameraParameters::PIXEL_FORMAT_YUV420MB);
+    p.set(CameraParameters::KEY_VIDEO_FRAME_FORMAT, CameraParameters::PIXEL_FORMAT_RGB565);
 
 
     p.set(KEY_SUPPORTED_RECORD_SIZES,SUPPORTED_PRIMARY_RECORD_SIZES);
@@ -594,7 +594,7 @@ OMX_ERRORTYPE STEExtIspCamera::initSecondaryDefaultParameters()
     p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, SUPPORTED_SECONDARY_FPS_RANGES);
     p.set(CameraParameters::KEY_PREVIEW_FPS_RANGE, SUPPORTED_SECONDARY_FPS_RANGE);
 
-    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_YUV420MB);
+    p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, CameraParameters::PIXEL_FORMAT_RGB565);
 
     // // all supported format for preview
     // String8 spf;
@@ -603,11 +603,11 @@ OMX_ERRORTYPE STEExtIspCamera::initSecondaryDefaultParameters()
     // spf.append(CameraParameters::PIXEL_FORMAT_YUV420P);
     // DBGT_PTRACE("SUPPORTED_PREVIEW_FORMATS %s",spf.string());
     // p.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FORMATS, spf.string());
-    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420MB);
+    p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_RGB565);
 
     // set video format
     // char pixFmt[32];getKeyStrFromOmxPixFmt( pixFmt, mOmxRecordPixFmt );
-    p.set(CameraParameters::KEY_VIDEO_FRAME_FORMAT, CameraParameters::PIXEL_FORMAT_YUV420MB);
+    p.set(CameraParameters::KEY_VIDEO_FRAME_FORMAT, CameraParameters::PIXEL_FORMAT_RGB565);
 
     // activate the feature snapshot during record
     p.set(CameraParameters::KEY_VIDEO_SNAPSHOT_SUPPORTED, "true");
@@ -1384,7 +1384,7 @@ static status_t allocNativeBuffer(
     int32_t* stride,
     uint32_t w,
     uint32_t h,
-    PixelFormat format = HAL_PIXEL_FORMAT_YCBCR42XMBN,
+    PixelFormat format = HAL_PIXEL_FORMAT_RGB_565,
     int usage = CAMHAL_GRALLOC_USAGE)
 {
 
@@ -1403,7 +1403,7 @@ static sp<GraphicBuffer> allocGraphicBuffer(
     native_handle_t& inHandle,
     uint32_t w, uint32_t h,
     uint32_t inStride,
-    PixelFormat format = HAL_PIXEL_FORMAT_YCBCR42XMBN,
+    PixelFormat format = HAL_PIXEL_FORMAT_RGB_565,
     int usage = CAMHAL_GRALLOC_USAGE,
     bool keepOwnership = false)
 {

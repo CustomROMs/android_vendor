@@ -178,7 +178,7 @@ int STEExtIspCamera::setPreviewWindow(struct preview_stream_ops *window)
     }
 
     //check the key preview format
-    int halPreviewFmt = HAL_PIXEL_FORMAT_YCbCr_420_SP;
+    int halPreviewFmt = HAL_PIXEL_FORMAT_RGB_565;
 
     if (strcmp( mParameters.getPreviewFormat(), CameraParameters::PIXEL_FORMAT_YUV420MB) == 0) {
         halPreviewFmt = HAL_PIXEL_FORMAT_YCBCR42XMBN;

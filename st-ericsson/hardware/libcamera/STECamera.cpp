@@ -2631,7 +2631,7 @@ void STECamera::configureVideoHeap()
             int w, h;
             w = mRecordInfo.getOverScannedWidth();
             h = mRecordInfo.getOverScannedHeight();
-            PixelFormat recordPixFmt = HAL_PIXEL_FORMAT_YCBCR42XMBN;
+            PixelFormat recordPixFmt = HAL_PIXEL_FORMAT_RGB_565;
 
             if (mEnableB2R2DuringRecord) {
                 // For 2Mp Still During Record actual RecordFrameSize
