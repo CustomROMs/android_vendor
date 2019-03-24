@@ -18,6 +18,7 @@
 
 #define OMX_COLOR_FormatYCbCr420Planar 0x101
 #define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+#define HAL_PIXEL_FORMAT_RGB_565 4
 
 /**********************************************************************************/
 class VFM_MPEG4Dec_Port:public VFM_Port
@@ -75,15 +76,15 @@ public:
 			{
 				if (VFM_SocCapabilityMgt::getMPEG4DecInputBuffSize())
 				{
-					mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
+					mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
 				}
 				else
 				{
-					mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
+					mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
 				}
 			}
 			else
-				mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar;
+				mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
             mParamPortDefinition.format.video.eCompressionFormat = OMX_VIDEO_CodingUnused;
 
 			mParamPortDefinition.nBufferSize = 460800;
@@ -276,7 +277,7 @@ public:
 						|| (portDef->eColorFormat == (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN)
 						|| (portDef->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar)
 						|| (portDef->eColorFormat == OMX_COLOR_FormatYUV420Planar)
-						|| (portDef->eColorFormat == OMX_COLOR_FormatYCbCr420Planar)), OMX_ErrorBadParameter);
+						|| (portDef->eColorFormat == HAL_PIXEL_FORMAT_RGB_565)), OMX_ErrorBadParameter);
 			// nothing to be check on pt->nIndex
 			mParamPortDefinition.format.video.eColorFormat = portDef->eColorFormat;
 			mParamPortDefinition.format.video.eCompressionFormat = portDef->eCompressionFormat;
@@ -331,16 +332,16 @@ public:
 				{
 					if (VFM_SocCapabilityMgt::getMPEG4DecInputBuffSize())
 					{
-						portDef->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
+						portDef->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
 					}
 					else
 					{
-						portDef->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
+						portDef->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
 					}
 				}
 				else
 				{
-					portDef->eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar;
+					portDef->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
 				}
 					break;
                 default:

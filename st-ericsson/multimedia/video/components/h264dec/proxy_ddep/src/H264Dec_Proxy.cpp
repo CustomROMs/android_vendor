@@ -27,6 +27,7 @@
 
 #define OMX_COLOR_FormatYCbCr420Planar 0x101
 #define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+#define HAL_PIXEL_FORMAT_RGB_565 4
 
 // Traces
 //#ifdef PACKET_VIDEO_SUPPORT
@@ -283,7 +284,7 @@ void H264Dec_Proxy::setVideoSettingsSupported()
 	   which is used for ICS only */
 	if (VFM_SocCapabilityMgt::getMPEG4DecInputBuffSize())
 	{
-    	setOneVideoSettingsSupported(1, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN, 0);
+    	setOneVideoSettingsSupported(1, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565, 0);
 	}
 	else
 	{
