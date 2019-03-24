@@ -24,6 +24,8 @@
 #endif
 
 #define OMX_COLOR_FormatYUV420MBPackedSemiPlanar 0x7FFFFFFE
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 /* +Change for 372717 */
 #define make16multiple(x) (((x + 15)/16)*16)
@@ -437,6 +439,7 @@ void H264Enc_Proxy::setProfileLevelSupported()
 void H264Enc_Proxy::setVideoSettingsSupported()
 {
     setOneVideoSettingsSupported(0, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar, 0);
+    setOneVideoSettingsSupported(0, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN, 0);
     setOneVideoSettingsSupported(0, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar, 0);
     setOneVideoSettingsSupported(0, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque, 0);
     setOneVideoSettingsSupported(1, OMX_VIDEO_CodingAVC, OMX_COLOR_FormatUnused, 15<<16);

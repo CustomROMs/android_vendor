@@ -25,6 +25,9 @@
 #include "video_components_h264dec_proxy_ddep_src_H264Dec_ProxyTraces.h"
 #endif
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 // Traces
 //#ifdef PACKET_VIDEO_SUPPORT
 //#undef LOG_TAG
@@ -280,7 +283,7 @@ void H264Dec_Proxy::setVideoSettingsSupported()
 	   which is used for ICS only */
 	if (VFM_SocCapabilityMgt::getMPEG4DecInputBuffSize())
 	{
-    	setOneVideoSettingsSupported(1, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar, 0);
+    	setOneVideoSettingsSupported(1, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN, 0);
 	}
 	else
 	{

@@ -42,6 +42,9 @@
 
 #include "JPEGEnc_ParamAndConfig.h"
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 /// Default quantification tables
 // coef. are given in the zig-zag order
 static const t_uint8 _LumaQuantification_default[64] = {
@@ -255,7 +258,7 @@ JPEGEnc_ParamAndConfig::JPEGEnc_ParamAndConfig(VFM_Component *component):VFM_Par
 	rotation_val = 0;
 	m_nSvaMcps = 50;
 
-	inputBufferFormat = (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatYUV420MBPackedSemiPlanar;
+	inputBufferFormat = (OMX_COLOR_FORMATTYPE) HAL_PIXEL_FORMAT_YCBCR42XMBN;
 	outputCompressionFormat = (OMX_IMAGE_CODINGTYPE) OMX_IMAGE_CodingJPEG;
 
 	nNumber_param=0;
@@ -397,8 +400,13 @@ OMX_ERRORTYPE JPEGEnc_ParamAndConfig::setIndexParamImagePortFormat(OMX_PTR pt_or
     if (pt->nPortIndex==IPB+0) {            // input port
         HeaderToGenerate.set();
         RETURN_XXX_IF_WRONG(pt->eCompressionFormat == OMX_IMAGE_CodingUnused, OMX_ErrorBadParameter);
-        RETURN_XXX_IF_WRONG(pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar|| pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV422Planar ||
-                pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatMonochrome || pt->eColorFormat== (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420PackedPlanar, OMX_ErrorBadParameter);
+        RETURN_XXX_IF_WRONG(pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar
+        		      || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN
+			      || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar
+			      || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV422Planar
+			      || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatMonochrome
+			      || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420PackedPlanar,
+			    OMX_ErrorBadParameter);
        inputBufferFormat = pt->eColorFormat;
         // nothing to be check on pt->nIndex
     } else  {        // output port

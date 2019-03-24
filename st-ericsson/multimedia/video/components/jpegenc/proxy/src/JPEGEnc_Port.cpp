@@ -46,7 +46,8 @@
 #define RETURN_OMX_ERROR_IF_ERROR_OST(_x)    { OMX_ERRORTYPE _error; _error = (_x); if (_error!=OMX_ErrorNone) { jpegenc_port_assert(_error, __LINE__, OMX_FALSE); return _error; } }
 #define RETURN_XXX_IF_WRONG_OST(_x, _error)  { if (!(_x)) { jpegenc_port_assert(_error, __LINE__, OMX_FALSE); return (_error); } }
 
-
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 #include "JPEGEnc_Port.h"
 
@@ -90,11 +91,11 @@ JPEGEnc_Port::JPEGEnc_Port(const EnsCommonPortData& commonPortData, ENS_Componen
 		else //Input Port
 		{
 			mParamPortDefinition.format.image.eCompressionFormat = (OMX_IMAGE_CODINGTYPE)OMX_IMAGE_CodingUnused;
-			mParamPortDefinition.format.image.eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar;
+			mParamPortDefinition.format.image.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 		}
   		mParamPortDefinition.format.image.pNativeWindow = 0;
 		if(commonPortData.mPortIndex==0)
-			mParamPortDefinition.nBufferSize = getSizeFrame((OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar,mParamPortDefinition.format.image.nFrameWidth,mParamPortDefinition.format.image.nFrameHeight);
+			mParamPortDefinition.nBufferSize = getSizeFrame((OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN,mParamPortDefinition.format.image.nFrameWidth,mParamPortDefinition.format.image.nFrameHeight);
 		else
 			mParamPortDefinition.nBufferSize = (mParamPortDefinition.format.image.nFrameWidth*mParamPortDefinition.format.image.nFrameHeight*40*3)/(100*2); //40%(Acc to Statics)
   		OstTraceInt1(TRACE_API, "JPEGENCPort : Port Construction line no %d \n", __LINE__);
@@ -126,7 +127,10 @@ OMX_ERRORTYPE JPEGEnc_Port::setFormatInPortDefinition(const OMX_PARAM_PORTDEFINI
 		{
 			if (pProxyComponent->isMPCobject)
 			{
-				RETURN_XXX_IF_WRONG_OST((t_uint32)mParamPortDefinition.format.image.eColorFormat == (t_uint32)OMX_COLOR_FormatYUV420MBPackedSemiPlanar || (t_uint32)mParamPortDefinition.format.image.eColorFormat == (t_uint32)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar, OMX_ErrorBadParameter);
+				RETURN_XXX_IF_WRONG_OST((t_uint32)mParamPortDefinition.format.image.eColorFormat == (t_uint32)OMX_COLOR_FormatYUV420MBPackedSemiPlanar
+							|| (t_uint32)mParamPortDefinition.format.image.eColorFormat == (t_uint32)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar
+							|| (t_uint32)mParamPortDefinition.format.image.eColorFormat == (t_uint32)HAL_PIXEL_FORMAT_YCBCR42XMBN,
+								OMX_ErrorBadParameter);
 			}
 			else
 			{
@@ -138,6 +142,7 @@ OMX_ERRORTYPE JPEGEnc_Port::setFormatInPortDefinition(const OMX_PARAM_PORTDEFINI
 				else
 				{
 				RETURN_XXX_IF_WRONG_OST(mParamPortDefinition.format.image.eColorFormat==OMX_COLOR_FormatYUV420Planar ||
+						    mParamPortDefinition.format.image.eColorFormat==OMX_COLOR_FormatYCbCr420Planar ||
 				                    mParamPortDefinition.format.image.eColorFormat==OMX_COLOR_FormatMonochrome   ||
 				                    mParamPortDefinition.format.image.eColorFormat==OMX_COLOR_FormatCbYCrY ||
 				                    mParamPortDefinition.format.image.eColorFormat==OMX_COLOR_FormatYUV422Planar,OMX_ErrorBadParameter);

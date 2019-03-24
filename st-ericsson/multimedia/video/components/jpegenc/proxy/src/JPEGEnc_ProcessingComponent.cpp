@@ -51,6 +51,9 @@ extern OMX_U32 _nEXIFHeaderSize;
 
 #define DEFAULT_EXIF_LENGTH 20
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 static const t_uint8 jpeg_zigzag_order[64] = {
 	   0,  1,  5,  6, 14, 15, 27, 28,
 	   2,  4,  7, 13, 16, 26, 29, 42,
@@ -238,13 +241,16 @@ OMX_U8 JPEGEnc_ProcessingComponent::fromBufferTypeToJPEGType(JPEGEnc_Proxy *jpeg
 	if (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatMonochrome) {
 		return 0;
 	}
-	else if (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420Planar){
-			color_value = 1;
+	else if (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420Planar ||
+			jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar){
+		color_value = 1;
 	}
 	else if(jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV422Planar){
 		color_value = 2;
 	}
-	else if (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar || jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar) {
+	else if (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar ||
+			jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar ||
+			jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN) {
 
 		return 4;
 	}
@@ -406,11 +412,13 @@ void JPEGEnc_ProcessingComponent::headerCreation(JPEGEnc_Proxy *jpegenc,
 		DBC_PRECONDITION(!jpegenc->mParam.QuantToCompute.get());
 	}
 	DBC_PRECONDITION((jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420Planar) ||
+					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar) ||
 					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatMonochrome)   ||
 					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV422Planar) ||
 					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420SemiPlanar) ||
 					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatCbYCrY) ||
 					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar) ||
+					 (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN) ||
                      (jpegenc->mParam.inputBufferFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar))
 
 

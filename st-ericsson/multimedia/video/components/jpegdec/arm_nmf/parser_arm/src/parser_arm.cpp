@@ -27,6 +27,9 @@
 
 #define BUFFERFLAG_EOS OMX_BUFFERFLAG_EOS
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 t_uint16 jpegdec_arm_nmf_parser_arm::addBufferToBtsLinkList(OMX_BUFFERHEADERTYPE *pBuffer,ts_bitstream_buf_link_and_header *currentBufferLink,t_ahb_address *return_addr)
 {
 	OstTraceFiltInst1(TRACE_API, "PARSER_ARM: Inside addBufferToBtsLinkList for buffer : 0x%x \n",(OMX_U32)pBuffer);
@@ -356,7 +359,7 @@ jpegdec_arm_nmf_parser_arm::jpegdec_arm_nmf_parser_arm()
 	mLineBufferDesc.nPhysicalAddress  = 0;
 	mLineBufferDesc.nSize  = 0;
 
-	formatType = OMX_COLOR_FormatYUV420Planar; // YUV 420
+	formatType = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar; // YUV 420
 
 	mHuffMemDesc.nLogicalAddress = 0;
 	mHuffMemDesc.nMpcAddress = 0;
@@ -2079,7 +2082,7 @@ OMX_ERRORTYPE jpegdec_arm_nmf_parser_arm::configureCoeffAndLineBuffer(){
 			 (mParam.samplingFactors[2].hSamplingFactor==1) && (mParam.samplingFactors[2].vSamplingFactor==1))
 	{
         OstTraceFiltInst0(TRACE_ERROR, "PARSER_ARM configureCoeffAndLineBuffer YUV420  \n");
-		formatType = OMX_COLOR_FormatYUV420Planar; // YUV 420
+		formatType = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar; // YUV 420
 		subSamplingType = 0; // YUV 420
 	}
 	else

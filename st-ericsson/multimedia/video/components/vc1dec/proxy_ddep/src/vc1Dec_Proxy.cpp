@@ -25,6 +25,9 @@
 #ifdef OST_TRACE_COMPILER_IN_USE
 #include "video_components_vc1dec_proxy_ddep_src_vc1Dec_ProxyTraces.h"
 #endif
+
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 // Constructor: Nothing to be done as error management cannot be performed.
 // The real constructor is in construct()
 vc1Dec_Proxy::vc1Dec_Proxy():
@@ -201,6 +204,7 @@ void vc1Dec_Proxy::setVideoSettingsSupported()
      // -CR334366 CHANGE END OF
 
     setOneVideoSettingsSupported(1, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar, 0); // YUV420MB previous value
+    setOneVideoSettingsSupported(1, OMX_VIDEO_CodingUnused, (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN, 0);
 }
 
 EXPORT_C RM_STATUS_E vc1Dec_Proxy::getResourcesEstimation (OMX_IN const OMX_PTR pCompHdl,

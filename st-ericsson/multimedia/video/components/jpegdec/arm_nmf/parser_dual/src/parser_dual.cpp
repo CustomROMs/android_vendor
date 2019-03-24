@@ -33,6 +33,8 @@
 
 #define NO_DOWNSAMPLING 1
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 const OMX_U16 huff_dc_code_y_hw_table[12] =
 {
@@ -221,7 +223,7 @@ jpegdec_arm_nmf_parser_dual::jpegdec_arm_nmf_parser_dual(){
 	sdc_jpeg_scan_desc.headerBufferMpcAddress = 0;
 	sdc_jpeg_scan_desc.physicalAddressParamIn = 0;
 
-	formatType = OMX_COLOR_FormatYUV420Planar; // YUV 420
+	formatType = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar; // YUV 420
 
 	isPortSetting = OMX_FALSE;
     isEOSTrue = OMX_FALSE;
@@ -2443,8 +2445,8 @@ OMX_ERRORTYPE jpegdec_arm_nmf_parser_dual::configureCoeffAndLineBuffer(){
 			 (mParam.samplingFactors[1].hSamplingFactor==1) && (mParam.samplingFactors[1].vSamplingFactor==1) &&
 			 (mParam.samplingFactors[2].hSamplingFactor==1) && (mParam.samplingFactors[2].vSamplingFactor==1))
 	{
-		OstTraceFiltInst0(TRACE_FLOW, "PARSER_DUAL: formatType is OMX_COLOR_FormatYUV420Planar \n");
-		formatType = OMX_COLOR_FormatYUV420Planar; // YUV 420
+		OstTraceFiltInst0(TRACE_FLOW, "PARSER_DUAL: formatType is OMX_COLOR_FormatYCbCr420Planar \n");
+		formatType = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar; // YUV 420
 		subSamplingType = 0; // YUV 420
 	}
 	else

@@ -22,6 +22,8 @@
 #endif
 
 #define OMX_COLOR_FormatYUV420MBPackedSemiPlanar 0x7FFFFFFE
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 //Trace
 #ifndef H264ENC_TRACE_GROUP_PROXY
@@ -110,6 +112,7 @@ OMX_ERRORTYPE H264Enc_Port::checkSetFormatInPortDefinition(const OMX_PARAM_PORTD
     if (portDef->nPortIndex==VPB+0) {            // input port
         RETURN_XXX_IF_WRONG(pt_video->eCompressionFormat==OMX_VIDEO_CodingUnused, OMX_ErrorBadParameter);
         RETURN_XXX_IF_WRONG( (pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar ||
+			     (pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN) ||
                               pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar ||
  pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque ) , OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
@@ -140,6 +143,7 @@ OMX_ERRORTYPE H264Enc_Port::checkIndexParamVideoPortFormat(OMX_VIDEO_PARAM_PORTF
    if (pt->nPortIndex==VPB+0) {            // input port
         RETURN_XXX_IF_WRONG(pt->eCompressionFormat==OMX_VIDEO_CodingUnused, OMX_ErrorBadParameter);
         RETURN_XXX_IF_WRONG( (pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar ||
+                             (pt->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN) ||
                               pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar ||
 pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque), OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
@@ -229,7 +233,7 @@ void H264Enc_Port::setDefault()
         /* +Change for 369621 */
         mParamPortDefinition.format.video.xFramerate            = 15<<16;
         /* -Change for 369621 */
-        mParamPortDefinition.format.video.eColorFormat          = static_cast<OMX_COLOR_FORMATTYPE>(OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar);
+        mParamPortDefinition.format.video.eColorFormat          = static_cast<OMX_COLOR_FORMATTYPE>(HAL_PIXEL_FORMAT_YCBCR42XMBN);
         mParamPortDefinition.format.video.nSliceHeight = 1;
         mParamPortDefinition.nBufferCountActual = 2;
         break;

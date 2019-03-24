@@ -23,6 +23,9 @@
 #include "SharedBuffer.h"
 #include "MPEG4Enc_ProcessingComponent.h"
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 #ifdef MMDSP_PERF
 	#include "osi_perf.h"
 #endif
@@ -529,7 +532,8 @@ void MPEG4Enc_ProcessingComponent::set_pMecIn_parameters(MPEG4Enc_Proxy *pProxyC
 	}
 
 
-	if( pProxyComponent->getColorFormat(0)== OMX_COLOR_FormatYUV420Planar)
+	if( pProxyComponent->getColorFormat(0)== OMX_COLOR_FormatYUV420Planar ||
+		pProxyComponent->getColorFormat(0)== OMX_COLOR_FormatYCbCr420Planar)
 	{
 	    pMecIn_parameters->yuvformat = 0 ;
 	}

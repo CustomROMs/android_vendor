@@ -22,6 +22,8 @@
 #include "MPEG4Enc_Port.h"
 #include "VFM_DDepUtility.h"
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 MPEG4Enc_Port::MPEG4Enc_Port(const EnsCommonPortData& commonPortData, ENS_Component &enscomp)
 : VFM_Port(commonPortData, enscomp)
@@ -117,11 +119,16 @@ OMX_ERRORTYPE MPEG4Enc_Port::checkSetFormatInPortDefinition(const OMX_PARAM_PORT
 	{
 		if(pProxyComponent->isMpcObject)
 		{
-			RETURN_XXX_IF_WRONG((pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar)||(pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar)||(pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque), OMX_ErrorBadParameter);
+			RETURN_XXX_IF_WRONG((pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar)||
+					    (pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar)||
+					    (pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN)||
+					    (pt_video->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque), OMX_ErrorBadParameter);
 		}
 		else
 		{
-			RETURN_XXX_IF_WRONG(pt_video->eColorFormat == OMX_COLOR_FormatYUV420Planar|| (pt_video->eColorFormat == OMX_COLOR_FormatYUV420SemiPlanar), OMX_ErrorBadParameter);
+			RETURN_XXX_IF_WRONG((pt_video->eColorFormat == OMX_COLOR_FormatYUV420Planar)     ||
+					    (pt_video->eColorFormat == OMX_COLOR_FormatYUV420SemiPlanar) ||
+					    (pt_video->eColorFormat == OMX_COLOR_FormatYCbCr420Planar), OMX_ErrorBadParameter);
 		}
 		// Setting xEncodeFramerate equal to xFramerate sent by user
 		pProxyComponent->mParam.m_framerate.xEncodeFramerate = pt_video->xFramerate;
@@ -269,7 +276,13 @@ OMX_ERRORTYPE MPEG4Enc_Port::setIndexParamVideoPortFormat(OMX_PTR pt_org, OMX_BO
 	if(pt->nPortIndex==VPB+0)
 	{			 // input port
 		RETURN_XXX_IF_WRONG(pt->eCompressionFormat == OMX_VIDEO_CodingUnused, OMX_ErrorBadParameter);
-		RETURN_XXX_IF_WRONG((pt->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar) || (pt->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar) || (pt->eColorFormat == OMX_COLOR_FormatYUV420Planar)|| (pt->eColorFormat == OMX_COLOR_FormatYUV420SemiPlanar)||(pt->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque), OMX_ErrorBadParameter);
+		RETURN_XXX_IF_WRONG((pt->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar)
+			              || (pt->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar)
+				      || (pt->eColorFormat == (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN)
+				      || (pt->eColorFormat == OMX_COLOR_FormatYUV420Planar)
+				      || (pt->eColorFormat == OMX_COLOR_FormatYUV420SemiPlanar)
+				      || (pt->eColorFormat == OMX_COLOR_FormatYCbCr420Planar)
+				      ||(pt->eColorFormat == (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatAndroidOpaque), OMX_ErrorBadParameter);
 		// nothing to be checked on pt->nIndex
 	}
 	else
@@ -328,7 +341,7 @@ OMX_ERRORTYPE MPEG4Enc_Port::getIndexParamVideoPortFormat(OMX_PTR pt_org) const
 		{
 			case 0:
 				if(pProxyComponent->isMpcObject == OMX_TRUE) {
-					pt->eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar;
+					pt->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 				}
 				else {
 					pt->eColorFormat = OMX_COLOR_FormatYUV420SemiPlanar;
@@ -404,7 +417,7 @@ void MPEG4Enc_Port::setDefault()
 			mParamPortDefinition.format.video.nFrameHeight          = 0;//>144;
 			mParamPortDefinition.format.video.xFramerate            = 15<<16;
 			mParamPortDefinition.format.video.eCompressionFormat    = OMX_VIDEO_CodingUnused;
-			mParamPortDefinition.format.video.eColorFormat          = (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar;
+			mParamPortDefinition.format.video.eColorFormat          = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 
 			break;
 		case 1:

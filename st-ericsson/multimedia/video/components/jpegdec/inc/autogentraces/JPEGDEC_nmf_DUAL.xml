@@ -168,7 +168,7 @@
 <def id="141" type="string">OMX handle 0x%x: ID %d: PARSER_DUAL: formatType is OMX_COLOR_FormatMonochrome \n</def>
 <def id="142" type="string">OMX handle 0x%x: ID %d: PARSER_DUAL: formatType is OMX_COLOR_FormatYUV444Interleaved \n</def>
 <def id="143" type="string">OMX handle 0x%x: ID %d: PARSER_DUAL: formatType is OMX_COLOR_FormatYUV422Planar \n</def>
-<def id="144" type="string">OMX handle 0x%x: ID %d: PARSER_DUAL: formatType is OMX_COLOR_FormatYUV420Planar \n</def>
+<def id="144" type="string">OMX handle 0x%x: ID %d: PARSER_DUAL: formatType is OMX_COLOR_FormatYCbCr420Planar \n</def>
 <def id="145" type="string">OMX handle 0x%x: ID %d: PARSER_DUAL: formatType is OMX_COLOR_FormatYUV444Interleaved default \n</def>
 </data>
 <locations>

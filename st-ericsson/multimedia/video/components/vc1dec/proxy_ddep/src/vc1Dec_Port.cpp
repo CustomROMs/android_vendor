@@ -29,6 +29,9 @@
 #include "video_components_vc1dec_proxy_ddep_src_vc1Dec_PortTraces.h"
 #endif
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 vc1Dec_Port::vc1Dec_Port(const EnsCommonPortData& commonPortData, ENS_Component &enscomp) :
             VFM_Port(commonPortData, enscomp)
 {
@@ -121,7 +124,9 @@ OMX_ERRORTYPE vc1Dec_Port::checkSetFormatInPortDefinition(const OMX_PARAM_PORTDE
         RETURN_XXX_IF_WRONG(
                 pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar
                 || pt_video->eColorFormat==0x7FFFFFFE // YUV420MB previous value
-                || pt_video->eColorFormat==OMX_COLOR_FormatYUV420Planar,
+                || pt_video->eColorFormat==HAL_PIXEL_FORMAT_YCBCR42XMBN
+                || pt_video->eColorFormat==OMX_COLOR_FormatYUV420Planar
+		|| pt_video->eColorFormat==OMX_COLOR_FormatYCbCr420Planar,
                 OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
     }
@@ -160,7 +165,9 @@ OMX_ERRORTYPE vc1Dec_Port::checkIndexParamVideoPortFormat(OMX_VIDEO_PARAM_PORTFO
         RETURN_XXX_IF_WRONG(
                 pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar
                 || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)0x7FFFFFFE // YUV420MB previous value
-                || pt->eColorFormat==OMX_COLOR_FormatYUV420Planar,
+                || pt->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN
+                || pt->eColorFormat==OMX_COLOR_FormatYUV420Planar
+                || pt->eColorFormat==OMX_COLOR_FormatYCbCr420Planar,
                 OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
     }
@@ -271,9 +278,9 @@ void vc1Dec_Port::setDefault()
         DBC_ASSERT(mParamPortDefinition.eDir==OMX_DirOutput);
         mParamPortDefinition.format.video.eCompressionFormat = OMX_VIDEO_CodingUnused;
 #ifdef NO_HAMAC
-        mParamPortDefinition.format.video.eColorFormat = OMX_COLOR_FormatYUV420Planar;
+        mParamPortDefinition.format.video.eColorFormat = OMX_COLOR_FormatYCbCr420Planar;
 #else
-        mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar;
+        mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 #endif
         mParamPortDefinition.format.video.nBitrate = 0;
         mParamPortDefinition.format.video.xFramerate = 0;

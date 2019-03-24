@@ -28,6 +28,9 @@
 #include<cutils/log.h>
 #endif
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
+
 inline void VFM_Port::vfm_assert_static(int condition, int line, OMX_BOOL isFatal, int param1, int param2)
 {
     if (!condition) {
@@ -63,10 +66,11 @@ OMX_U32 VFM_Port::getSizeFrame(OMX_COLOR_FORMATTYPE eColor, OMX_U32 width, OMX_U
     case OMX_COLOR_Format24bitRGB888:                 return width_MB*height_MB*3;
     case OMX_COLOR_Format24bitBGR888:                 return width_MB*height_MB*3;
     case OMX_COLOR_Format24bitARGB1887:               return width_MB*height_MB*3;
-    case OMX_COLOR_Format25bitARGB1888:               return (width_MB*height_MB*25)/8;
+    //case OMX_COLOR_Format25bitARGB1888:               return (width_MB*height_MB*25)/8;
     case OMX_COLOR_Format32bitBGRA8888:               return width_MB*height_MB*4;
     case OMX_COLOR_Format32bitARGB8888:               return width_MB*height_MB*4;
     case OMX_COLOR_FormatYUV420Planar:                return (width_MB*height_MB*3)/2;
+    case OMX_COLOR_FormatYCbCr420Planar:              return (width_MB*height_MB*3)/2;
     case OMX_COLOR_FormatYUV420PackedPlanar:          return (width_MB*height_MB*3)/2;
     case OMX_COLOR_FormatYUV420SemiPlanar:            return (width_MB*height_MB*3)/2;
     case OMX_COLOR_FormatYUV422Planar:                return width_MB*height_MB*2;
@@ -83,6 +87,7 @@ OMX_U32 VFM_Port::getSizeFrame(OMX_COLOR_FORMATTYPE eColor, OMX_U32 width, OMX_U
     case OMX_COLOR_Format24BitARGB6666:               return width_MB*height_MB*3;
     case OMX_COLOR_Format24BitABGR6666:               return width_MB*height_MB*3;
     case OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar:
+    case HAL_PIXEL_FORMAT_YCBCR42XMBN:
     case 0x7FFFFFFE: /* for backward compatibility */
 	case OMX_COLOR_FormatAndroidOpaque:
     return (width_MB*height_MB*3)/2;
@@ -136,10 +141,11 @@ OMX_U32 VFM_Port::getStride(OMX_COLOR_FORMATTYPE eColor, OMX_U32 width)
     case OMX_COLOR_Format24bitRGB888:                 return width_MB*3;
     case OMX_COLOR_Format24bitBGR888:                 return width_MB*3;
     case OMX_COLOR_Format24bitARGB1887:               return width_MB*3;
-    case OMX_COLOR_Format25bitARGB1888:               return (width_MB*25)/8;
+    //case OMX_COLOR_Format25bitARGB1888:               return (width_MB*25)/8;
     case OMX_COLOR_Format32bitBGRA8888:               return width_MB*4;
     case OMX_COLOR_Format32bitARGB8888:               return width_MB*4;
     case OMX_COLOR_FormatYUV420Planar:                return (width_MB*3)/2;
+    case OMX_COLOR_FormatYCbCr420Planar:              return (width_MB*3)/2;
     case OMX_COLOR_FormatYUV420PackedPlanar:          return (width_MB*3)/2;
     case OMX_COLOR_FormatYUV420SemiPlanar:            return (width_MB*3)/2;
     case OMX_COLOR_FormatYUV422Planar:                return width_MB*2;
@@ -156,6 +162,7 @@ OMX_U32 VFM_Port::getStride(OMX_COLOR_FORMATTYPE eColor, OMX_U32 width)
     case OMX_COLOR_Format24BitARGB6666:               return width_MB*3;
     case OMX_COLOR_Format24BitABGR6666:               return width_MB*3;
     case OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar:
+    case HAL_PIXEL_FORMAT_YCBCR42XMBN:
 	case OMX_COLOR_FormatAndroidOpaque:
     case 0x7FFFFFFE: /* for backward compatibility */
 //MVC
@@ -306,7 +313,7 @@ float VFM_Port::getPixelDepth(OMX_COLOR_FORMATTYPE format){
 	case OMX_COLOR_Format24bitBGR888 :
 	case OMX_COLOR_Format24bitARGB1887 :
 		return 3;
-	case OMX_COLOR_Format25bitARGB1888 :
+	//case OMX_COLOR_Format25bitARGB1888 :
 	case OMX_COLOR_Format32bitBGRA8888 :
 	case OMX_COLOR_Format32bitARGB8888 :
 	case OMX_COLOR_FormatYUV411Planar :
@@ -324,7 +331,9 @@ float VFM_Port::getPixelDepth(OMX_COLOR_FORMATTYPE format){
 
 	case OMX_COLOR_FormatYUV420PackedSemiPlanar :
 	case OMX_COLOR_FormatYUV420Planar :
+	case OMX_COLOR_FormatYCbCr420Planar :
 	case OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar :
+	case HAL_PIXEL_FORMAT_YCBCR42XMBN :
 	case OMX_COLOR_FormatYUV420PackedPlanar :
     case OMX_COLOR_FormatYUV420SemiPlanar :
 	case OMX_COLOR_FormatAndroidOpaque:

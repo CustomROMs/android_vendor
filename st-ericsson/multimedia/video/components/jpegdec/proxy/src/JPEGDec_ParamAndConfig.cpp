@@ -21,6 +21,8 @@
 
 #define RETURN_XXX_IF_WRONG_OST(_x, _error)  { if (!(_x)) { jpegdec_param_assert(_error, __LINE__, OMX_FALSE); return (_error); } }
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 void JPEGDec_ParamAndConfig::jpegdec_param_assert(OMX_ERRORTYPE omxError, OMX_U32 line, OMX_BOOL isFatal)
 {
@@ -74,7 +76,7 @@ JPEGDec_ParamAndConfig::JPEGDec_ParamAndConfig(VFM_Component *component):VFM_Par
 	frameWidth = 0;
 	cropWindowHeight = 0;
 	cropWindowWidth = 0;
-    outputBufferFormat = (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatYUV420MBPackedSemiPlanar;
+    outputBufferFormat = (OMX_COLOR_FORMATTYPE) HAL_PIXEL_FORMAT_YCBCR42XMBN;
     downsamplingFactor = DOWNSAMPLING_FACTOR_1;
     isCroppingEnabled =0;
 	isCroppingInvalid=0;
@@ -180,8 +182,9 @@ OMX_ERRORTYPE JPEGDec_ParamAndConfig::setIndexParamImagePortFormat(OMX_PTR pt_or
     if (pt->nPortIndex==IPB+1){            // Output port
                 OstTraceFiltInst0(TRACE_API, "JPEGDECParam : In setIndexParamImagePortFormat output port");
 		RETURN_XXX_IF_WRONG_OST(pt->eCompressionFormat == OMX_IMAGE_CodingUnused, OMX_ErrorBadParameter);
-		RETURN_XXX_IF_WRONG_OST(pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar
-							, OMX_ErrorBadParameter);
+		RETURN_XXX_IF_WRONG_OST(pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar ||
+					pt->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN,
+							OMX_ErrorBadParameter);
 		outputBufferFormat = pt->eColorFormat;
         // nothing to be check on pt->nIndex
     }
@@ -232,7 +235,7 @@ void JPEGDec_ParamAndConfig::initializeParamAndConfig()
 	frameWidth = 0;
 	cropWindowHeight = 0;
 	cropWindowWidth = 0;
-    outputBufferFormat = (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatYUV420MBPackedSemiPlanar;
+    outputBufferFormat = (OMX_COLOR_FORMATTYPE) HAL_PIXEL_FORMAT_YCBCR42XMBN;
     downsamplingFactor = DOWNSAMPLING_FACTOR_1;        // no scaling by default
 
 	isCroppingEnabled =0;

@@ -21,6 +21,8 @@
 
 #define RETURN_XXX_IF_WRONG_OST(_x, _error)  { if (!(_x)) { jpegdec_port_assert(_error, __LINE__, OMX_FALSE); return (_error); } }
 
+#define OMX_COLOR_FormatYCbCr420Planar 0x101
+#define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
 
 void JPEGDec_Port::jpegdec_port_assert(OMX_ERRORTYPE omxError, OMX_U32 line, OMX_BOOL isFatal)
 {
@@ -66,7 +68,7 @@ JPEGDec_Port::JPEGDec_Port(const EnsCommonPortData& commonPortData, ENS_Componen
 		mParamPortDefinition.format.image.nFrameWidth = 0;
         mParamPortDefinition.format.image.bFlagErrorConcealment = OMX_FALSE;
 		mParamPortDefinition.format.image.cMIMEType = 0;
-		mParamPortDefinition.format.image.eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420MBPackedSemiPlanar;
+		mParamPortDefinition.format.image.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 		mParamPortDefinition.format.image.eCompressionFormat = OMX_IMAGE_CodingUnused;
 		mParamPortDefinition.nBufferSize = 256; //any non-zero value
 		mParamPortDefinition.bBuffersContiguous = OMX_TRUE;
