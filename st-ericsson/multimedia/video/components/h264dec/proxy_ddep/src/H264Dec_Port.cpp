@@ -27,7 +27,6 @@
 
 #define OMX_COLOR_FormatYCbCr420Planar 0x101
 #define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
-#define HAL_PIXEL_FORMAT_RGB_565 4
 
 // Traces
 //#ifdef PACKET_VIDEO_SUPPORT
@@ -152,7 +151,6 @@ OMX_ERRORTYPE H264Dec_Port::checkSetFormatInPortDefinition(const OMX_PARAM_PORTD
         RETURN_XXX_IF_WRONG(
         ((pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar)||
          (pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN)||
-         (pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565)||
          (pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)0x7FFFFFFE )),
                 OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
@@ -184,7 +182,6 @@ OMX_ERRORTYPE H264Dec_Port::checkIndexParamVideoPortFormat(OMX_VIDEO_PARAM_PORTF
         RETURN_XXX_IF_WRONG(
         ((pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar)||
          (pt->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN)||
-         (pt->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565)||
          (pt->eColorFormat==(OMX_COLOR_FORMATTYPE)0x7FFFFFFE )),
                 OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
@@ -435,7 +432,7 @@ void H264Dec_Port::setDefault()
 #if 0
         mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)0x7FFFFFFE;
 #else
-        mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
+        mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 #endif
         mParamPortDefinition.format.video.nBitrate = 0;
         mParamPortDefinition.format.video.xFramerate = 0;

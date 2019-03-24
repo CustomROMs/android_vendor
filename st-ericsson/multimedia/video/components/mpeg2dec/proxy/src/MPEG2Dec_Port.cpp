@@ -23,7 +23,6 @@
 
 #define OMX_COLOR_FormatYCbCr420Planar 0x101
 #define HAL_PIXEL_FORMAT_YCBCR42XMBN 0xE
-#define HAL_PIXEL_FORMAT_RGB_565 4
 
 void MPEG2Dec_Port::mpeg2dec_port_assert(OMX_ERRORTYPE omxError, OMX_U32 line, OMX_BOOL isFatal)
 {
@@ -73,7 +72,7 @@ MPEG2Dec_Port::MPEG2Dec_Port(const EnsCommonPortData& commonPortData, ENS_Compon
         mParamPortDefinition.format.video.bFlagErrorConcealment = OMX_FALSE;
         mParamPortDefinition.format.video.cMIMEType = 0;
 
-        mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
+        mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
         mParamPortDefinition.format.video.eCompressionFormat = OMX_VIDEO_CodingUnused;
 
         mParamPortDefinition.nBufferSize = 256; //any non-zero value
@@ -159,7 +158,6 @@ OMX_ERRORTYPE MPEG2Dec_Port::checkSetFormatInPortDefinition(const OMX_PARAM_PORT
                 pt_video->eColorFormat==OMX_COLOR_FormatYUV420Planar ||
                 pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar ||
                 pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN ||
-                pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565 ||
                 pt_video->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420Planar,
                 OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
@@ -199,7 +197,7 @@ OMX_ERRORTYPE MPEG2Dec_Port::checkIndexParamVideoPortFormat(OMX_VIDEO_PARAM_PORT
         RETURN_XXX_IF_WRONG_OST(pt->eCompressionFormat==OMX_VIDEO_CodingUnused, OMX_ErrorBadParameter);
         RETURN_XXX_IF_WRONG_OST( pt->eColorFormat==(OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYUV420PackedSemiPlanar
                           || pt->eColorFormat==OMX_COLOR_FormatYUV420Planar
-			  || pt->eColorFormat==HAL_PIXEL_FORMAT_RGB_565,OMX_ErrorBadParameter);
+			  || pt->eColorFormat==OMX_COLOR_FormatYCbCr420Planar,OMX_ErrorBadParameter);
         // nothing to be check on pt->nIndex
         }
     OstTraceInt0(TRACE_FLOW,"Exit MPEG2Dec_Port::checkIndexParamVideoPortFormat");
@@ -245,8 +243,7 @@ OMX_ERRORTYPE MPEG2Dec_Port::setIndexParamVideoPortFormat(OMX_VIDEO_PARAM_PORTFO
 	if(pt->nPortIndex==VPB+1){
 		RETURN_XXX_IF_WRONG_OST(pt->eCompressionFormat == OMX_VIDEO_CodingUnused, OMX_ErrorBadParameter);
 		RETURN_XXX_IF_WRONG_OST(pt->eColorFormat== (OMX_COLOR_FORMATTYPE)OMX_SYMBIAN_COLOR_FormatYUV420MBPackedSemiPlanar ||
-					pt->eColorFormat== (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN ||
-					pt->eColorFormat== (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565, OMX_ErrorBadParameter);
+					pt->eColorFormat== (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN, OMX_ErrorBadParameter);
 	}
 	else{
 		RETURN_XXX_IF_WRONG_OST(pt->eCompressionFormat == OMX_VIDEO_CodingMPEG2, OMX_ErrorBadParameter);
@@ -268,7 +265,7 @@ OMX_ERRORTYPE MPEG2Dec_Port::getIndexParamVideoPortFormat(OMX_VIDEO_PARAM_PORTFO
 
 	if(pt->nPortIndex==VPB+1){
 		pt->eCompressionFormat = OMX_VIDEO_CodingUnused;
-        pt->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
+        pt->eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_YCBCR42XMBN;
 	}
 	else{
 		pt->eCompressionFormat = OMX_VIDEO_CodingMPEG2;
@@ -364,7 +361,7 @@ void MPEG2Dec_Port::setDefault()
         case 1:
             DBC_ASSERT(mParamPortDefinition.eDir==OMX_DirOutput);
             mParamPortDefinition.format.video.eCompressionFormat = OMX_VIDEO_CodingUnused;
-            mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)HAL_PIXEL_FORMAT_RGB_565;
+            mParamPortDefinition.format.video.eColorFormat = (OMX_COLOR_FORMATTYPE)OMX_COLOR_FormatYCbCr420Planar;
             mParamPortDefinition.format.video.nBitrate = 0;
             mParamPortDefinition.format.video.xFramerate = 0;
             mParamPortDefinition.format.video.nStride = (mParamPortDefinition.format.video.nFrameWidth * 3) / 2;        // corresponds to a raw in OMX_COLOR_FormatYUV420Planar
