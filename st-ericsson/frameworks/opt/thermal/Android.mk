@@ -15,7 +15,7 @@ LOCAL_MODULE := \
         com.stericsson.thermal
 
 LOCAL_MODULE_TAGS := \
-	optional eng debug
+	optional
 
 include $(BUILD_JAVA_LIBRARY)
 
@@ -34,7 +34,7 @@ LOCAL_SRC_FILES := \
         $(LOCAL_MODULE)
 
 LOCAL_MODULE_TAGS := \
-	optional eng debug
+	optional
 
 include $(BUILD_PREBUILT)
 
@@ -64,6 +64,6 @@ LOCAL_MODULE := \
         libthermal_jni
 
 LOCAL_MODULE_TAGS := \
-	optional eng debug
+	optional
 
 include $(BUILD_SHARED_LIBRARY)

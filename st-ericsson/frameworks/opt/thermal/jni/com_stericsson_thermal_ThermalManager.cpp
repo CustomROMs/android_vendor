@@ -8,6 +8,7 @@
  */
 #define LOG_TAG "ThermalManagerJNI"
 
+#include <malloc.h>
 #include <pthread.h>
 
 #include <JNIHelp.h>

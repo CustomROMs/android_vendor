@@ -251,8 +251,6 @@ PRODUCT_PACKAGES += LiveWallpapersPicker \
                     modem-supervisor \
                     autologcat \
                     autologcat.conf \
-                    libthermal \
-                    ThermalService \
                     rtc_calibration \
                     ATService \
                     libstagefrighthw \
