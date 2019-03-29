@@ -41,11 +41,7 @@
 #define TA_BINARY_FOUND 0
 #define TA_BINARY_NOT_FOUND -1
 
-#ifdef _GNU_SOURCE
 static pthread_mutex_t mutex = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;
-#else
-static pthread_mutex_t mutex = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER;
-#endif
 
 static uint8_t issw_ta_key_hash[SHA256_HASH_SIZE] = { 0 };
 static bool got_ta_key_hash = false;

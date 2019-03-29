@@ -33,7 +33,7 @@ static CB_Message mCBMessageArray[NB_CLIENT_CB_ALLOCATED_MESSAGES];
 t_los_sem_id ENS_Wrapper::waitingForClientCallbackProcessing_sem;
 t_los_sem_id ENS_Wrapper::waitingForClientCallbackExit_sem;
 pthread_mutex_t *ENS_Wrapper::mMutex_id;
-pthread_mutex_t ENS_Wrapper::omx_cmp_list_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;
+pthread_mutex_t ENS_Wrapper::omx_cmp_list_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 volatile t_los_process_id ENS_Wrapper::mThread_id_locking;
 volatile unsigned int ENS_Wrapper::mThread_lock_depth;
 volatile OMX_COMPONENTTYPE *ENS_Wrapper::omxComponentHoldingLock;
@@ -233,7 +233,7 @@ extern "C" {
 static bool ENSWrapperServicesInitDone = 0;
 static bool OMXWrapperServicesInitDone = 0;
 // use a recursive mutex as we have OMX and ENS layers
-static pthread_mutex_t init_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;
+static pthread_mutex_t init_mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 
 #define INIT_LOCK pthread_mutex_lock(&init_mutex)
 #define INIT_UNLOCK pthread_mutex_unlock(&init_mutex)

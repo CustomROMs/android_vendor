@@ -49,7 +49,7 @@ bool ENS_Wrapper_CtxTrace::enabled = true;
 bool ENS_Wrapper_CtxTrace::debug_enabled = false;
 bool ENS_Wrapper_CtxTrace::active_component = false;
 unsigned int ENS_Wrapper_CtxTrace::history_depth = 0;
-pthread_mutex_t ENS_Wrapper_CtxTrace::mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER;
+pthread_mutex_t ENS_Wrapper_CtxTrace::mutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
 
 static pthread_cond_t private_async_cond = PTHREAD_COND_INITIALIZER;
 static pthread_mutex_t incdec_mutex = PTHREAD_MUTEX_INITIALIZER;
