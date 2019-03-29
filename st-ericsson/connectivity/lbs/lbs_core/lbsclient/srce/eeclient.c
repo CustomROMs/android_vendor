@@ -26,6 +26,7 @@
 #include <sys/un.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <ctype.h>
 #include "agps_client.h"
 #include "clientutils.h"

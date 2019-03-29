@@ -13,6 +13,8 @@
 #include <pthread.h>
 #include <termios.h>
 #include <fcntl.h>
+#include <malloc.h>
+#include <unistd.h>
 #include <sys/epoll.h>
 #include <math.h>
 #include <time.h>

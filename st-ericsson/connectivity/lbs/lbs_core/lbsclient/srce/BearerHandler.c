@@ -13,6 +13,7 @@
 #include "android_log.h"
 #endif
 #include "string.h"
+#include <unistd.h>
 #include <pthread.h>
 #include "agps_client.h"
 #include "gpsclient.h"

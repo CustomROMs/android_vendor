@@ -14,6 +14,7 @@
 #endif
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "agps_client.h"
 #include "clientutils.h"
 #include "gpsclient.h"
