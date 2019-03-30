@@ -328,14 +328,14 @@ OMX_ERRORTYPE MMIO_Camera::initDriver(void)
 
 #ifdef MMIO_ENABLE_NEW_IF
     if (MMIO_CameraType[MMIO_CameraSlot] == eRawBayer) {
-        mmiodevice = (char *)"/dev/"MMIO_RAW_NAME;
+        mmiodevice = (char *) "/dev/" MMIO_RAW_NAME;
     } else if (MMIO_CameraType[MMIO_CameraSlot] == eYUV) {
-        mmiodevice = (char *)"/dev/"MMIO_YUV_NAME;
+        mmiodevice = (char *) "/dev/" MMIO_YUV_NAME;
     } else {
-        mmiodevice = (char *)"/dev/"MMIO_NAME;
+        mmiodevice = (char *) "/dev/" MMIO_NAME;
     }
 #else
-    mmiodevice = (char *)"/dev/"MMIO_NAME;
+    mmiodevice = (char *) "/dev/" MMIO_NAME;
 #endif //MMIO_ENABLE_NEW_IF
 
     DBGT_PDEBUG("mmiodevice = %s\n", mmiodevice);

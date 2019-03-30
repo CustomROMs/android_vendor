@@ -53,15 +53,15 @@ class Debug {
 #include "linux_utils.h"
 #define RLOG_DEBUG(...)   { if (Debug::mTraceEnabled) { ALOGD(__VA_ARGS__); } }
 #define RLOG_INFO(...)    { ALOGI(__VA_ARGS__); }
-#define RLOG_WARNING(...) { ALOGW("WARNING "__VA_ARGS__); }
-#define RLOG_ERROR(...)   { ALOGE("ERROR "__VA_ARGS__); }
+#define RLOG_WARNING(...) { ALOGW("WARNING " __VA_ARGS__); }
+#define RLOG_ERROR(...)   { ALOGE("ERROR " __VA_ARGS__); }
 
 #elif defined(__RMEUNITARYDEV__)
 //unitary dev: forced logs
-#define RLOG_DEBUG(...)   { printf("[RME] "__VA_ARGS__); }
-#define RLOG_INFO(...)    { printf("[RME] "__VA_ARGS__); }
-#define RLOG_WARNING(...) { printf("[RME] ""WARNING "__VA_ARGS__); }
-#define RLOG_ERROR(...)   { printf("[RME] ""ERROR "__VA_ARGS__); }
+#define RLOG_DEBUG(...)   { printf("[RME] " __VA_ARGS__); }
+#define RLOG_INFO(...)    { printf("[RME] " __VA_ARGS__); }
+#define RLOG_WARNING(...) { printf("[RME] WARNING " __VA_ARGS__); }
+#define RLOG_ERROR(...)   { printf("[RME] ERROR " __VA_ARGS__); }
 
 #else
 //other cases, including OSI

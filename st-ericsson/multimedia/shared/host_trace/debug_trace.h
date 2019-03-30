@@ -161,10 +161,10 @@
 
 #ifdef CONFIG_DEBUG
   #ifdef ANDROID
-    #define DBGT_TRACE_NAME(a) "persist.debug."a".level"
+    #define DBGT_TRACE_NAME(a) "persist.debug." a ".level"
   #else
     /* '.' are not valid in bash variables */
-    #define DBGT_TRACE_NAME(a) "dbgt_"a"_level"
+    #define DBGT_TRACE_NAME(a) "dbgt_" a "_level"
   #endif
 #endif
 
@@ -238,8 +238,8 @@
 #define DBGT_ASSERT(condition, args...)                           \
   do {                                                            \
     if (!(condition)) {                                           \
-      ALOGE("%s" DBGT_INDENT(DBGT_LAYER)"! "                       \
-           "assertion !(" #condition ") ""failed at %s, %s:%d",   \
+      ALOGE("%s" DBGT_INDENT(DBGT_LAYER) "! "                       \
+           "assertion !(" #condition ") failed at %s, %s:%d",   \
            DBGT_PREFIX, __PRETTY_FUNCTION__, __FILE__, __LINE__); \
       LOG_ALWAYS_FATAL_IF(!(condition), ## args);                 \
     }                                                             \
@@ -248,18 +248,18 @@
 
 /* Unconditional, logged as error, function with signature, file, line */
 #define DBGT_CRITICAL(fmt, args...)                             \
-    ALOGE( "%s" DBGT_INDENT(DBGT_LAYER)"! %s "                   \
+    ALOGE( "%s" DBGT_INDENT(DBGT_LAYER) "! %s "                   \
           fmt " %s:%d", DBGT_PREFIX, __PRETTY_FUNCTION__,       \
           ## args, __FILE__, __LINE__)
 
 /* Unconditional, logged as error, function with signature only */
 #define DBGT_ERROR(fmt, args...)                                \
-    ALOGE( "%s" DBGT_INDENT(DBGT_LAYER)"! %s "                   \
+    ALOGE( "%s" DBGT_INDENT(DBGT_LAYER) "! %s "                   \
          fmt, DBGT_PREFIX, __PRETTY_FUNCTION__, ## args)
 
 /* Unconditional, logged as warning, function with signature only */
 #define DBGT_WARNING(fmt, args...)                              \
-    ALOGW( "%s" DBGT_INDENT(DBGT_LAYER)"? %s "                   \
+    ALOGW( "%s" DBGT_INDENT(DBGT_LAYER) "? %s "                   \
          fmt, DBGT_PREFIX, __PRETTY_FUNCTION__, ## args)
 
 #ifndef DBGT_CONFIG_DEBUG
@@ -310,19 +310,19 @@
 
 #define DBGT_PDEBUG(fmt, args...)                        \
     do { if (DBGT_VAR & (0x4<<(DBGT_LAYER*4))) {         \
-            ALOGD( "%s" DBGT_INDENT(DBGT_LAYER)". "       \
+            ALOGD( "%s" DBGT_INDENT(DBGT_LAYER) ". "       \
                   fmt, DBGT_PREFIX, ## args);            \
         } } while (0)
 
 #define DBGT_PROLOG(fmt, args...)                                       \
     do { if (DBGT_VAR & (0x2<<(DBGT_LAYER*4))) {                        \
-            ALOGD( "%s" DBGT_INDENT(DBGT_LAYER)"> %s() "                 \
+            ALOGD( "%s" DBGT_INDENT(DBGT_LAYER) "> %s() "                 \
                   fmt, DBGT_PREFIX, __FUNCTION__, ## args);             \
         } } while (0)
 
 #define DBGT_EPILOG(fmt, args...)                                       \
     do { if (DBGT_VAR & (0x2<<(DBGT_LAYER*4))) {                        \
-            ALOGD( "%s" DBGT_INDENT(DBGT_LAYER)"< %s() "                 \
+            ALOGD( "%s" DBGT_INDENT(DBGT_LAYER) "< %s() "                 \
                   fmt, DBGT_PREFIX, __FUNCTION__, ## args);             \
         } } while (0)
 
@@ -330,10 +330,10 @@
 
 #ifndef DBGT_TRACE_NAME
 #ifdef ANDROID
-  #define DBGT_TRACE_NAME(a) "debug."a".trace"
+  #define DBGT_TRACE_NAME(a) "debug." a ".trace"
 #else
   /* '.' are not valid in bash variables */
-  #define DBGT_TRACE_NAME(a) "debug_"a"_trace"
+  #define DBGT_TRACE_NAME(a) "debug_" a "_trace"
 #endif
 #endif
 
@@ -348,10 +348,10 @@
             GET_PROPERTY(STR(DBGT_TRACE_NAME(#name)), value, "0");        \
             DBGT_VAR = strtoul(value, NULL, 16);                          \
             if (DBGT_VAR > 0) {                                           \
-                ALOGI("[DBGT]["STR(DBGT_TRACE_NAME(#name))                 \
+                ALOGI("[DBGT][" STR(DBGT_TRACE_NAME(#name))                 \
                      "] enabled with level 0x%x", DBGT_VAR);              \
             } else {                                                      \
-                ALOGI("[DBGT]["STR(DBGT_TRACE_NAME(#name))                 \
+                ALOGI("[DBGT][" STR(DBGT_TRACE_NAME(#name))                 \
                      "] disabled");                                       \
             }                                                             \
         }                                                                 \
