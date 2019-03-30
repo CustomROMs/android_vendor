@@ -16,7 +16,7 @@
 #include <cutils/log.h>
 
 #include <sys/prctl.h>
-#include <linux/capability.h>
+#include <sys/capability.h>
 #include <private/android_filesystem_config.h>
 
 #define ADM_SO_FILE "/system/lib/libste_adm.so"

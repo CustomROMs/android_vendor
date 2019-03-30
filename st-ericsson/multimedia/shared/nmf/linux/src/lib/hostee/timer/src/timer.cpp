@@ -32,7 +32,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <string.h>
-#include <linux/capability.h>
+#include <sys/capability.h>
 #include <sys/types.h>
 #include <errno.h>
 #include <unistd.h>

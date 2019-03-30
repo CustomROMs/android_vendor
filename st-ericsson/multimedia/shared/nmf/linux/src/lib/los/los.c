@@ -27,9 +27,7 @@
 #include <sys/time.h>
 #include <sys/prctl.h>
 #include <sys/resource.h>
-#ifndef ANDROID
-#include <linux/capability.h>
-#endif
+#include <sys/capability.h>
 
 #include <los/api/los_api.h>
 //#define LOG_NDEBUG 0

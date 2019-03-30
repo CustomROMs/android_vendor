@@ -14,9 +14,7 @@
 #include <unistd.h>
 #include <sys/prctl.h>
 #include <sys/resource.h>
-#ifndef ANDROID
-#include <linux/capability.h>
-#endif
+#include <sys/capability.h>
 
 #include <eeConfiguration.nmf>
 
@@ -38,9 +36,7 @@
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 static unsigned int usage_count = 0;
 
-#ifndef ANDROID
 extern int capget(cap_user_header_t hdrp, cap_user_data_t datap);
-#endif
 
 static int has_capabilities(t_uint32 mask)
 {
