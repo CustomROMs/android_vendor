@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <string.h>
 #include <time.h>
 #include <sys/time.h>
@@ -259,7 +260,7 @@ void __do_stelp_syslog(int priority, const char *tag,int filtered,const char *fm
     ////////////////////////////////////////////////////////////////////////////////
     // LOG TO LOGCAT if prio low enough
     ////////////////////////////////////////////////////////////////////////////////
-
+#if 0
     int offset=0;
     if (!filtered || !__syslog_filter_logcat || priority>=priority_logto_logcat) {
         // message goes to logcat
@@ -270,10 +271,12 @@ void __do_stelp_syslog(int priority, const char *tag,int filtered,const char *fm
         }
         else {
             offset=0;
+
         }
         __android_log_print(priority, tag,tmpbuf+offset);
-    }
 
+    }
+#endif
 
 
     ////////////////////////////////////////////////////////////////////////////////

@@ -10,10 +10,7 @@ INSTALL_HEADERDIR= include
 
 OMXDEBUG_SRC:=$(BUILD_TMP_DIR)/OMXdebug.cpp
 OMXDEBUG_LOG:=$(BUILD_TMP_DIR)/GenerateOMXdebug.log
-
-DEP_DEP   := $(OMXDEBUG_SRC)
 TOBECLEAN := $(OMXDEBUG_SRC) $(OMXDEBUG_LOG)
-VPATH     += $(BUILD_TMP_DIR)
 
 SOLIBNAMES += stelpcutils
 EXTRALIBS_stelpcutils += osttrace trace los
