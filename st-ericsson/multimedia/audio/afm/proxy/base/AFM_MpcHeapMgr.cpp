@@ -14,6 +14,7 @@
  */
 /*****************************************************************************/
 
+#include <string.h>
 #include "AFM_MpcHeapMgr.h"
 
 AFM_MpcHeapMgr *     AFM_MpcHeapMgr::mpSgAFM_MpcHeapMgr = 0;

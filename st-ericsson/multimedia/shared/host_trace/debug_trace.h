@@ -151,6 +151,7 @@
 #define  DBGT_H
 
 
+#include <string.h>
 #include <stdlib.h> /*strtoul*/
 
 

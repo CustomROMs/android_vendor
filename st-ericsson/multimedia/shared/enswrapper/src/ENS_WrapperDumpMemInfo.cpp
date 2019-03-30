@@ -19,6 +19,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <malloc.h>
 #include <string.h>
 #include "ENS_WrapperLog.h"
 #include "mapinfo.h"

@@ -13,6 +13,7 @@
  * \author ST-Ericsson
  */
 /*****************************************************************************/
+#include <string.h>
 #include "ENS_String.h"
 #include "ENS_Component_Fsm.h"
 #include "AFM_Component.h"
