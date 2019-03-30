@@ -138,7 +138,7 @@ include $(BUILD_PREBUILT)
 ifeq ($(ONE_SHOT_MAKEFILE),)
 
 STE_MM_BUILD_DEPS := libc liblog libutils libcutils libui libandroid_runtime libstlport libalsactrl
-STE_MM_BUILD_DEPS += libbassapp libhardware libm libmmprobe zImage libtinyalsa
+STE_MM_BUILD_DEPS += libbassapp libhardware libm libmmprobe bootimage libtinyalsa
 ifeq ($(CSCALL_ENABLE_SILENT_REBOOT_SUPPORT), true)
   ifneq ($(MULTIMEDIA_SET_PLATFORM),u5500)
     # u5500 does not depend on shmnetlink library

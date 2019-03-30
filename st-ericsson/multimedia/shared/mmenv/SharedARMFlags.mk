@@ -377,8 +377,8 @@ libthread_db_root := $(ANDROID_BSP_ROOT)/bionic/libthread_db
 TARGET_LIBGCC := $(shell $(CC) $(FIXED_CCFLAGS) -print-libgcc-file-name)
 
 # We are taking the ones in bionic for now
-KERNEL_HEADERS_COMMON := $(libc_root)/kernel/common
-KERNEL_HEADERS_ARCH   := $(libc_root)/kernel/arch-arm
+KERNEL_HEADERS_COMMON := $(libc_root)/kernel/uapi
+KERNEL_HEADERS_ARCH   := $(libc_root)/kernel/uapi/asm-arm
 KERNEL_HEADERS := $(KERNEL_HEADERS_COMMON) $(KERNEL_HEADERS_ARCH)
 
 TARGET_CRTBEGIN_STATIC_O := $(TARGET_OUT_STATIC_LIBRARIES)/crtbegin_static.o
@@ -387,6 +387,15 @@ TARGET_CRTBEGIN_O := $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtbegin_so
 TARGET_CRTEND_O := $(TARGET_LIBGCC) $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtend_so.o
 
 MULTIMEDIA_PATH := /media/system/root/CM11/vendor/st-ericsson/multimedia
+
+#
+# From build/core/combo/TARGET_linux-arm.mk:
+#        $(libc_root)/arch-arm/include \
+#        $(libc_root)/include \
+#        $(KERNEL_HEADERS) \
+#        $(libm_root)/include \
+#        $(libm_root)/include/arm
+
 FIXED_C_INCLUDES := \
 	$(libc_root)/arch-arm/include \
 	$(libc_root)/include \
@@ -394,12 +403,10 @@ FIXED_C_INCLUDES := \
 	$(MULTIMEDIA_PATH) \
 	$(KERNEL_HEADERS) \
 	$(libm_root)/include \
+	$(libm_root)/include/arm \
 	$(libthread_db_root)/include \
 	$(ANDROID_BSP_ROOT)/system/core/include \
 	$(ANDROID_BSP_ROOT)/frameworks/base/include
-
-# This directory is used by android build system but does not exist for now...
-#	$(libm_root)/include/arch/arm \
 
 FIXED_CPPFLAGS += $(foreach incdir, $(FIXED_C_INCLUDES), -I$(incdir))
 FIXED_CFLAGS   += $(FIXED_CCFLAGS)
