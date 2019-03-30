@@ -27,7 +27,7 @@ ste_il_server.o : ste_il_server.cpp ste_il_server.h ../src/ste_adm_omx_log.h
 ste_il_proxy.o : ste_il_client.cpp ste_il_server.h
 
 ilsrv : ste_il_server.o ../x86/il_stubs.o ste_adm_omx_log.o
-	g++ -lpthread -o ilsrv ste_il_server.o ste_adm_omx_log.o ../x86/il_stubs.o
+	g++ -o ilsrv ste_il_server.o ste_adm_omx_log.o ../x86/il_stubs.o
 
 libste_il_proxy.so.1.0.1 : ste_il_client.o
 	g++ -shared -Wl,-soname,libste_il_proxy.so.1 -o libste_il_proxy.so.1.0.1 ste_il_client.o

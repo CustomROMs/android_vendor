@@ -215,7 +215,7 @@ ifeq ($(EXE_USE_CSPSA_SERVICE),true)
 LOCAL_SHARED_LIBRARIES += libcspsa
 endif
 
-LOCAL_LDLIBS += -lpthread -lm
+LOCAL_LDLIBS += -lm
 
 ###################################################################
 #

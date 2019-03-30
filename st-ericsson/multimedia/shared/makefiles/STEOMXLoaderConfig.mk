@@ -46,7 +46,7 @@ LDFLAGS_STE_ENS_OMX_COMPONENTS := -ldl -L$(MM_LIB_DIR) \
 	$(STM_TRACE_LIB) -lste_ensloader -lstelpcutils $(NMF_HOST_EE_LIB) $(NMF_CM_LIB)
 
 ifneq ($(STE_SOFTWARE),android)
-  LDFLAGS_STE_ENS_OMX_COMPONENTS += -lpthread -lrt
+  LDFLAGS_STE_ENS_OMX_COMPONENTS += -lrt
 endif
 
 #### Helpers for HOST NMF components

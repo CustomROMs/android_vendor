@@ -144,7 +144,7 @@ admd-arm : $(addprefix arm-obj/,$(patsubst %.c,%.o,$(SRC_FILES_ADM) il_stubs.c))
 
 admd : $(addprefix x86-obj/,$(patsubst %.c,%.o,$(SRC_FILES_ADM) il_stubs.c))
 	@echo LD X86 $@
-	@g++ -m32 -lpthread -lasound -fprofile-arcs -lgcov -o $@ $^
+	@g++ -m32 -lasound -fprofile-arcs -lgcov -o $@ $^
 
 
 arm-obj-dir:
@@ -183,7 +183,7 @@ ste-adm-test-arm : $(addprefix arm-obj/,$(patsubst %.c,%.o,$(SRC_FILES_TSTCLIENT
 
 ste-adm-test : $(addprefix x86-obj/,$(patsubst %.c,%.o,$(SRC_FILES_TSTCLIENT) il_stubs.c))
 	@echo LD X86 $@
-	@g++ -m32 -lpthread -lasound -fprofile-arcs -lgcov -o $@ $^
+	@g++ -m32 -lasound -fprofile-arcs -lgcov -o $@ $^
 
 
 ##
