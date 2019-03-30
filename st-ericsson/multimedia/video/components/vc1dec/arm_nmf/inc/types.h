@@ -30,7 +30,7 @@ void *local_realloc(void *ptr, size_t size);
 //void *memset(void *s, int c, size_t n);
 //void *memcpy(void *dest, const void *src, size_t n);
 //double ceil(double x);
-#define printf NMF_LOG
+//#define printf NMF_LOG
 #define fatal_error(s) NMF_PANIC(s)
 //#define printf decoder_msg
 
