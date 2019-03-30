@@ -22,7 +22,7 @@
 #include "qevent.h" // rename_me scf_events.h
 //#include "hw_buffer_lib.h"
 
-#include "error.h"
+#include "cerror.h"
 
 // OST framework
 #include "OstTraceDefinitions_ste.h"

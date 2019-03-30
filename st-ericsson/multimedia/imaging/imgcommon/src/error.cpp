@@ -6,7 +6,7 @@
  */
 #define OMXCOMPONENT "ERROR"
 
-#include "error.h"
+#include "cerror.h"
 
 
 #undef OMX_TRACE_UID

@@ -10,7 +10,7 @@
 */
 
 #include "hsm.h" // rename_me "common_sm.h"
-#include "error.h"
+#include "cerror.h"
 #include "omxilosalservices.h"
 
 // OST framework

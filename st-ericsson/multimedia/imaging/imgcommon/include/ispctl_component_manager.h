@@ -21,7 +21,7 @@
 
 #include "ENS_Component.h"
 #include "mmhwbuffer.h"
-#include "error.h"
+#include "cerror.h"
 class CScfStateMachine;
 
 #define ICTL_FIFO_COMS_SIZE  16

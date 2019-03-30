@@ -10,7 +10,7 @@
 #include "OMX_Index.h"
 #include "qevent.h"
 #include "OMX_Core.h"
-#include "error.h"
+#include "cerror.h"
 
 #define NB_MAX_DIFFERED_EVENTS (16+1)	//since circular queue has been implemented with 1 slot vacant
 

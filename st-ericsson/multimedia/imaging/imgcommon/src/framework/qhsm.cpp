@@ -47,7 +47,7 @@ The Framework allow to navigate through states and apply entry/exit/init states 
 
 
 #include "qhsm.h"
-#include "error.h"
+#include "cerror.h"
 #ifdef SCF_LOS
 #include <los/api/los_api.h>
 #endif

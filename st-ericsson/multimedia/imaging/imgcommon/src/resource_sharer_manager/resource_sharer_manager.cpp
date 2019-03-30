@@ -12,7 +12,7 @@
 #include "osi_trace.h"
 #include "qhsm.h"  //rename_me scf_api.h
 #include "qevent.h"
-#include "error.h"
+#include "cerror.h"
 
 
 /* for traces */
