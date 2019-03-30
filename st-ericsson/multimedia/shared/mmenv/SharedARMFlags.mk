@@ -386,7 +386,7 @@ TARGET_CRTBEGIN_DYNAMIC_O := $(TARGET_OUT_STATIC_LIBRARIES)/crtbegin_dynamic.o
 TARGET_CRTBEGIN_O := $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtbegin_so.o
 TARGET_CRTEND_O := $(TARGET_LIBGCC) $(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib/crtend_so.o
 
-MULTIMEDIA_PATH := /media/system/root/CM11/vendor/st-ericsson/multimedia
+MULTIMEDIA_PATH := $(ANDROID_BSP_ROOT)/vendor/st-ericsson/multimedia
 
 #
 # From build/core/combo/TARGET_linux-arm.mk:
