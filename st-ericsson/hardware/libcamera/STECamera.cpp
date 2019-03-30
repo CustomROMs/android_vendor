@@ -2680,7 +2680,7 @@ void STECamera::configureVideoHeap()
 
                 DBGT_PTRACE("Extra height = %d", extraDataHeight);
 
-                int stride;
+                uint32_t stride;
                 buffer_handle_t buf;
                 int ret = GrallocAlloc.alloc(
                         w,
@@ -2699,7 +2699,7 @@ void STECamera::configureVideoHeap()
                             h,
                             recordPixFmt,
                             CAMHAL_GRALLOC_USAGE,
-                            stride,
+                            static_cast<int>(stride),
                             (native_handle_t*)buf,
                             false);
 

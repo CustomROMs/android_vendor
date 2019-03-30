@@ -125,7 +125,7 @@ STEExtIspCamera::STEExtIspCamera(int cameraId)
     MMIO_Camera_fd = open(mmiodevice, O_RDWR);
 
     // get the omx pixel format on record path
-    char pixFmt[32]; DynSetting::get(DynSetting::EExtIspRecordPixFmt, pixFmt);
+    char pixFmt[PROPERTY_VALUE_MAX]; DynSetting::get(DynSetting::EExtIspRecordPixFmt, pixFmt);
     mOmxRecordPixFmt = getOmxPixFmtFromKeyStr(pixFmt);
 #ifdef ENABLE_FACE_DETECTION
     mfaceMetaData_yuv.number_of_faces = 0;

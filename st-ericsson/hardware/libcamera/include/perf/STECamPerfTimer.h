@@ -11,6 +11,7 @@
 /*
  * Includes
  */
+#include <DurationTimer.h>
 #include <utils/Timers.h>
 
 namespace android {

@@ -42,6 +42,7 @@ LOCAL_C_INCLUDES += $(MY_MULTIMEDIA_PATH)
 LOCAL_C_INCLUDES += external/jhead
 LOCAL_C_INCLUDES += external/neven/FaceRecEm/common/src/b_FDSDK
 LOCAL_C_INCLUDES += frameworks/native/include/media/hardware
+LOCAL_C_INCLUDES += system/media/camera/include
 
 #internal includes
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/include
@@ -75,6 +76,7 @@ LOCAL_SRC_FILES += framerate/STECamFrameRateDumper.cpp
 LOCAL_SRC_FILES += framedumpreplay/STECamFrameDumpReplay.cpp
 LOCAL_SRC_FILES += framedumpreplay/STECamFrameDumper.cpp
 LOCAL_SRC_FILES += framedumpreplay/STECamFrameReplay.cpp
+LOCAL_SRC_FILES += perf/DurationTimer.cpp
 LOCAL_SRC_FILES += perf/STECamPerfManager.cpp
 LOCAL_SRC_FILES += perf/STECamPerfTimer.cpp
 LOCAL_SRC_FILES += memorybase/STECamBuffer.cpp

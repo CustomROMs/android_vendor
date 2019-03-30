@@ -1389,7 +1389,7 @@ static status_t allocNativeBuffer(
 {
 
     GraphicBufferAllocator &GrallocAlloc = GraphicBufferAllocator::get();
-    return GrallocAlloc.alloc(w, h, format, usage, handle, stride);
+    return GrallocAlloc.alloc(w, h, format, usage, handle, reinterpret_cast<uint32_t*>(stride));
 }
 
 static status_t freeNativeBuffer(
