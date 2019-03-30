@@ -127,7 +127,7 @@ LIBS+= libcli_usb.a
 endif
 
 ifeq ($(MMSYSTEM),android)
-todo: readhwreg lib exe install
+todo: lib exe install
 else
 todo: lib exe ramdisk
 endif
