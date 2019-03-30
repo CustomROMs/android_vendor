@@ -13,6 +13,7 @@
  * \author ST-Ericsson
  */
 /*****************************************************************************/
+#include <string.h>
 #include "NmfMpcDmaMsp.h"
 #include "NmfMpcInOut.h"
 #include "alsactrl_audiocodec.h"
