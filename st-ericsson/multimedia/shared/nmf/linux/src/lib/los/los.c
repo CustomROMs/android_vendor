@@ -376,6 +376,10 @@ EXPORT_SHARED void LOS_MutexLock(t_los_mutex_id mutex)
 	struct los_mutex_t *los_mutex = (struct los_mutex_t *)mutex;
 	t_los_process_id tid = LOS_GetCurrentId();
 
+	struct timespec abs_timeout;
+	abs_timeout.tv_sec = 3;
+	abs_timeout.tv_nsec = 0;
+
 	ALOGV("LOS_MutexLock: 0x%08x\n", mutex);
 
 	if (los_mutex->tid == tid) {
@@ -383,7 +387,7 @@ EXPORT_SHARED void LOS_MutexLock(t_los_mutex_id mutex)
 	}
 
 	// Use a timed lock to detect soft lockup - wait no more than 3s
-	while (pthread_mutex_lock_timeout_np(&los_mutex->mutex, 3000)) {
+	while (pthread_mutex_timedlock(&los_mutex->mutex, &abs_timeout)) {
 		ALOGE("LOS_MutexLock: tid=%d - failed to aquire lock within 3s - held by tid=%d\n",
 		     tid, los_mutex->tid);
 	}
