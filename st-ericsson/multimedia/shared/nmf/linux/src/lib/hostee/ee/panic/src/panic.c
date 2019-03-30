@@ -73,6 +73,7 @@ static void print_callstack_line(unsigned int addr)
 
 static _Unwind_Reason_Code trace_function(_Unwind_Context *context, void *arg)
 {
+   (char*)arg;
    _Unwind_Word ip = _Unwind_GetIP(context);
    if (ip) {
             print_callstack_line((unsigned int) ip);

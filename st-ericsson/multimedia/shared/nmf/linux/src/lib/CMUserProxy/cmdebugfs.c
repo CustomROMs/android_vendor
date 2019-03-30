@@ -186,7 +186,8 @@ int cm_has_debugfs(void)
  */
 static void write_metadata(t_nmf_service_data *data, struct tm *time, time_t timestamp, char* dir)
 {
-	char *dst       = (char*)malloc(strlen(dir) + 32);
+	int dst_len = strlen(dir) + 32;
+	char *dst       = (char*)malloc(dst_len);
 	char *buf       = (char*)malloc(BUFFER_LENGTH);
 	char *current   = buf;
 	FILE *meta;
@@ -199,16 +200,16 @@ static void write_metadata(t_nmf_service_data *data, struct tm *time, time_t tim
 		goto out1;
 	}
 
-	sprintf(dst, "%s/metadata.txt", dir);
+	snprintf(dst, dst_len, "%s/metadata.txt", dir);
 
-	current += sprintf(current, "Panic %s\n", (data->panic.info.mpc.coreid == SVA_CORE_ID ? "SVA" : "SIA"));
-	current += sprintf(current, "Time %d-%.2d-%.2d %.2d:%.2d:%.2d timestamp:%d\n", time->tm_year + 1900,
+	current += snprintf(current, BUFFER_LENGTH, "Panic %s\n", (data->panic.info.mpc.coreid == SVA_CORE_ID ? "SVA" : "SIA"));
+	current += snprintf(current, BUFFER_LENGTH, "Time %d-%.2d-%.2d %.2d:%.2d:%.2d timestamp:%d\n", time->tm_year + 1900,
 			time->tm_mon + 1, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec,
 			(int)timestamp);
-	current += sprintf(current, "TimeNormalized %d-%.2d-%.2d_%.2d-%.2d-%.2d_%d\n", time->tm_year + 1900,
+	current += snprintf(current, BUFFER_LENGTH, "TimeNormalized %d-%.2d-%.2d_%.2d-%.2d-%.2d_%d\n", time->tm_year + 1900,
 			time->tm_mon + 1, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec,
 			(int)timestamp);
-	current += sprintf(current, "Reason %lu\nFaultingComponent 0x%x\nInfo1 0x%x\nInfo2 0x%x\n",
+	current += snprintf(current, BUFFER_LENGTH, "Reason %lu\nFaultingComponent 0x%x\nInfo1 0x%x\nInfo2 0x%x\n",
 			(t_uint32)data->panic.panicReason, (unsigned int)data->panic.info.mpc.faultingComponent,
 			(unsigned int)data->panic.info.mpc.panicInfo1, (unsigned int)data->panic.info.mpc.panicInfo2);
 	//printf(buf);
@@ -241,15 +242,17 @@ out1:
  */
 void copy(char *from_file, char *to_file, char* base, char* prefix, char* dst)
 {
-	char *from = (char*)malloc(strlen(base) + strlen(prefix) + strlen(from_file) + 3); //+2 for 2x/ + \0
-	char *to = (char*)malloc(strlen(dst) + strlen(to_file) + 2);                       //+1 for 1x/ + \0
+	int from_len = strlen(base) + strlen(prefix) + strlen(from_file) + 3;
+	int to_len = strlen(dst) + strlen(to_file) + 2;
+	char *from = (char*)malloc(from_len); //+2 for 2x/ + \0
+	char *to = (char*)malloc(to_len);                       //+1 for 1x/ + \0
 	char buf[4096];
 	int in;
 	int out;
 	int n;
 
-	sprintf(from, "%s/%s/%s", base, prefix, from_file);
-	sprintf(to, "%s/%s", dst, to_file);
+	snprintf(from, from_len, "%s/%s/%s", base, prefix, from_file);
+	snprintf(to, to_len, "%s/%s", dst, to_file);
 
 	in = open(from, O_RDONLY);
 	out = open(to, O_WRONLY | O_CREAT);
@@ -308,7 +311,7 @@ void cm_debugfs_dump(t_nmf_service_data *data)
 	if (strcmp(base, "0"))
 		return;
 	property_get(NMF_DSP_DUMPDIR_PROPERTY_NAME, base, DEFAULT_DUMP_PATH);
-	sprintf(dest, "%s/%s%s_%d-%.2d-%.2d_%.2d-%.2d-%.2d_%d",base,PREFIX,
+	snprintf(dest, PATH_NAME_MAX, "%s/%s%s_%d-%.2d-%.2d_%.2d-%.2d-%.2d_%d",base,PREFIX,
 			(data->panic.info.mpc.coreid == SVA_CORE_ID ? "SVA" : "SIA"),
 			time->tm_year + 1900, time->tm_mon + 1, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec,
 			(int)timestamp);

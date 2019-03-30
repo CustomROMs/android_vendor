@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 /*
  * Copyright (C) ST-Ericsson SA 2010. All rights reserved.
  * This code is ST-Ericsson proprietary and confidential.

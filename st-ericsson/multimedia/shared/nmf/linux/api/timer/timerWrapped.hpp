@@ -10,6 +10,8 @@
  * This is a Nomadik Multiprocessing Framework generated file, please do not modify it.
  */
 
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 /* 'timerWrapped' header library */
 #if !defined(timerWrapped_NMF)
 #define timerWrapped_NMF

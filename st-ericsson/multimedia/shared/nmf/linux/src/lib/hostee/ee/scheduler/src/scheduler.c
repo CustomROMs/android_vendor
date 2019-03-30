@@ -141,7 +141,8 @@ void METH(destroy)()
 /* privates method */
 static t_bool notFoundInRunning(t_queue_link *pRes, void* Args) {
     t_sched_event *pEvent = (t_sched_event*) pRes;
-    
+    (char*)Args;
+
     if (eeMutexLockTry((hMutex) pEvent->mutexHandle))
         return 0;//lock try fail
     else

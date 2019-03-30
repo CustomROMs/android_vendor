@@ -74,6 +74,7 @@ static t_bool findComponent(t_queue_link *pRes, void* pMatchingFunctionArgs)
 
 static t_bool travelComponent(t_queue_link *pRes, void* pMatchingFunctionArgs)
 {
+    (void*)pMatchingFunctionArgs;
     ((t_componentElement*)pRes)->dumper(((t_componentElement*)pRes)->Composite);
 
     return 0;

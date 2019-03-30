@@ -56,6 +56,8 @@ void METH(EE_GetVersion)(t_uint32 *version) {
 
 t_nmf_error METH(EE_SetMode)(t_ee_cmd_id aCmdID, t_sint32 aParam)
 {
+    (int)aParam;
+
     switch(aCmdID)
     {
     case EE_CMD_TRACE_ON:
