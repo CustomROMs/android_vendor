@@ -116,19 +116,6 @@ ste_adm_format_t StreamADMBase::get_adm_format(void) const
             return STE_ADM_FORMAT_INVALID;
         }
 
-        case AudioSystem::AC3:     return STE_ADM_FORMAT_AC3;
-        case AudioSystem::MPEG1:   return STE_ADM_FORMAT_MPEG1;
-        case AudioSystem::MPEG2:   return STE_ADM_FORMAT_MPEG2;
-        case AudioSystem::DTS:     return STE_ADM_FORMAT_DTS;
-        case AudioSystem::ATRAC:   return STE_ADM_FORMAT_ATRAC;
-
-        case AudioSystem::OBA:     return STE_ADM_FORMAT_OBA;
-        case AudioSystem::DDPLUS:  return STE_ADM_FORMAT_DDPLUS;
-        case AudioSystem::DTS_HD:  return STE_ADM_FORMAT_DTS_HD;
-        case AudioSystem::MAT:     return STE_ADM_FORMAT_MAT;
-        case AudioSystem::DST:     return STE_ADM_FORMAT_DST;
-
-        case AudioSystem::WMA_PRO: return STE_ADM_FORMAT_WMA_PRO;
         default:                   return STE_ADM_FORMAT_INVALID;
    }
 }
@@ -223,7 +210,7 @@ status_t StreamADMBase::openDevices()
             AudioParameter apParam = AudioParameter(keyValuePairs);
             int ptr = 0;
             if (apParam.getInt(String8(PARAM_KEY_AP_REF), ptr) == NO_ERROR) {
-                ((AudioPolicyManagerANM*)ptr)->checkCallStatus();
+                //((AudioPolicyManagerANM*)ptr)->checkCallStatus();
             }
 
             pthread_mutex_lock(&mMutex);

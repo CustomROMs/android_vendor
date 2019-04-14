@@ -582,7 +582,7 @@ ssize_t AudioStreamOutANM::write(const void *buffer, size_t bytes)
                 AudioParameter apParam = AudioParameter(keyValuePairs);
                 int ptr = 0;
                 if (apParam.getInt(String8(PARAM_KEY_AP_REF), ptr) == NO_ERROR) {
-                    ((AudioPolicyManagerANM*)ptr)->checkCallStatus();
+                    //((AudioPolicyManagerANM*)ptr)->checkCallStatus();
                 }
 
                 pthread_mutex_lock(&mMutex);
@@ -964,7 +964,7 @@ void AudioStreamOutANM::notifySinkLatency(audio_io_handle_t output)
     pthread_attr_setdetachstate(&tattr, PTHREAD_CREATE_DETACHED);
     AudioParameter *latencyParam = new AudioParameter();
     latencyParam->addInt(String8("output"), output);
-    latencyParam->addInt(String8(AudioParameter::keySinkLatency), sinkLatency);
+    //latencyParam->addInt(String8(AudioParameter::keySinkLatency), sinkLatency);
     if (pthread_create(&thread, &tattr, report_latency_thread, latencyParam)) {
         ALOG_ERR("pthread_create() failed, no latency will be reported\n");
     }
@@ -1015,9 +1015,9 @@ void AudioStreamOutANM::refreshDeviceList(List <const char*>&v, uint32_t routes)
         v.push_back(STE_ADM_DEVICE_STRING_A2DP);
     }
 
-    if (routes & AudioSystem::DEVICE_OUT_FM_RADIO_TX) {
+    /*if (routes & AudioSystem::DEVICE_OUT_FM_RADIO_TX) {
         v.push_back(STE_ADM_DEVICE_STRING_FMTX);
-    }
+    }*/
 
     if (routes & AudioSystem::DEVICE_OUT_AUX_DIGITAL) {
         v.push_back(STE_ADM_DEVICE_STRING_HDMI);

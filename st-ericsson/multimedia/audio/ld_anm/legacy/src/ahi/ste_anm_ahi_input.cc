@@ -366,7 +366,7 @@ ssize_t AudioStreamInANM::read(void* buffer, ssize_t bytes)
             AudioParameter apParam = AudioParameter(keyValuePairs);
             int ptr = 0;
             if (apParam.getInt(String8(PARAM_KEY_AP_REF), ptr) == NO_ERROR) {
-                ((AudioPolicyManagerANM*)ptr)->checkCallStatus();
+                //((AudioPolicyManagerANM*)ptr)->checkCallStatus();
             }
 
             /* re-open all new devices */
@@ -533,9 +533,9 @@ void AudioStreamInANM::refreshDeviceList(List <const char*>&v, uint32_t routes)
         }
     }
 
-    if (routes & AudioSystem::DEVICE_IN_FM_RADIO_RX) {
+    /*if (routes & AudioSystem::DEVICE_IN_FM_RADIO_RX) {
         v.push_back(STE_ADM_DEVICE_STRING_FMRX);
-    }
+    }*/
 
     if (routes & AudioSystem::DEVICE_IN_DEFAULT) {
         v.push_back(STE_ADM_DEVICE_STRING_VOIPIN);

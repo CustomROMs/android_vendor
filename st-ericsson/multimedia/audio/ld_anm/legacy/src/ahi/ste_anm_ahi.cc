@@ -432,3 +432,31 @@ size_t AudioHardwareANM::getInputBufferSize(
         "returned buffer size = %d", sampleRate, format, channelCount, size);
     return size;
 }
+
+
+AudioStreamOut* AudioHardwareANM::openOutputStreamWithFlags(
+            uint32_t devices,
+            audio_output_flags_t flags __unused,
+            int *format,
+            uint32_t *channels,
+            uint32_t *sampleRate,
+            status_t *status) {
+	return AudioHardwareANM::openOutputStream(devices, format, channels, sampleRate, status);
+}
+
+status_t AudioHardwareANM::setMasterMute(bool) {
+	return 0;
+}
+int AudioHardwareANM::createAudioPatch(unsigned int, audio_port_config const*, unsigned int, audio_port_config const*, int*) {
+	return 0;
+}
+int AudioHardwareANM::releaseAudioPatch(int) {
+	return 0;
+}
+int AudioHardwareANM::getAudioPort(audio_port*) {
+	return 0;
+}
+int AudioHardwareANM::setAudioPortConfig(audio_port_config const*) {
+	return 0;
+}
+

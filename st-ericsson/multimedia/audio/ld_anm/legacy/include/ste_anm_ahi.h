@@ -262,6 +262,18 @@ namespace android_audio_legacy {
              * @param dspFrames Number of frames
              */
             status_t getRenderPosition(uint32_t *dspFrames);
+
+           /**
+            * get the local time at which the next write to the audio driver will be
+            * presented
+            */
+            status_t    getNextWriteTimestamp(int64_t *timestamp);
+
+            /**
+             * Return a recent count of the number of audio frames presented to an external observer.
+             */
+            status_t    getPresentationPosition(uint64_t *frames, struct timespec *timestamp);
+
             /*******************************************************************
             *
             * End of inherited methods from AudioStreamOut.
@@ -575,6 +587,13 @@ namespace android_audio_legacy {
                 uint32_t *sampleRate,
                 status_t *status);
 
+            AudioStreamOut* openOutputStreamWithFlags(
+                                uint32_t devices,
+                                audio_output_flags_t flags,
+                                int *format,
+                                uint32_t *channels,
+                                uint32_t *sampleRate,
+                                status_t *status);
             /**
             * Closes the given output stream
             */
@@ -607,6 +626,19 @@ namespace android_audio_legacy {
                 AudioSystem::audio_in_acoustics acoustics);
 
             void closeInputStream(AudioStreamIn *in);
+            status_t setMasterMute(bool muted);
+
+            int createAudioPatch(unsigned int num_sources,
+                               const struct audio_port_config *sources,
+                               unsigned int num_sinks,
+                               const struct audio_port_config *sinks,
+                               audio_patch_handle_t *handle);
+
+            int releaseAudioPatch(audio_patch_handle_t handle);
+
+            int getAudioPort(struct audio_port *port);
+
+            int setAudioPortConfig(const struct audio_port_config *config);
 
         protected:
             /**

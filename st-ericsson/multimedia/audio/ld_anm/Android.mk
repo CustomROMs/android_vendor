@@ -199,7 +199,7 @@ SRC_FOLDER_AP := legacy/src/policy
 
 #Source filed for Audio Policy Manager
 SRC_FILES_AP := \
-	$(SRC_FOLDER_AP)/ste_anm_ap.cc \
+#	$(SRC_FOLDER_AP)/ste_anm_ap.cc \
     $(SRC_FOLDER_DBG)/ste_anm_dbg.cc
 
 

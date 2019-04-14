@@ -77,7 +77,7 @@ uint32_t defaultOutputDevices = AudioSystem::DEVICE_OUT_DEFAULT  |
 
 uint32_t defaultInputDevices  = AudioSystem::DEVICE_IN_DEFAULT       |
                                 AudioSystem::DEVICE_IN_BUILTIN_MIC   |
-                                AudioSystem::DEVICE_IN_FM_RADIO_RX   |
+                                //AudioSystem::DEVICE_IN_FM_RADIO_RX   |
                                 AudioSystem::DEVICE_IN_VOICE_CALL    ;
 
 /* ---------------------------------------------------------------------------
@@ -87,7 +87,7 @@ uint32_t mediaDevices[DEVLIST_MAX_NO_DEVICES] = {
     AudioSystem::DEVICE_OUT_AUX_DIGITAL,
     AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP,
     AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES,
-    AudioSystem::DEVICE_OUT_FM_RADIO_TX,
+    //AudioSystem::DEVICE_OUT_FM_RADIO_TX,
     AudioSystem::DEVICE_OUT_WIRED_HEADPHONE,
     AudioSystem::DEVICE_OUT_WIRED_HEADSET,
     AudioSystem::DEVICE_OUT_ANLG_DOCK_HEADSET,
@@ -98,7 +98,7 @@ uint32_t mediaDevices[DEVLIST_MAX_NO_DEVICES] = {
 
 uint32_t mediaInCallDevices[DEVLIST_MAX_NO_DEVICES] = {
     AudioSystem::DEVICE_OUT_AUX_DIGITAL,
-    AudioSystem::DEVICE_OUT_FM_RADIO_TX,
+    //AudioSystem::DEVICE_OUT_FM_RADIO_TX,
     AudioSystem::DEVICE_OUT_WIRED_HEADPHONE,
     AudioSystem::DEVICE_OUT_WIRED_HEADSET,
     AudioSystem::DEVICE_OUT_EARPIECE,
@@ -171,10 +171,11 @@ uint32_t micMonoInputDevices[DEVLIST_MAX_NO_DEVICES] = {
     0
 };
 
+/*
 uint32_t fmInputDevices[DEVLIST_MAX_NO_DEVICES] = {
     AudioSystem::DEVICE_IN_FM_RADIO_RX,
     0
-};
+};*/
 
 /* ---------------------------------------------------------------------------
  * Strategy priority is used to select the preferred device
@@ -432,7 +433,7 @@ static const char* device2str(AudioSystem::audio_devices dev)
     case AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES: return "DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES";
     case AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER:    return "DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER";
     case AudioSystem::DEVICE_OUT_AUX_DIGITAL:       return "DEVICE_OUT_AUX_DIGITAL";
-    case AudioSystem::DEVICE_OUT_FM_RADIO_TX:       return "DEVICE_OUT_FM_RADIO_TX";
+    //case AudioSystem::DEVICE_OUT_FM_RADIO_TX:       return "DEVICE_OUT_FM_RADIO_TX";
     case AudioSystem::DEVICE_OUT_DEFAULT:           return "DEVICE_OUT_DEFAULT";
     case AudioSystem::DEVICE_OUT_ALL:               return "DEVICE_OUT_ALL";
     case AudioSystem::DEVICE_OUT_ALL_A2DP:          return "DEVICE_OUT_ALL_A2DP";
@@ -445,7 +446,7 @@ static const char* device2str(AudioSystem::audio_devices dev)
     case AudioSystem::DEVICE_IN_AUX_DIGITAL:        return "DEVICE_IN_AUX_DIGITAL";
     case AudioSystem::DEVICE_IN_VOICE_CALL:         return "DEVICE_IN_VOICE_CALL";
     case AudioSystem::DEVICE_IN_BACK_MIC:           return "DEVICE_IN_BACK_MIC";
-    case AudioSystem::DEVICE_IN_FM_RADIO_RX:        return "DEVICE_IN_FM_RADIO_RX";
+    //case AudioSystem::DEVICE_IN_FM_RADIO_RX:        return "DEVICE_IN_FM_RADIO_RX";
     case AudioSystem::DEVICE_IN_DEFAULT:            return "DEVICE_IN_DEFAULT";
     case AudioSystem::DEVICE_IN_ALL:                return "DEVICE_IN_ALL";
     default:                                        return "";
@@ -488,7 +489,7 @@ static const char* stream2str(AudioSystem::stream_type stream)
     case AudioSystem::ENFORCED_AUDIBLE:         return "ENFORCED_AUDIBLE";
     case AudioSystem::DTMF:                     return "DTMF";
     case AudioSystem::TTS:                      return "TTS";
-    case AudioSystem::SPEECH_PROC:              return "SPEECH_PROC";
+    //case AudioSystem::SPEECH_PROC:              return "SPEECH_PROC";
 #ifdef STE_VIDEO_CALL
     case AudioSystem::VIDEO_CALL:               return "VIDEO_CALL";
 #endif
@@ -544,8 +545,8 @@ static const char* source2str(int source)
     case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:     return "AUDIO_SOURCE_VOICE_CALL_NO_RECORD";
     case AUDIO_SOURCE_CAMCORDER:                return "AUDIO_SOURCE_CAMCORDER";
     case AUDIO_SOURCE_VOICE_RECOGNITION:        return "AUDIO_SOURCE_VOICE_RECOGNITION";
-    case AUDIO_SOURCE_FM_RADIO_RX:              return "AUDIO_SOURCE_FM_RADIO_RX";
-    case AUDIO_SOURCE_SPEECH_PROC:              return "AUDIO_SOURCE_SPEECH_PROC";
+    //case AUDIO_SOURCE_FM_RADIO_RX:              return "AUDIO_SOURCE_FM_RADIO_RX";
+    //case AUDIO_SOURCE_SPEECH_PROC:              return "AUDIO_SOURCE_SPEECH_PROC";
 #ifdef STE_VIDEO_CALL
     case AUDIO_SOURCE_VIDEO_CALL:               return "AUDIO_SOURCE_VIDEO_CALL";
 #endif
@@ -582,7 +583,7 @@ uint32_t AudioPolicyManagerANM::getTopLevelDeviceIndex(uint32_t device)
     case AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP:            return DEV_OUT_INDEX_A2DP;
     case AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP_SPEAKER:    return DEV_OUT_INDEX_A2DP;
     case AudioSystem::DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES: return DEV_OUT_INDEX_A2DP;
-    case AudioSystem::DEVICE_OUT_FM_RADIO_TX:               return DEV_OUT_INDEX_FMTX;
+    //case AudioSystem::DEVICE_OUT_FM_RADIO_TX:               return DEV_OUT_INDEX_FMTX;
     case AudioSystem::DEVICE_OUT_AUX_DIGITAL:               return DEV_OUT_INDEX_HDMI;
     case AudioSystem::DEVICE_OUT_ANLG_DOCK_HEADSET:         return DEV_OUT_INDEX_USB;
     case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO:
@@ -602,7 +603,7 @@ uint32_t AudioPolicyManagerANM::getTopLevelDeviceIndex(uint32_t device)
     /* Input devices */
     case AudioSystem::DEVICE_IN_BUILTIN_MIC:    return DEV_IN_INDEX_MIC;
     case AudioSystem::DEVICE_IN_WIRED_HEADSET:  return DEV_IN_INDEX_HEADSET;
-    case AudioSystem::DEVICE_IN_FM_RADIO_RX:    return DEV_IN_INDEX_FMRX;
+    //case AudioSystem::DEVICE_IN_FM_RADIO_RX:    return DEV_IN_INDEX_FMRX;
     case AudioSystem::DEVICE_IN_VOICE_CALL:     return DEV_IN_INDEX_VOICE_CALL;
     case AudioSystem::DEVICE_IN_BLUETOOTH_SCO_HEADSET:
         if (isBtWbSupported()) {
@@ -694,13 +695,13 @@ void AudioPolicyManagerANM::getActualInputDevice(uint32_t device, int source, co
     case AUDIO_SOURCE_VOICE_UPLINK:
     case AUDIO_SOURCE_VOICE_DOWNLINK:
     case AUDIO_SOURCE_VOICE_CALL:
-    case AUDIO_SOURCE_SPEECH_PROC:
+    //case AUDIO_SOURCE_SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
     case AUDIO_SOURCE_VIDEO_CALL:
 #endif
     case AUDIO_SOURCE_VOICE_COMMUNICATION:
     case AUDIO_SOURCE_VOICE_RECOGNITION:
-    case AUDIO_SOURCE_FM_RADIO_RX:
+    //case AUDIO_SOURCE_FM_RADIO_RX:
         *actual = actualDefaultInputDevices[index];
         break;
     case AUDIO_SOURCE_CAMCORDER:
@@ -1706,7 +1707,7 @@ uint32_t AudioPolicyManagerANM::getPreferredInputDevice(
         case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
         case AUDIO_SOURCE_CAMCORDER:
         case AUDIO_SOURCE_VOICE_RECOGNITION:
-        case AUDIO_SOURCE_SPEECH_PROC:
+        //case AUDIO_SOURCE_SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
         case AUDIO_SOURCE_VIDEO_CALL:
 #endif
@@ -1718,9 +1719,9 @@ uint32_t AudioPolicyManagerANM::getPreferredInputDevice(
         case AUDIO_SOURCE_VOICE_DOWNLINK:
             deviceList = phoneInCallRecordDevices;
             break;
-        case AUDIO_SOURCE_FM_RADIO_RX:
+        /*case AUDIO_SOURCE_FM_RADIO_RX:
             deviceList = fmInputDevices;
-            break;
+            break;*/
         default:
             ALOG_ERR("getPreferredInputDevice(): No preferred device list, input source = %d", source);
             deviceList = NULL;
@@ -1734,7 +1735,7 @@ uint32_t AudioPolicyManagerANM::getPreferredInputDevice(
 
         switch (source) {
         case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
-        case AUDIO_SOURCE_SPEECH_PROC:
+        //case AUDIO_SOURCE_SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
         case AUDIO_SOURCE_VIDEO_CALL:
 #endif
@@ -1758,9 +1759,9 @@ uint32_t AudioPolicyManagerANM::getPreferredInputDevice(
                 deviceList = micMonoInputDevices;
             }
             break;
-        case AUDIO_SOURCE_FM_RADIO_RX:
+        /*case AUDIO_SOURCE_FM_RADIO_RX:
             deviceList = fmInputDevices;
-            break;
+            break;*/
         default:
             ALOG_ERR("getPreferredInputDevice(): No preferred device list, input source = %d", source);
             deviceList = NULL;
@@ -1812,7 +1813,7 @@ uint32_t AudioPolicyManagerANM::getForcedInputDevice(int source)
     case AUDIO_SOURCE_MIC:
     case AUDIO_SOURCE_VOICE_RECOGNITION:
     case AUDIO_SOURCE_CAMCORDER:
-    case AUDIO_SOURCE_SPEECH_PROC:
+    //case AUDIO_SOURCE_SPEECH_PROC:
 
 #ifdef STE_VIDEO_CALL
     case AUDIO_SOURCE_VIDEO_CALL:
@@ -1878,7 +1879,7 @@ uint32_t AudioPolicyManagerANM::getForcedInputDevice(int source)
         case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
         case AUDIO_SOURCE_VOICE_UPLINK:
         case AUDIO_SOURCE_VOICE_DOWNLINK:
-        case AUDIO_SOURCE_SPEECH_PROC:
+        //case AUDIO_SOURCE_SPEECH_PROC:
         case AUDIO_SOURCE_VOICE_CALL:
 
 #ifdef STE_VIDEO_CALL
@@ -2478,7 +2479,9 @@ bool AudioPolicyManagerANM::isVoIPOutput(AudioOutputDescriptor *descr, AudioSyst
                 }
             }
             return true;
-        } else {
+        }
+#if 0
+ else {
             /* VoIP type VOICE_CALL */
             descr->mVoIPType = VOIP_VOICE_CALL;
             /* Check for opened input */
@@ -2496,6 +2499,7 @@ bool AudioPolicyManagerANM::isVoIPOutput(AudioOutputDescriptor *descr, AudioSyst
 
             return true;
         }
+#endif
     default:
         return false;
     }
@@ -2549,7 +2553,9 @@ bool AudioPolicyManagerANM::isVoIPInput(AudioInputDescriptor *descr,
             }
         }
         return true;
-    } else if (descr->mInputSource == AUDIO_SOURCE_SPEECH_PROC
+    }
+#if 0
+ else if (descr->mInputSource == AUDIO_SOURCE_SPEECH_PROC
 #ifdef STE_VIDEO_CALL
         || descr->mInputSource == AUDIO_SOURCE_VIDEO_CALL
 #endif
@@ -2572,7 +2578,9 @@ bool AudioPolicyManagerANM::isVoIPInput(AudioInputDescriptor *descr,
             }
         }
         return true;
-    } else {
+    }
+#endif
+ else {
         /* Check VoIP type VOICE_CALL */
         for (size_t i = 0; i < mOutputs.size(); i++) {
             audio_io_handle_t output = mOutputs.keyAt(i);
@@ -3001,6 +3009,7 @@ void AudioPolicyManagerANM::setSystemProperty(const char* property,
 bool AudioPolicyManagerANM::isSupportedCodedFormat(uint32_t format)
 {
     switch (format) {
+/*
         case AudioSystem::AC3:     return true;
         case AudioSystem::MPEG1:   return true;
         case AudioSystem::MPEG2:   return true;
@@ -3014,6 +3023,7 @@ bool AudioPolicyManagerANM::isSupportedCodedFormat(uint32_t format)
         case AudioSystem::DST:     return true;
 
         case AudioSystem::WMA_PRO: return true;
+*/
         default:                   return false;
     }
 }
@@ -4338,7 +4348,7 @@ AudioPolicyManagerANM::routing_strategy AudioPolicyManagerANM::getStrategy(
     switch (stream) {
 
     case AudioSystem::VOICE_CALL:
-    case AudioSystem::SPEECH_PROC:
+    //case AudioSystem::SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
     case AudioSystem::VIDEO_CALL:
 #endif

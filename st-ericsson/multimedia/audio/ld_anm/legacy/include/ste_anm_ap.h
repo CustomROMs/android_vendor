@@ -86,10 +86,12 @@ public:
     virtual void releaseOutput(audio_io_handle_t output);
 
     /* Get input for specified input source */
-    virtual audio_io_handle_t getInput(
-        int inputSource, uint32_t samplingRate, uint32_t format,
-        uint32_t channels, AudioSystem::audio_in_acoustics acoustics,
-        audio_input_clients *inputClient);
+    virtual audio_io_handle_t getInput(int inputSource,
+                                    uint32_t samplingRate,
+                                    uint32_t format,
+                                    uint32_t channelMask,
+                                    AudioSystem::audio_in_acoustics acoustics);
+
     /* startInput indicates that the specified input is in use */
     virtual status_t startInput(audio_io_handle_t input);
     /* stopInput indicates that the specified input is not in use anymore */
