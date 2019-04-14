@@ -79,7 +79,7 @@ EXTERNAL_INCLUDES_ANM := \
 #
 ########################################################################################################
 
-ifeq ($(strip $(BOARD_USES_LD_ANM)),true)
+#ifeq ($(strip $(BOARD_USES_LD_ANM)),true)
 
 # Generate the audio_policy.PLATFORM shared library used by Audio HAL
 include $(CLEAR_VARS)
@@ -151,7 +151,7 @@ LOCAL_STATIC_LIBRARIES += \
 #Build shared lib for host using the above variables
 #include $(BUILD_SHARED_LIBRARY)
 
-endif #if BOARD_USES_LD_ANM = TRUE
+#endif #if BOARD_USES_LD_ANM = TRUE
 
 
 
@@ -236,7 +236,7 @@ EXTERNAL_INCLUDES_ANM := \
 #
 ########################################################################################################
 
-ifeq ($(strip $(BOARD_USES_LD_ANM)),true)
+#ifeq ($(strip $(BOARD_USES_LD_ANM)),true)
 
 #
 # Build audio_policy.PLATFORM for Audio Policy Manager
@@ -277,7 +277,7 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/legacy/include \
 	$(EXTERNAL_INCLUDES_ANM)
 
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 
 # Generate the audio_policy.PLATFORM shared library used by Audio HAL
 include $(CLEAR_VARS)
@@ -353,7 +353,7 @@ LOCAL_WHOLE_STATIC_LIBRARIES := \
 	libaudiohw_legacy
 
 #Build an executable for host using the above variables
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 
-endif #if BOARD_USES_LD_ANM = TRUE
+#endif #if BOARD_USES_LD_ANM = TRUE
 endif #BOARD_USES_C_AUDIO_HAL
