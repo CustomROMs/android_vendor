@@ -4230,7 +4230,7 @@ extern "C" void destroyAudioPolicyManager(AudioPolicyInterface *interface)
 AudioPolicyManagerANM::AudioPolicyManagerANM(
     AudioPolicyClientInterface *clientInterface) :
         mRingerMode(0), mCSCallActive(false), mVoIPActive(false), mForceUseOngoing(false),
-        mTotalEffectsCpuLoad(0), mTotalEffectsMemory(0), mModemType(ADM_UNKNOWN_MODEM_TYPE)
+        mTotalEffectsCpuLoad(0), mTotalEffectsMemory(0), mModemType(ADM_SLIM_MODEM)
 #ifdef STD_A2DP_MNGT
       , mA2dpSuspended(false)
 #endif
@@ -4312,9 +4312,9 @@ AudioPolicyManagerANM::AudioPolicyManagerANM(
     /* Subscribe to ADM Modem Status */
     subscribeModemStatus();
 
-    if (ste_adm_client_get_modem_type(&mModemType) != STE_ADM_RES_OK) {
+    /*if (ste_adm_client_get_modem_type(&mModemType) != STE_ADM_RES_OK) {
         ALOG_ERR("AudioPolicyManagerANM::AudioPolicyManagerANM(): Impossible to get modem type!\n");
-    }
+    }*/
 }
 
 AudioPolicyManagerANM::~AudioPolicyManagerANM()

@@ -65,11 +65,11 @@ AudioHardwareInterface* createAudioHardware(void)
 /* Constructor */
 AudioHardwareANM::AudioHardwareANM() :
     mDLHandle(NULL), mMuted(false), mMuteAppVol(0),
-    mBtWb(false), mBtNrEc(false), mAudioPolicyManager(0), mModemType(ADM_UNKNOWN_MODEM_TYPE)
+    mBtWb(false), mBtNrEc(false), mAudioPolicyManager(0), mModemType(ADM_SLIM_MODEM)
 {
-    if (ste_adm_client_get_modem_type(&mModemType) != STE_ADM_RES_OK) {
+    /*if (ste_adm_client_get_modem_type(&mModemType) != STE_ADM_RES_OK) {
         ALOG_ERR("AudioHardwareANM::AudioHardwareANM(): Impossible to get modem type!\n");
-    }
+    }*/
 }
 
 /* Destructor */
