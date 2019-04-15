@@ -489,7 +489,7 @@ static const char* stream2str(AudioSystem::stream_type stream)
     case AudioSystem::ENFORCED_AUDIBLE:         return "ENFORCED_AUDIBLE";
     case AudioSystem::DTMF:                     return "DTMF";
     case AudioSystem::TTS:                      return "TTS";
-    case AudioSystem::SPEECH_PROC:              return "SPEECH_PROC";
+    //case AudioSystem::SPEECH_PROC:              return "SPEECH_PROC";
 #ifdef STE_VIDEO_CALL
     case AudioSystem::VIDEO_CALL:               return "VIDEO_CALL";
 #endif
@@ -546,7 +546,7 @@ static const char* source2str(int source)
     case AUDIO_SOURCE_CAMCORDER:                return "AUDIO_SOURCE_CAMCORDER";
     case AUDIO_SOURCE_VOICE_RECOGNITION:        return "AUDIO_SOURCE_VOICE_RECOGNITION";
     //case AUDIO_SOURCE_FM_RADIO_RX:              return "AUDIO_SOURCE_FM_RADIO_RX";
-    case AUDIO_SOURCE_SPEECH_PROC:              return "AUDIO_SOURCE_SPEECH_PROC";
+    //case AUDIO_SOURCE_SPEECH_PROC:              return "AUDIO_SOURCE_SPEECH_PROC";
 #ifdef STE_VIDEO_CALL
     case AUDIO_SOURCE_VIDEO_CALL:               return "AUDIO_SOURCE_VIDEO_CALL";
 #endif
@@ -695,7 +695,7 @@ void AudioPolicyManagerANM::getActualInputDevice(uint32_t device, int source, co
     case AUDIO_SOURCE_VOICE_UPLINK:
     case AUDIO_SOURCE_VOICE_DOWNLINK:
     case AUDIO_SOURCE_VOICE_CALL:
-    case AUDIO_SOURCE_SPEECH_PROC:
+    //case AUDIO_SOURCE_SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
     case AUDIO_SOURCE_VIDEO_CALL:
 #endif
@@ -709,7 +709,7 @@ void AudioPolicyManagerANM::getActualInputDevice(uint32_t device, int source, co
         break;
     case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
         if (device == AudioSystem::DEVICE_IN_BUILTIN_MIC) {
-            uint32_t vcOutDev = getOutputDeviceForStrategy(0, STRATEGY_PHONE, AudioSystem::PCM_16_BIT);
+            uint32_t vcOutDev = getOutputDeviceForStrategy(NULL, STRATEGY_PHONE, AudioSystem::PCM_16_BIT);
             switch (vcOutDev) {
             case AudioSystem::DEVICE_OUT_EARPIECE:
                 if(!mVoIPActive)
@@ -1367,7 +1367,7 @@ void AudioPolicyManagerANM::updateDeviceForStrategy()
     ALOG_INFO("updateDeviceForStrategy()");
     for (int i = 0; i < NUM_STRATEGIES; i++) {
         /*if (i != AudioPolicyManagerANM::STRATEGY_SPEECH_PROC)*/
-        mDeviceForStrategy[i] = getOutputDeviceForStrategy(0, (routing_strategy)i,
+        mDeviceForStrategy[i] = getOutputDeviceForStrategy(NULL, (routing_strategy)i,
                                                         AudioSystem::PCM_16_BIT, false);
     }
 }
@@ -1389,7 +1389,7 @@ status_t AudioPolicyManagerANM::handleA2dpConnection(AudioSystem::audio_devices 
                                             &outputDesc->mFormat,
                                             &outputDesc->mChannels,
                                             &outputDesc->mLatency,
-                                            outputDesc->mFlags, NULL);
+                                            outputDesc->mFlags);
     if (mA2dpOutput) {
         // add A2DP output descriptor
         ALOG_INFO("handleA2dpConnection() mA2dpOutput = %d, mStrategyRefCount = %d",
@@ -1511,8 +1511,8 @@ void AudioPolicyManagerANM::closeA2dpOutputs()
 
 void AudioPolicyManagerANM::checkOutputForStrategy(routing_strategy strategy)
 {
-    uint32_t prevDevice = getOutputDeviceForStrategy(0, strategy, AudioSystem::PCM_16_BIT, true);
-    uint32_t curDevice = getOutputDeviceForStrategy(0, strategy, AudioSystem::PCM_16_BIT);
+    uint32_t prevDevice = getOutputDeviceForStrategy(NULL, strategy, AudioSystem::PCM_16_BIT, true);
+    uint32_t curDevice = getOutputDeviceForStrategy(NULL, strategy, AudioSystem::PCM_16_BIT);
     bool a2dpWasUsed = AudioSystem::isA2dpDevice((AudioSystem::audio_devices)(prevDevice & ~AudioSystem::DEVICE_OUT_SPEAKER));
     bool a2dpIsUsed = AudioSystem::isA2dpDevice((AudioSystem::audio_devices)(curDevice & ~AudioSystem::DEVICE_OUT_SPEAKER));
     audio_io_handle_t srcOutput = 0;
@@ -1707,7 +1707,7 @@ uint32_t AudioPolicyManagerANM::getPreferredInputDevice(
         case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
         case AUDIO_SOURCE_CAMCORDER:
         case AUDIO_SOURCE_VOICE_RECOGNITION:
-        case AUDIO_SOURCE_SPEECH_PROC:
+        //case AUDIO_SOURCE_SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
         case AUDIO_SOURCE_VIDEO_CALL:
 #endif
@@ -1735,7 +1735,7 @@ uint32_t AudioPolicyManagerANM::getPreferredInputDevice(
 
         switch (source) {
         case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
-        case AUDIO_SOURCE_SPEECH_PROC:
+        //case AUDIO_SOURCE_SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
         case AUDIO_SOURCE_VIDEO_CALL:
 #endif
@@ -1813,7 +1813,7 @@ uint32_t AudioPolicyManagerANM::getForcedInputDevice(int source)
     case AUDIO_SOURCE_MIC:
     case AUDIO_SOURCE_VOICE_RECOGNITION:
     case AUDIO_SOURCE_CAMCORDER:
-    case AUDIO_SOURCE_SPEECH_PROC:
+    //case AUDIO_SOURCE_SPEECH_PROC:
 
 #ifdef STE_VIDEO_CALL
     case AUDIO_SOURCE_VIDEO_CALL:
@@ -1879,7 +1879,7 @@ uint32_t AudioPolicyManagerANM::getForcedInputDevice(int source)
         case AUDIO_SOURCE_VOICE_CALL_NO_RECORD:
         case AUDIO_SOURCE_VOICE_UPLINK:
         case AUDIO_SOURCE_VOICE_DOWNLINK:
-        case AUDIO_SOURCE_SPEECH_PROC:
+        //case AUDIO_SOURCE_SPEECH_PROC:
         case AUDIO_SOURCE_VOICE_CALL:
 
 #ifdef STE_VIDEO_CALL
@@ -2064,7 +2064,7 @@ void AudioPolicyManagerANM::checkHwResources(uint32_t *device)
 
     /* Check if earpiece is used in cscall */
     if (!earpieceInUse && (mPhoneState == AudioSystem::MODE_IN_CALL || mVoIPActive)) {
-        if (getOutputDeviceForStrategy(0, STRATEGY_PHONE, AudioSystem::PCM_16_BIT) &
+        if (getOutputDeviceForStrategy(NULL, STRATEGY_PHONE, AudioSystem::PCM_16_BIT) &
                                        AudioSystem::DEVICE_OUT_EARPIECE) {
             earpieceInUse = true;
         }
@@ -2090,7 +2090,7 @@ void AudioPolicyManagerANM::checkHwResources(uint32_t *device)
 void AudioPolicyManagerANM::updateCSCallRouting()
 {
     uint32_t inputDevice  = getInputDeviceForSource(AUDIO_SOURCE_VOICE_CALL_NO_RECORD, 1);
-    uint32_t outputDevice = getOutputDeviceForStrategy(0, STRATEGY_PHONE,
+    uint32_t outputDevice = getOutputDeviceForStrategy(NULL, STRATEGY_PHONE,
                                AudioSystem::PCM_16_BIT);
     const char *inTopLevel = NULL;
     const char *inActual = NULL;
@@ -2553,7 +2553,9 @@ bool AudioPolicyManagerANM::isVoIPInput(AudioInputDescriptor *descr,
             }
         }
         return true;
-    } else if (descr->mInputSource == AUDIO_SOURCE_SPEECH_PROC
+    }
+#if 0
+ else if (descr->mInputSource == AUDIO_SOURCE_SPEECH_PROC
 #ifdef STE_VIDEO_CALL
         || descr->mInputSource == AUDIO_SOURCE_VIDEO_CALL
 #endif
@@ -2576,7 +2578,9 @@ bool AudioPolicyManagerANM::isVoIPInput(AudioInputDescriptor *descr,
             }
         }
         return true;
-    } else {
+    }
+#endif
+ else {
         /* Check VoIP type VOICE_CALL */
         for (size_t i = 0; i < mOutputs.size(); i++) {
             audio_io_handle_t output = mOutputs.keyAt(i);
@@ -2614,14 +2618,9 @@ bool AudioPolicyManagerANM::isVoIPSynced(int type)
 /* ---------------------------------------------------------------------------
  * AudioPolicyInterface implementation
  * ---------------------------------------------------------------------------*/
-/*
-    // indicate a change in device connection status
-    virtual status_t setDeviceConnectionState(audio_devices_t device,
-                                          AudioSystem::device_connection_state state,
-                                          const char *device_address) = 0;
-*/
+
 status_t AudioPolicyManagerANM::setDeviceConnectionState(
-    audio_devices_t              device,
+    AudioSystem::audio_devices              device,
     AudioSystem::device_connection_state    state,
     const char*                             device_address)
 {
@@ -2799,14 +2798,10 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
     return BAD_VALUE;
 }
 
-/*
-    // retrieve a device connection status
-    virtual AudioSystem::device_connection_state getDeviceConnectionState(audio_devices_t device,
-                                                                         const char *device_address) = 0;
-*/
+
 AudioSystem::device_connection_state
     AudioPolicyManagerANM::getDeviceConnectionState(
-        audio_devices_t device, const char *device_address)
+        AudioSystem::audio_devices device, const char *device_address)
 {
     AudioSystem::device_connection_state state =
         AudioSystem::DEVICE_STATE_UNAVAILABLE;
@@ -3044,7 +3039,7 @@ status_t AudioPolicyManagerANM::initCheck()
 audio_io_handle_t AudioPolicyManagerANM::getOutput(
     AudioSystem::stream_type stream,
     uint32_t samplingRate,
-    audio_format_t format,
+    uint32_t format,
     uint32_t channels,
     AudioSystem::output_flags flags)
 {
@@ -3073,7 +3068,7 @@ audio_io_handle_t AudioPolicyManagerANM::getOutput(
 
     /* Check input values */
     if (format == 0) {
-        format = static_cast<audio_format_t>(DEFAULT_PCM_FORMAT);
+        format = DEFAULT_PCM_FORMAT;
         ALOG_INFO_VERBOSE("getOutput(): Format is 0 - update to %x", format);
     }
     if (channels == 0) {
@@ -3105,7 +3100,7 @@ audio_io_handle_t AudioPolicyManagerANM::getOutput(
         }
     }
 
-    uint32_t device = getOutputDeviceForStrategy(0, strategy, format
+    uint32_t device = getOutputDeviceForStrategy(NULL, strategy, format
 #ifdef STD_A2DP_MNGT
         , true
 #endif
@@ -3126,29 +3121,9 @@ audio_io_handle_t AudioPolicyManagerANM::getOutput(
         descr->mStrategyRefCount=1;
         descr->mStrategy=strategy;
 
-/*
-virtual audio_io_handle_t openOutput(audio_module_handle_t module,
-                                         audio_devices_t *pDevices,
-                                         uint32_t *pSamplingRate,
-                                         audio_format_t *pFormat,
-                                         audio_channel_mask_t *pChannelMask,
-                                         uint32_t *pLatencyMs,
-                                         audio_output_flags_t flags,
-                                         const audio_offload_info_t *offloadInfo = NULL) = 0;
-        output = mpClientInterface->openOutput(profile->mModule->mHandle,
-                                        &outputDesc->mDevice,
-                                        &outputDesc->mSamplingRate,
-                                        &outputDesc->mFormat,
-                                        &outputDesc->mChannelMask,
-                                        &outputDesc->mLatency,
-                                        outputDesc->mFlags,
-                                        offloadInfo);
-
-*/
-
-        output = mpClientInterface->openOutput(0, &descr->mDevice,
-            &descr->mSamplingRate, reinterpret_cast<audio_format_t*>(&descr->mFormat), &descr->mChannels,
-            &descr->mLatency, static_cast<audio_output_flags_t>(descr->mFlags), NULL);
+        output = mpClientInterface->openOutput(&descr->mDevice,
+            &descr->mSamplingRate, &descr->mFormat, &descr->mChannels,
+            &descr->mLatency, descr->mFlags);
 
         if (output) {
             ALOG_INFO("getOutput() Opened new output %d for strategy %s, mStrategyRefCount = %d",
@@ -3624,18 +3599,13 @@ void AudioPolicyManagerANM::releaseOutput(audio_io_handle_t output)
 /* ---------------------------------------------------------------------------
  * Input handling
  * ---------------------------------------------------------------------------*/
-/*
-virtual audio_io_handle_t getInput(int inputSource,
-                                    uint32_t samplingRate,
-                                    audio_format_t format,
-                                    audio_channel_mask_t channelMask,
-                                    AudioSystem::audio_in_acoustics acoustics) = 0;
-*/
 audio_io_handle_t AudioPolicyManagerANM::getInput(
     int source,
     uint32_t samplingRate,
     uint32_t format,
-    uint32_t channels)
+    uint32_t channels,
+    AudioSystem::audio_in_acoustics acoustics,
+    audio_input_clients* inputClient)
 {
     audio_io_handle_t input = 0;
     uint32_t device;
@@ -3643,8 +3613,9 @@ audio_io_handle_t AudioPolicyManagerANM::getInput(
     (void) ste_anm_debug_setup_log();
 
     ALOG_INFO("ENTER getInput(): %s, samplerate=%d, format=%d, "
-        "channels=%x\n",
-        source2str(source), samplingRate, format, channels);
+        "channels=%x, acoustics=%x, inputClient=%p\n",
+        source2str(source), samplingRate, format, channels,
+        acoustics, inputClient);
 
     /* Check the format. Only supports PCM */
     if (format != 0 && !AudioSystem::isLinearPCM(format)) {
@@ -3686,8 +3657,10 @@ audio_io_handle_t AudioPolicyManagerANM::getInput(
     descr->mSamplingRate = samplingRate;
     descr->mFormat = format;
     descr->mChannels = channels;
+    descr->mAcoustics = acoustics;
     descr->mRefCount = 0;
     descr->mInputSource = source;
+    descr->mInputClient = (uint32_t*)inputClient;
 
     /* Set recording mode to ADM if necessary */
     if(source == AUDIO_SOURCE_VOICE_CALL || AUDIO_SOURCE_VOICE_UPLINK ||
@@ -3706,14 +3679,9 @@ audio_io_handle_t AudioPolicyManagerANM::getInput(
         ste_adm_client_set_cscall_dictaphone_mode(mode);
     }
 
-/*virtual audio_io_handle_t openInput(audio_module_handle_t module,
-                                        audio_devices_t *pDevices,
-                                        uint32_t *pSamplingRate,
-                                        audio_format_t *pFormat,
-                                        audio_channel_mask_t *pChannelMask) = 0;
-*/
-    input = mpClientInterface->openInput(0, &descr->mDevice, &descr->mSamplingRate, reinterpret_cast<audio_format_t*>(&descr->mFormat),
-        &descr->mChannels);
+    input = mpClientInterface->openInput(
+        &descr->mDevice, &descr->mSamplingRate, &descr->mFormat,
+        &descr->mChannels, descr->mAcoustics, descr->mInputClient);
 
     if (input) {
         ALOG_INFO("getInput(): Opened new input %d for %s",
@@ -3934,7 +3902,7 @@ void AudioPolicyManagerANM::releaseInput(audio_io_handle_t input)
     } else {
         AudioInputDescriptor *descr = mInputs.valueAt(index);
 
-        mpClientInterface->closeInput(input);
+        mpClientInterface->closeInput(input,descr->mInputClient);
         delete mInputs.valueAt(index);
         mInputs.removeItem(input);
         ALOG_INFO("releaseInput(): Successfully released input %d\n", input);
@@ -4099,7 +4067,7 @@ uint32_t AudioPolicyManagerANM::getDevicesForStream(AudioSystem::stream_type str
         devices = 0;
     } else {
         uint32_t strategy = getStrategyForStream(stream);
-        devices = getOutputDeviceForStrategy(0,(AudioPolicyManagerANM::routing_strategy) strategy,AudioSystem::PCM_16_BIT);
+        devices = getOutputDeviceForStrategy(NULL,(AudioPolicyManagerANM::routing_strategy) strategy,AudioSystem::PCM_16_BIT);
     }
     return devices;
 }
@@ -4109,7 +4077,7 @@ audio_io_handle_t AudioPolicyManagerANM::getOutputForEffect(effect_descriptor_t 
 {
     ALOG_INFO_VERBOSE("getOutputForEffect(): %s\n", desc->name);
     // apply simple rule where global effects are attached to the same output as MUSIC streams
-    return getOutput(AudioSystem::MUSIC, 0, static_cast<audio_format_t>(AudioSystem::FORMAT_DEFAULT), 0, AudioSystem::OUTPUT_FLAG_INDIRECT);
+    return getOutput(AudioSystem::MUSIC, 0, AudioSystem::FORMAT_DEFAULT, 0, AudioSystem::OUTPUT_FLAG_INDIRECT);
 }
 
 status_t AudioPolicyManagerANM::registerEffect(effect_descriptor_t *desc,
@@ -4380,7 +4348,7 @@ AudioPolicyManagerANM::routing_strategy AudioPolicyManagerANM::getStrategy(
     switch (stream) {
 
     case AudioSystem::VOICE_CALL:
-    case AudioSystem::SPEECH_PROC:
+    //case AudioSystem::SPEECH_PROC:
 #ifdef STE_VIDEO_CALL
     case AudioSystem::VIDEO_CALL:
 #endif
