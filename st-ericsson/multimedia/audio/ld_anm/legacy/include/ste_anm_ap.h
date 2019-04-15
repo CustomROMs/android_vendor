@@ -53,11 +53,13 @@ public:
 
     /* AudioPolicyInterface */
 
-    /* Set/Get state of a device, i.e. if the device is available or not */
-    virtual status_t setDeviceConnectionState(AudioSystem::audio_devices device,
-        AudioSystem::device_connection_state state, const char *device_address);
-    virtual AudioSystem::device_connection_state getDeviceConnectionState(
-        AudioSystem::audio_devices device, const char *device_address);
+    // indicate a change in device connection status
+    virtual status_t setDeviceConnectionState(audio_devices_t device,
+                                          AudioSystem::device_connection_state state,
+                                          const char *device_address) = 0;
+    // retrieve a device connection status
+    virtual AudioSystem::device_connection_state getDeviceConnectionState(audio_devices_t device,
+                                                                          const char *device_address) = 0;
 
     /* Set/Get force use configuration, see AudioSystem::force_use and
      * AudioSystem::forced_config for valid values */
@@ -74,7 +76,7 @@ public:
 
     /* Get output for specified stream type */
     virtual audio_io_handle_t getOutput(
-        AudioSystem::stream_type stream, uint32_t samplingRate, uint32_t format,
+        AudioSystem::stream_type stream, uint32_t samplingRate, audio_format_t format,
         uint32_t channels, AudioSystem::output_flags flags = AudioSystem::OUTPUT_FLAG_INDIRECT);
     /* startOutput indicates that the specified output is in use */
     virtual status_t startOutput(
@@ -89,8 +91,7 @@ public:
     virtual audio_io_handle_t getInput(int inputSource,
                                     uint32_t samplingRate,
                                     uint32_t format,
-                                    uint32_t channelMask,
-                                    AudioSystem::audio_in_acoustics acoustics);
+                                    uint32_t channelMask);
 
     /* startInput indicates that the specified input is in use */
     virtual status_t startInput(audio_io_handle_t input);
