@@ -1030,3 +1030,13 @@ void AudioStreamOutANM::refreshDeviceList(List <const char*>&v, uint32_t routes)
         v.push_back(STE_ADM_DEVICE_STRING_VOIPOUT);
     }
 }
+
+status_t AudioStreamOutANM::getNextWriteTimestamp(int64_t *timestamp)
+{
+    return NO_ERROR;
+}
+
+status_t AudioStreamOutANM::getPresentationPosition(uint64_t *frames, struct timespec *timestamp)
+{
+    return NO_ERROR;
+}
