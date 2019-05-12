@@ -27,17 +27,45 @@
 
 #include <utils/Errors.h>
 #include <utils/KeyedVector.h>
+//#include "../../../../../../../frameworks/av/services/audiopolicy/AudioPolicyInterface.h"
 #include <hardware_legacy/AudioPolicyInterface.h>
 #include <hardware_legacy/AudioSystemLegacy.h>
+//#include <hardware/audio_policy.h>
 #include <media/AudioParameter.h>
 #include <utils/threads.h>
 #include <ste_adm_client.h>
 #include <linux_utils.h>
+#include <system/audio.h>
+
 
 using android::KeyedVector;
+//using android::AudioSystem;
 
 namespace android_audio_legacy
 {
+
+#if 0
+/* Additional information about compressed streams offloaded to
+ * hardware playback
+ * The version and size fields must be initialized by the caller by using
+ * one of the constants defined here.
+ */
+typedef struct {
+    uint16_t version;                   // version of the info structure
+    uint16_t size;                      // total size of the structure including version and size
+    uint32_t sample_rate;               // sample rate in Hz
+    audio_channel_mask_t channel_mask;  // channel mask
+    audio_format_t format;              // audio format
+    audio_stream_type_t stream_type;    // stream type
+    uint32_t bit_rate;                  // bit rate in bits per second
+    int64_t duration_us;                // duration in microseconds, -1 if unknown
+    bool has_video;                     // true if stream is tied to a video stream
+    bool is_streaming;                  // true if streaming, false if local playback
+    uint32_t bit_width;
+    uint32_t offload_buffer_size;       // offload fragment size
+    audio_usage_t usage;
+} audio_offload_info_t;
+#endif
 
 // ----------------------------------------------------------------------------
 #ifdef STD_A2DP_MNGT
@@ -56,10 +84,10 @@ public:
     // indicate a change in device connection status
     virtual status_t setDeviceConnectionState(audio_devices_t device,
                                           AudioSystem::device_connection_state state,
-                                          const char *device_address) = 0;
+                                          const char *device_address);
     // retrieve a device connection status
     virtual AudioSystem::device_connection_state getDeviceConnectionState(audio_devices_t device,
-                                                                          const char *device_address) = 0;
+                                                                          const char *device_address);
 
     /* Set/Get force use configuration, see AudioSystem::force_use and
      * AudioSystem::forced_config for valid values */
@@ -77,7 +105,8 @@ public:
     /* Get output for specified stream type */
     virtual audio_io_handle_t getOutput(
         AudioSystem::stream_type stream, uint32_t samplingRate, audio_format_t format,
-        uint32_t channels, AudioSystem::output_flags flags = AudioSystem::OUTPUT_FLAG_INDIRECT);
+        uint32_t channels, AudioSystem::output_flags flags = AudioSystem::OUTPUT_FLAG_INDIRECT,
+                                            const audio_offload_info_t *offloadInfo = NULL);
     /* startOutput indicates that the specified output is in use */
     virtual status_t startOutput(
         audio_io_handle_t output, AudioSystem::stream_type stream, int session = 0);
@@ -90,8 +119,9 @@ public:
     /* Get input for specified input source */
     virtual audio_io_handle_t getInput(int inputSource,
                                     uint32_t samplingRate,
-                                    uint32_t format,
-                                    uint32_t channelMask);
+                                    audio_format_t format,
+                                    audio_channel_mask_t channelMask,
+					AudioSystem::audio_in_acoustics acoustics);
 
     /* startInput indicates that the specified input is in use */
     virtual status_t startInput(audio_io_handle_t input);
@@ -103,10 +133,11 @@ public:
     /* Set/Get volume for a specified stream type */
     virtual void initStreamVolume(
         AudioSystem::stream_type stream, int indexMin, int indexMax);
+
     virtual status_t setStreamVolumeIndex(
-        AudioSystem::stream_type stream, int index);
+        AudioSystem::stream_type stream, int index, audio_devices_t device);
     virtual status_t getStreamVolumeIndex(
-        AudioSystem::stream_type stream, int *index);
+        AudioSystem::stream_type stream, int *index, audio_devices_t device);
 
     // return the strategy corresponding to a given stream type
     virtual uint32_t getStrategyForStream(AudioSystem::stream_type stream);
@@ -115,8 +146,8 @@ public:
     virtual uint32_t getDevicesForStream(AudioSystem::stream_type stream);
 
     // Audio effect management
-    virtual audio_io_handle_t getOutputForEffect(effect_descriptor_t *desc);
-    virtual status_t registerEffect(effect_descriptor_t *desc,
+    virtual audio_io_handle_t getOutputForEffect(const effect_descriptor_t *desc);
+    virtual status_t registerEffect(const effect_descriptor_t *desc,
                                     audio_io_handle_t io,
                                     uint32_t strategy,
                                     int session,
@@ -125,8 +156,10 @@ public:
     virtual status_t setEffectEnabled(int id, bool enabled);
 
     virtual bool isStreamActive(int stream, uint32_t inPastMs = 0) const;
-
+    virtual bool isStreamActiveRemotely(int stream, uint32_t inPastMs = 0) const;
+    virtual bool isSourceActive(audio_source_t source) const;
     virtual status_t dump(int fd);
+    virtual bool isOffloadSupported(const audio_offload_info_t& offloadInfo);
 
     /* Check call status after ADM connection problem,
      * and recover call graph if needed */

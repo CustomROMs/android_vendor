@@ -64,6 +64,8 @@
     }\
 }
 
+using android::AudioSystem;
+
 namespace android_audio_legacy
 {
 
@@ -2126,11 +2128,11 @@ void AudioPolicyManagerANM::updateCSCallRouting()
         switch (outputDevice) {
         case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO:
         case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
-            ste_adm_client_init_cscall_downstream_volume(mStreams[AudioSystem::BLUETOOTH_SCO].mIndexMin, mStreams[AudioSystem::BLUETOOTH_SCO].mIndexMax);
+            //ste_adm_client_init_cscall_downstream_volume(mStreams[AudioSystem::BLUETOOTH_SCO].mIndexMin, mStreams[AudioSystem::BLUETOOTH_SCO].mIndexMax);
             break;
 
         default:
-            ste_adm_client_init_cscall_downstream_volume(mStreams[AudioSystem::VOICE_CALL].mIndexMin, mStreams[AudioSystem::VOICE_CALL].mIndexMax);
+            //ste_adm_client_init_cscall_downstream_volume(mStreams[AudioSystem::VOICE_CALL].mIndexMin, mStreams[AudioSystem::VOICE_CALL].mIndexMax);
             break;
         }
     }
@@ -2143,13 +2145,13 @@ void AudioPolicyManagerANM::updateCSCallRouting()
     case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO:
     case AudioSystem::DEVICE_OUT_BLUETOOTH_SCO_HEADSET:
         if (mStreams[AudioSystem::BLUETOOTH_SCO].mMuteCount == 0) {
-            setStreamVolumeIndex(AudioSystem::BLUETOOTH_SCO, mStreams[AudioSystem::BLUETOOTH_SCO].mIndexCur);
+            setStreamVolumeIndex(AudioSystem::BLUETOOTH_SCO, mStreams[AudioSystem::BLUETOOTH_SCO].mIndexCur, NULL);
         }
         break;
 
     default:
         if (mStreams[AudioSystem::VOICE_CALL].mMuteCount == 0) {
-            setStreamVolumeIndex(AudioSystem::VOICE_CALL, mStreams[AudioSystem::VOICE_CALL].mIndexCur);
+            setStreamVolumeIndex(AudioSystem::VOICE_CALL, mStreams[AudioSystem::VOICE_CALL].mIndexCur, NULL);
         }
         break;
     }
@@ -2347,13 +2349,13 @@ void* AudioPolicyManagerANM::threadSubscribeModemStatus(void *param)
     }
 
     while (1) {
-        res = ste_adm_client_request_modem_vc_state(adm_id);
+        res = STE_ADM_RES_OK; // ste_adm_client_request_modem_vc_state(adm_id);
         if (res != STE_ADM_RES_OK) {
             ALOG_ERR("threadSubscribeModemStatus(): ste_adm_client_request_modem_vc_state failed with %d", res);
         }
 
         if (res == STE_ADM_RES_OK) {
-            res = ste_adm_client_read_modem_vc_state(adm_id, &ap->mModemStatus);
+            res = STE_ADM_RES_OK; //ste_adm_client_read_modem_vc_state(adm_id, &ap->mModemStatus);
             if (res != STE_ADM_RES_OK) {
                 ALOG_ERR("threadSubscribeModemStatus(): ste_adm_client_read_modem_vc_state failed with %d", res);
             } else {
@@ -2628,7 +2630,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
     LOCK_MUTEX(mMutexDevState);
 
     ALOG_INFO("setDeviceConnectionState(): device %x %s, state %s, address %s\n",
-        device, device2str(device), state2str(state), device_address);
+        device, device2str(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device)), state2str(state), device_address);
 
     /* Connect/disconnect only 1 device at a time */
     if (AudioSystem::popCount(device) != 1) {
@@ -2645,7 +2647,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
 #endif
 
     /* Handle output devices */
-    if (AudioSystem::isOutputDevice(device)) {
+    if (AudioSystem::isOutputDevice(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device))) {
 
         switch (state) {
 
@@ -2655,7 +2657,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
             /* Check if the device is already connected */
             if (mAvailableOutputDevices & device) {
                 ALOG_WARN("setDeviceConnectionState(): device %x %s already "
-                    "connected", device, device2str(device));
+                    "connected", device, device2str(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device)));
                 UNLOCK_MUTEX(mMutexDevState);
                 return NO_ERROR;
             }
@@ -2681,7 +2683,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
             /* Check if the device is connected */
             if (!(mAvailableOutputDevices & device)) {
                 ALOG_WARN("setDeviceConnectionState(): device not connected: "
-                    "%x %s\n", device, device2str(device));
+                    "%x %s\n", device, device2str(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device)));
                 UNLOCK_MUTEX(mMutexDevState);
                 return NO_ERROR;
             }
@@ -2741,7 +2743,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
     }
 
     /* Handle input devices */
-    if (AudioSystem::isInputDevice(device)) {
+    if (AudioSystem::isInputDevice(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device))) {
 
         switch (state) {
 
@@ -2751,7 +2753,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
             /* Check if the device is already connected */
             if (mAvailableInputDevices & device) {
                 ALOG_WARN("setDeviceConnectionState(): device already connected: "
-                    "%x %s\n", device, device2str(device));
+                    "%x %s\n", device, device2str(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device)));
                 UNLOCK_MUTEX(mMutexDevState);
                 return INVALID_OPERATION;
             }
@@ -2767,7 +2769,7 @@ status_t AudioPolicyManagerANM::setDeviceConnectionState(
             /* Check if the device is connected */
             if (!(mAvailableInputDevices & device)) {
                 ALOG_WARN("setDeviceConnectionState(): device not connected: "
-                    "%x %s\n", device, device2str(device));
+                    "%x %s\n", device,  device2str(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device)));
                 UNLOCK_MUTEX(mMutexDevState);
                 return INVALID_OPERATION;
             }
@@ -2816,7 +2818,7 @@ AudioSystem::device_connection_state
     (void)device_address;
 #endif
 
-    if (AudioSystem::isOutputDevice(device)) {
+    if (AudioSystem::isOutputDevice(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device))) {
         if (device & mAvailableOutputDevices) {
 #ifdef STD_A2DP_MNGT
             if (AudioSystem::isA2dpDevice(device) &&
@@ -2826,14 +2828,14 @@ AudioSystem::device_connection_state
 #endif
             state = AudioSystem::DEVICE_STATE_AVAILABLE;
         }
-    } else if (AudioSystem::isInputDevice(device)) {
+    } else if (AudioSystem::isInputDevice(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device))) {
         if (device & mAvailableInputDevices) {
             state = AudioSystem::DEVICE_STATE_AVAILABLE;
         }
     }
 
     ALOG_INFO_VERBOSE("getDeviceConnectionState(): device = %s, state = %s\n",
-        device2str(device), state2str(state));
+         device2str(static_cast<android_audio_legacy::AudioSystem::audio_devices>(device)), state2str(state));
     return state;
 }
 
@@ -2907,7 +2909,7 @@ void AudioPolicyManagerANM::setPhoneState(int state)
 
     /* update volume for speech */
     if (mStreams[AudioSystem::VOICE_CALL].mMuteCount == 0) {
-        setStreamVolumeIndex(AudioSystem::VOICE_CALL, mStreams[AudioSystem::VOICE_CALL].mIndexCur);
+        setStreamVolumeIndex(AudioSystem::VOICE_CALL, mStreams[AudioSystem::VOICE_CALL].mIndexCur, NULL);
     }
 }
 
@@ -3046,7 +3048,8 @@ audio_io_handle_t AudioPolicyManagerANM::getOutput(
     uint32_t samplingRate,
     audio_format_t format,
     uint32_t channels,
-    AudioSystem::output_flags flags)
+    AudioSystem::output_flags flags,
+    const audio_offload_info_t *offloadInfo __unused)
 {
     audio_io_handle_t output = 0;
     AudioOutputDescriptor *descr = NULL;
@@ -3396,7 +3399,7 @@ status_t AudioPolicyManagerANM::startOutput(audio_io_handle_t output, AudioSyste
 
     /* apply volume rules for current stream and device if necessary */
     if (mStreams[stream].mMuteCount == 0) {
-        setStreamVolumeIndex(stream, mStreams[stream].mIndexCur);
+        setStreamVolumeIndex(stream, mStreams[stream].mIndexCur, NULL);
     }
 
     /* Update latency now when the device has been opened (e.g. delay
@@ -3634,8 +3637,9 @@ virtual audio_io_handle_t getInput(int inputSource,
 audio_io_handle_t AudioPolicyManagerANM::getInput(
     int source,
     uint32_t samplingRate,
-    uint32_t format,
-    uint32_t channels)
+    audio_format_t format,
+    audio_channel_mask_t channels,
+    AudioSystem::audio_in_acoustics acoustics __unused)
 {
     audio_io_handle_t input = 0;
     uint32_t device;
@@ -3662,7 +3666,7 @@ audio_io_handle_t AudioPolicyManagerANM::getInput(
 
     /* Check input values */
     if (format == 0) {
-        format = DEFAULT_PCM_FORMAT;
+        format = static_cast<audio_format_t>(DEFAULT_PCM_FORMAT);
         ALOG_INFO_VERBOSE("getInput(): Format is 0 - update to %x", format);
     }
     if (channels == 0) {
@@ -3703,7 +3707,7 @@ audio_io_handle_t AudioPolicyManagerANM::getInput(
             mode = STE_ADM_DICTAPHONE_UPLINK;
         }
 
-        ste_adm_client_set_cscall_dictaphone_mode(mode);
+        //ste_adm_client_set_cscall_dictaphone_mode(mode);
     }
 
 /*virtual audio_io_handle_t openInput(audio_module_handle_t module,
@@ -3960,7 +3964,7 @@ void AudioPolicyManagerANM::initStreamVolume(AudioSystem::stream_type stream,
 }
 
 status_t AudioPolicyManagerANM::setStreamVolumeIndex(
-    AudioSystem::stream_type stream, int index)
+    AudioSystem::stream_type stream, int index, audio_devices_t _device __unused)
 {
     float volume = 0;
     uint32_t device = 0;
@@ -3983,7 +3987,7 @@ status_t AudioPolicyManagerANM::setStreamVolumeIndex(
         stream == AudioSystem::BLUETOOTH_SCO){
         if ((mModemType == ADM_FAT_MODEM) || (mModemType == ADM_FULL_FAT_MODEM)) {
             /* Apply voice call volume */
-            ste_adm_client_init_cscall_downstream_volume(mStreams[stream].mIndexMin, mStreams[stream].mIndexMax);
+            //ste_adm_client_init_cscall_downstream_volume(mStreams[stream].mIndexMin, mStreams[stream].mIndexMax);
             ALOG_INFO_VERBOSE("setStreamVolumeIndex(): setVoiceVolume() for stream %s, index volume %d\n",
                 stream2str(stream), index);
             mpClientInterface->setVoiceVolume(index);
@@ -4009,7 +4013,7 @@ status_t AudioPolicyManagerANM::setStreamVolumeIndex(
 }
 
 status_t AudioPolicyManagerANM::getStreamVolumeIndex(
-    AudioSystem::stream_type stream, int *index)
+    AudioSystem::stream_type stream, int *index, audio_devices_t device __unused)
 {
     if (index == 0) {
         return BAD_VALUE;
@@ -4105,14 +4109,14 @@ uint32_t AudioPolicyManagerANM::getDevicesForStream(AudioSystem::stream_type str
 }
 
 // Audio effect management
-audio_io_handle_t AudioPolicyManagerANM::getOutputForEffect(effect_descriptor_t *desc)
+audio_io_handle_t AudioPolicyManagerANM::getOutputForEffect(const effect_descriptor_t *desc)
 {
     ALOG_INFO_VERBOSE("getOutputForEffect(): %s\n", desc->name);
     // apply simple rule where global effects are attached to the same output as MUSIC streams
     return getOutput(AudioSystem::MUSIC, 0, static_cast<audio_format_t>(AudioSystem::FORMAT_DEFAULT), 0, AudioSystem::OUTPUT_FLAG_INDIRECT);
 }
 
-status_t AudioPolicyManagerANM::registerEffect(effect_descriptor_t *desc,
+status_t AudioPolicyManagerANM::registerEffect(const effect_descriptor_t *desc,
                                     audio_io_handle_t io,
                                     uint32_t strategy,
                                     int session,
@@ -4645,6 +4649,43 @@ status_t AudioPolicyManagerANM::EffectDescriptor::dump(int fd)
     write(fd, result.string(), result.size());
 
     return NO_ERROR;
+}
+
+
+bool AudioPolicyManagerANM::isOffloadSupported(const audio_offload_info_t& offloadInfo __unused)
+{
+  return false;
+}
+
+bool AudioPolicyManagerANM::isStreamActiveRemotely(int stream, uint32_t inPastMs) const
+{
+/*
+    nsecs_t sysTime = systemTime();
+    for (size_t i = 0; i < mOutputs.size(); i++) {
+        const AudioOutputDescriptor *outputDesc = mOutputs.valueAt(i);
+        if (((outputDesc->device() & APM_AUDIO_OUT_DEVICE_REMOTE_ALL) != 0) &&
+                outputDesc->isStreamActive((AudioSystem::stream_type)stream, inPastMs, sysTime)) {
+            return true;
+        }
+    }
+*/
+    return false;
+}
+
+bool AudioPolicyManagerANM::isSourceActive(audio_source_t source) const
+{
+/*
+    for (size_t i = 0; i < mInputs.size(); i++) {
+        const AudioInputDescriptor * inputDescriptor = mInputs.valueAt(i);
+        if ((inputDescriptor->mInputSource == (int)source ||
+                (source == (audio_source_t)AUDIO_SOURCE_VOICE_RECOGNITION &&
+                 inputDescriptor->mInputSource == AUDIO_SOURCE_HOTWORD))
+             && (inputDescriptor->mRefCount > 0)) {
+            return true;
+        }
+    }
+*/
+    return false;
 }
 
 }; // namespace android

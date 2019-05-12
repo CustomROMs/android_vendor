@@ -582,7 +582,7 @@ ssize_t AudioStreamOutANM::write(const void *buffer, size_t bytes)
                 AudioParameter apParam = AudioParameter(keyValuePairs);
                 int ptr = 0;
                 if (apParam.getInt(String8(PARAM_KEY_AP_REF), ptr) == NO_ERROR) {
-                    //((AudioPolicyManagerANM*)ptr)->checkCallStatus();
+                    ((AudioPolicyManagerANM*)ptr)->checkCallStatus();
                 }
 
                 pthread_mutex_lock(&mMutex);
