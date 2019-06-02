@@ -110,7 +110,7 @@ LOCAL_C_INCLUDES += \
 LOCAL_STATIC_LIBRARIES := \
 	libmedia_helper
 
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 
 #
 # Build audio.primary.PLATFORM for Audio Hardware
@@ -304,7 +304,7 @@ LOCAL_SHARED_LIBRARIES := \
 LOCAL_WHOLE_STATIC_LIBRARIES := \
 	libaudiopolicy_legacy
 
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 
 #
 # Build audio.primary.PLATFORM for Audio Hardware
