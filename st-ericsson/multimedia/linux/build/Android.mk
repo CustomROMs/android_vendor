@@ -112,12 +112,13 @@ LOCAL_MODULE_PATH := $(LOCAL_PATH)
 
 MM_DO?=build-multimedia
 
+#	cp $(PRODUCT_OUT)/multimedia/system/lib/libstagefright_ste_mp3decode.so $(PRODUCT_OUT)/system/lib/libstagefright_ste_mp3decode.so
+
 $(LOCAL_PATH)/$(LOCAL_SRC_FILES): $(MM_DO)
 	mkdir -p `dirname $@`
 	touch $@
 	mkdir -p $(PRODUCT_OUT)/system/lib/ste_omxcomponents/
 	cp $(PRODUCT_OUT)/multimedia/system/lib/libstagefright_ste_aacdec.so $(PRODUCT_OUT)/system/lib/libstagefright_ste_aacdec.so
-	cp $(PRODUCT_OUT)/multimedia/system/lib/libstagefright_ste_mp3decode.so $(PRODUCT_OUT)/system/lib/libstagefright_ste_mp3decode.so
 	cp $(PRODUCT_OUT)/multimedia/system/lib/libste_ens_video_common.so $(PRODUCT_OUT)/system/lib/libste_ens_video_common.so
 	cp $(PRODUCT_OUT)/multimedia/system/lib/libste_aiq_tools.so $(PRODUCT_OUT)/system/lib/libste_aiq_tools.so
 	cp $(PRODUCT_OUT)/multimedia/system/lib/ste_omxcomponents/libste_dec_amr.so $(PRODUCT_OUT)/system/lib/ste_omxcomponents/libste_dec_amr.so
