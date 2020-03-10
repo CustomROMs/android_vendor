@@ -35,9 +35,9 @@ ifeq (MT9P111,$(filter MT9P111%,$(CAMERA_SET_PRIMARY_SENSOR)))
 CPPFLAGS += -DSTE_SENSOR_MT9P111=1
 endif #module configuration aptina sensor
 
-CPPFLAGS  += -I$(MULTIMEDIA_PATH)/shared/utils/include
-CPPFLAGS  += -I$(MULTIMEDIA_PATH)/shared/host_trace
-CPPFLAGS  += -DDBGT_CONFIG_DEBUG -DDBGT_CONFIG_AUTOVAR 
+CPPFLAGS  += -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/utils/include
+CPPFLAGS  += -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/host_trace
+CPPFLAGS  += -DDBGT_CONFIG_DEBUG -DDBGT_CONFIG_AUTOVAR
 CPPFLAGS  += -DDBGT_TAG=\"ExtCamera\"
 LDFLAGS += -llog -lcutils -lstelpcutils
 # check for aptina sensor

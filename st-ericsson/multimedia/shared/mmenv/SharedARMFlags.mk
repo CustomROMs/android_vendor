@@ -401,6 +401,7 @@ FIXED_C_INCLUDES := \
 	$(libc_root)/include \
 	$(libstdc++_root)/include \
 	$(MULTIMEDIA_PATH) \
+	$(MULTIMEDIA_PATH)/shared/utils/include \
 	$(KERNEL_HEADERS) \
 	$(libm_root)/include \
 	$(libm_root)/include/arm \

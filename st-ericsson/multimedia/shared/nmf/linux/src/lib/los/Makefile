@@ -10,11 +10,6 @@ LIBNAME = los
 CPPFLAGS += $(FIXED_CPPFLAGS)
 CPPFLAGS += -I$(COMPONENT_TOP_DIR)/api -I$(COMPONENT_TOP_DIR)/src/common -I.
 CPPFLAGS += -Wall -g
-ifneq ($(BUILDING_FOR_MEEGO),yes)
-  ## In Meego libc vscanf has attribute warn_unused_result so do not convert warnings into errors
-  CPPFLAGS += -Werror
-endif
-
 
 ifneq ($(PLATFORM),x86-linux)
   CPPFLAGS += -fvisibility=hidden

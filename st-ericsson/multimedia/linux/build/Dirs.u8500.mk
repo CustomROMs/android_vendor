@@ -203,8 +203,6 @@ imaging/damper \
 imaging/flash_api \
 imaging/tuningloader_api \
 imaging/asyncflash \
-linux/camera_flash \
-linux/camera_flashlibcc \
 linux/sra \
 linux/uirq \
 imaging/fileio \
@@ -225,13 +223,11 @@ imaging/sw3A \
 imaging/tuningloader
 REF_DIRS_TO_BUILD += \
 imaging/imgcommon \
-imaging/ispproc \
-imaging/hsmcamera
+imaging/ispproc
 
 REF_DIRS_TO_BUILD += \
 imaging/ext_sia_hw_components_8500 \
-imaging/ext_imgcommon \
-imaging/ext_hsmcamera
+imaging/ext_imgcommon
 
 ifeq ($(BUILD_VALID),true)
 REF_DIRS_TO_BUILD += \

@@ -27,6 +27,7 @@ CPPFLAGS += -I$(ANDROID_BUILD_TOP)/frameworks/base/include \
             -I$(ANDROID_BUILD_TOP)/frameworks/native/include \
             -I$(ANDROID_BUILD_TOP)/frameworks/native/include/media/hardware \
             -I$(ANDROID_BUILD_TOP)/hardware/libhardware/include \
+            -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/utils/include \
             -I$(GRALLOC_PATH)
 endif # MYMMSYSTEM = android
 

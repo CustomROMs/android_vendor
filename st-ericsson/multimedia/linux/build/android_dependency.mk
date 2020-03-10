@@ -61,19 +61,3 @@ $(TARGET_OUT_INTERMEDIATES)/lib/libste_audio_mixer.so: $(TARGET_OUT_SHARED_LIBRA
 	$(hide) mkdir -p $(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libste_audio_mixer_intermediates/
 	$(hide) touch $(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libste_audio_mixer_intermediates/export_includes
 	$(hide) cp -f $(TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED)/ste_omxcomponents/libste_audio_mixer.so $(TARGET_OUT_INTERMEDIATES)/lib/
-
-#--------------------------------------
-# Library: libstelpcutils
-#
-$(TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED)/libstelpcutils.so: build-multimedia
-
-$(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libstelpcutils_intermediates/export_includes: $(TARGET_OUT_INTERMEDIATES)/lib/libstelpcutils.so
-	$(hide) mkdir -p $(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libstelpcutils_intermediates/
-	$(hide) touch $(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libstelpcutils_intermediates/export_includes
-
-$(TARGET_OUT_INTERMEDIATES)/lib/libstelpcutils.so: $(TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED)/libstelpcutils.so
-	@echo target STE MM: $@
-	$(hide) mkdir -p $(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libstelpcutils_intermediates/
-	$(hide) touch $(TARGET_OUT_INTERMEDIATES)/SHARED_LIBRARIES/libstelpcutils_intermediates/export_includes
-	$(hide) cp -f $(TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED)/libstelpcutils.so $(TARGET_OUT_INTERMEDIATES)/lib/
-

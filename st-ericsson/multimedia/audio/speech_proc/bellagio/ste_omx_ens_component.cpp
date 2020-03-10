@@ -9,17 +9,20 @@
 #include "speech_proc.h"
 
 /** Definition of all the components this module will register to the STE ENS loader*/
-static struct ste_omx_ens_component_def_array components_to_register = 
-    { {
-	    {{"OMX.ST.AFM.speech_proc"}, {{"speech_proc"}, {0}}, speechprocFactoryMethod},
-	    {{0}, {{0}}, 0}
-	} };
+static struct ste_omx_ens_component_def_array components_to_register = {{
+	    { {"OMX.ST.AFM.speech_proc"}, {{"speech_proc"}, {0}}, speechprocFactoryMethod },
+	    { {0}, {{0}, {0}}, 0}
+}};
 
+#ifdef __cplusplus
 extern "C"
 {
+#endif
 /** The function the OMX ENS loader is calling to register the components of this module*/
     void ste_omx_ens_component_register(struct ste_omx_ens_component_def_array **refs)
     {
 	*refs = &components_to_register;
     }
+#ifdef __cplusplus
 }
+#endif

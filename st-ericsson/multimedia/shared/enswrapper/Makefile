@@ -11,7 +11,7 @@ include $(MM_MAKEFILES_DIR)/SharedConfig.mk
 
 INSTALL_HEADERDIR= inc
 CPPFLAGS+= -Iinc
-CPPFLAGS+= -I$(MMROOT)/shared/utils/include
+CPPFLAGS+= -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/utils/include
 # We are still using the RME Get_DefaultDDRDomain deprecated api
 CPPFLAGS+= -DDEPRECATED_API
 VPATH+= src

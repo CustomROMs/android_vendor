@@ -40,7 +40,8 @@ LDFLAGS+= -lstelpcutils
 
 ifeq ($(MMSYSTEM),android)
       EXE_LDFLAGS += -L$(ANDROID_OUT_TARGET_PRODUCT_DIRECTORY)/obj/lib
-      LDFLAGS+= -lcutils 
+      CPPFLAGS += -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/utils/include
+      LDFLAGS+= -lcutils
 endif
 
 TOBECLEAN = bin dep obj

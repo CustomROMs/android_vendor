@@ -15,8 +15,8 @@ include ../../../Make.config
 SRCPATH    += $(NMF_TOOLS)/api/c $(NMF_TOOLS)/api/smpee .
 SHAREPATH  += $(COMPONENT_TOP_DIR)/api $(COMPONENT_TOP_DIR)/src/common
 CPPFLAGS   += $(FIXED_CPPFLAGS)
-CFLAGS     += $(FIXED_CFLAGS) -Wall -g -Werror
-CXXFLAGS   += $(FIXED_CXXFLAGS) -Wall -g -Werror
+CFLAGS     += $(FIXED_CFLAGS) -Wall -g
+CXXFLAGS   += $(FIXED_CXXFLAGS) -Wall -g
 LIBLDFLAGS += $(FIXED_LDLIBFLAGS) 
 
 EECONF=nmfHostOnlyEE

@@ -39,7 +39,7 @@ else
 LOCAL_MODULE:= libgps
 endif
 
-include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
 
 
 

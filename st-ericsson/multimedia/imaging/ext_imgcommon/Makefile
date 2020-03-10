@@ -23,8 +23,8 @@ LIBNAME   = st_ext_imgcommon
 INSTALL_LIB = libst_ext_imgcommon.a
 endif
 
-CPPFLAGS  += -I$(MULTIMEDIA_PATH)/shared/utils/include
-CPPFLAGS  += -I$(MULTIMEDIA_PATH)/shared/host_trace
+CPPFLAGS  += -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/utils/include
+CPPFLAGS  += -I$(ANDROID_BUILD_TOP)/vendor/st-ericsson/multimedia/shared/host_trace
 CPPFLAGS  += -DDBGT_CONFIG_DEBUG -DDBGT_CONFIG_AUTOVAR
 CPPFLAGS  += -DDBGT_TAG=\"ExtCamera\"
 LDFLAGS += -llog -lcutils -lstelpcutils

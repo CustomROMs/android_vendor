@@ -19,9 +19,6 @@
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <unistd.h>
-#ifndef WORKSTATION
-#include <trace/stm.h>
-#endif
 
 /* implement ee.api.semaphore.itf */
 hSem METH(create)(t_uint32 value)
@@ -147,42 +144,6 @@ void METH(free)(void* addr)
 }
 
 /* implement ee.api.osal.stm.itf */
-#ifndef WORKSTATION
-static struct stm_channel *stm_trace = NULL;
-static size_t max_channels;
-
-void METH(getChannelRegister)(t_uint32 channel, t_uint64 **STMTimestampRegister, t_uint64 **STMRegister)
-{
-	static t_uint64 dummy;
-	if (stm_trace == NULL || channel > max_channels) {
-		*STMTimestampRegister = &dummy;
-		*STMRegister          = &dummy;
-	} else {
-		*STMTimestampRegister = &(stm_trace[channel].stamp64);
-		*STMRegister          = &(stm_trace[channel].no_stamp64);
-	}
-}
-
-/* implement starter interface */
-void METH(start)()
-{
-	int fd;
-
-	fd = open("/dev/" STM_DEV_NAME, O_RDWR);
-	if (fd != -1) {
-		ioctl(fd, STM_GET_NB_MAX_CHANNELS, &max_channels);
-
-		stm_trace = (struct stm_channel *)mmap(0, max_channels*sizeof(*stm_trace), PROT_WRITE, MAP_SHARED, fd, 0);
-		if (stm_trace == MAP_FAILED) {
-			perror ("ARM-EE: STM trace - mmap failed");
-			close (fd);
-			stm_trace = NULL;
-		}
-	}
-	if (stm_trace == NULL)
-		fprintf(stderr, "ARM-EE: STM trace not supported\n");
-}
-#else
 void METH(getChannelRegister)(t_uint32 channel, t_uint64 **STMTimestampRegister, t_uint64 **STMRegister)
 {
 	static t_uint64 dummy;
@@ -194,4 +155,3 @@ void METH(getChannelRegister)(t_uint32 channel, t_uint64 **STMTimestampRegister,
 void METH(start)()
 {
 }
-#endif
